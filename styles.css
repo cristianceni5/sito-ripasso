@@ -1,13 +1,12 @@
 @font-face {
     font-family: 'Chalet';
-    src: url('SegoeUI.ttf') format('truetype');
+    src: url('./fonts/SegoeUI.ttf') format('truetype');
 }
 
 @font-face {
     font-family: 'Code';
-    src: url('GoogleSansCode-VariableFont_wght.ttf') format('truetype');
+    src: url('./fonts/GoogleSansCode-VariableFont_wght.ttf') format('truetype');
 }
-
 
 :root {
     /* Windows 7 Aero Palette */
@@ -466,4 +465,19 @@ footer {
         inset 0 1px 0 rgba(255, 255, 255, 0.55);
     color: white;
     text-shadow: none;
+}
+
+/* ── Container Matematico (LaTeX) ── */
+.math-container {
+    background: linear-gradient(135deg, 
+        rgba(255, 255, 255, 0.90) 0%, 
+        rgba(240, 248, 255, 0.70) 100%);
+    border: 1px solid var(--glass-border);
+    border-radius: 8px;
+    padding: 15px 25px;
+    margin: 20px 0;
+    box-shadow: 0 2px 10px rgba(0, 50, 150, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.7);
+    overflow-x: auto;
+    font-size: 1.1em;
+    color: var(--text-color);
 }
