@@ -4,8 +4,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Corso C++ - Programmazione Olanda (MICC)</title>
+    <title>Corso C++ - Programmazione OOP (MICC)</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        .download-btn {
+            display: inline-block;
+            background: #2c3e50;
+            color: #fff;
+            padding: 8px 15px;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 14px;
+            margin-right: 10px;
+            margin-bottom: 10px;
+            transition: background 0.3s;
+        }
+        .download-btn:hover {
+            background: #1a252f;
+            color: #fff;
+        }
+    </style>
 </head>
 
 <body>
@@ -26,38 +44,128 @@
     <div class="container">
         <section class="hero">
             <h2>Corso C++ (Programmazione ad Oggetti)</h2>
-            <p>Materiale del corso MICC: Introduzione al C++, Classi, Oggetti ed Ereditarietà</p>
+            <p>Sintesi completa degli appunti del corso MICC: Introduzione al C++, Classi, Oggetti ed Ereditarietà</p>
         </section>
 
-        <!-- MATERIALE DIDATTICO -->
+        <!-- INTRO TO C++ -->
         <section class="content-section">
-            <h2>Materiale Didattico</h2>
-            <p>Di seguito sono elencate le slide e i documenti del corso:</p>
+            <h2>1. Introduzione al C++ e OOP</h2>
+            <p>Il <strong>C++</strong> è un'estensione del linguaggio C creata da Bjarne Stroustrup, che introduce il paradigma della <strong>Programmazione Orientata agli Oggetti (OOP)</strong>. Mantiene la retrocompatibilità (quasi totale) col C ma offre strumenti più potenti per gestire sistemi software complessi.</p>
+            
+            <h3>Punti Chiave (Rispetto al C)</h3>
             <ul>
-                <li><a href="materiale/programmazione/Introduction%20to%20OOP%20CPP.pdf" target="_blank">Introduction to OOP CPP.pdf</a></li>
-                <li><a href="materiale/programmazione/2-introduction.pdf" target="_blank">2-introduction.pdf</a></li>
-                <li><a href="materiale/programmazione/Classes%20and%20Objects%20C%2B%2B.pdf" target="_blank">Classes and Objects C++.pdf</a></li>
-                <li><a href="materiale/programmazione/3-classes%20and%20objects.pdf" target="_blank">3-classes and objects.pdf</a></li>
-                <li><a href="materiale/programmazione/4-inheritance.pdf" target="_blank">4-inheritance.pdf</a></li>
+                <li><strong>Classi e Oggetti:</strong> Le struct del C diventano classi (aggregati di dati e <em>metodi</em> che operano su di essi).</li>
+                <li><strong>Incapsulamento:</strong> Nascondere i dettagli implementativi (Information Hiding).</li>
+                <li><strong>Ereditarietà e Polimorfismo:</strong> Creazione di gerarchie di tipi e comportamenti dinamici a runtime.</li>
+                <li><strong>Libreria Standard:</strong> Introduzione della STL (Standard Template Library), di <code>std::string</code> e dei flussi I/O (<code>std::cout</code>, <code>std::cin</code>).</li>
             </ul>
+
+            <pre class="modern-code">
+<span class="comment">// Esempio base in C++ (HelloWorld)</span>
+<span class="directive">#include &lt;iostream&gt;</span>
+
+<span class="type">int</span> <span class="function">main</span>() {
+    <span class="type">std::cout</span> &lt;&lt; <span class="string">"Hello, World!"</span> &lt;&lt; <span class="type">std::endl</span>;
+    <span class="keyword">return</span> <span class="string">0</span>;
+}</pre>
         </section>
 
-        <!-- ESERCIZI -->
+        <!-- CLASSI E OGGETTI -->
         <section class="content-section">
-            <h2>Esercitazioni e Progetti</h2>
-            <p>File e cartelle di progetto con esercizi assegnati:</p>
+            <h2>2. Classi e Oggetti</h2>
+            <p>Una <strong>Classe</strong> è un "progetto" o un "tipo" definito dall'utente. Un <strong>Oggetto</strong> è un'istanza (concreta e in memoria) di una classe. Ogni classe definisce attributi (variabili membro) e metodi (funzioni membro).</p>
+            
+            <h3>Access Specifiers (Visibilità)</h3>
             <ul>
-                <li><strong>Esercitazione 0:</strong> <a href="materiale/programmazione/E0_primo/">E0_primo</a></li>
-                <li><strong>Esercitazione 1:</strong> <a href="materiale/programmazione/E1_class_exercise/">E1_class_exercise</a></li>
-                <li><strong>Esercitazione 2:</strong> <a href="materiale/programmazione/E2_class_exercise/">E2_class_exercise</a></li>
-                <li><strong>Esercitazione 3:</strong> <a href="materiale/programmazione/E3_inheritance_exercise/">E3_inheritance_exercise</a></li>
+                <li><code>public</code>: Accessibile da qualsiasi punto del codice. Di solito usato per l'interfaccia (i metodi).</li>
+                <li><code>private</code>: Accessibile <em>solo</em> dall'interno della classe stessa. (Visibilità di default in C++). I dati dovrebbero sempre essere privati.</li>
+                <li><code>protected</code>: Come il private, ma accessibile anche dalle classi derivate.</li>
             </ul>
+
+            <h3>Esempio: File Header (.h) vs Implementazione (.cpp)</h3>
+            <p>In un progetto reale (es. le esercitazioni <code>E1_class_exercise</code>), si separa la dichiarazione della classe (nel file header) dalla sua definizione (nel file cpp).</p>
+            
+            <pre class="modern-code">
+<span class="comment">// --- GameCharacter.h ---</span>
+<span class="keyword">class</span> <span class="type">GameCharacter</span> {
+<span class="keyword">public</span>:
+    <span class="comment">// Costruttore (inizializza l'oggetto)</span>
+    <span class="function">GameCharacter</span>(<span class="type">int</span> hp = <span class="string">10</span>, <span class="type">int</span> a = <span class="string">10</span>);
+    
+    <span class="comment">// Metodi pubblici (Interfaccia)</span>
+    <span class="type">void</span> <span class="function">move</span>(<span class="type">int</span> distance);
+    <span class="type">void</span> <span class="function">move</span>(<span class="type">int</span> x, <span class="type">int</span> y); <span class="comment">// Overloading del metodo</span>
+    <span class="type">int</span> <span class="function">getHP</span>();
+    <span class="type">void</span> <span class="function">receiveDamage</span>(<span class="type">int</span> points);
+
+<span class="keyword">private</span>:
+    <span class="comment">// Dati privati (Incapsulamento)</span>
+    <span class="type">int</span> HP;
+    <span class="type">int</span> armor;
+    <span class="type">int</span> posX, posY;
+};</pre>
         </section>
+
+        <!-- EREDITARIETÀ E POLIMORFISMO -->
+        <section class="content-section">
+            <h2>3. Ereditarietà e Polimorfismo (Virtual/Override)</h2>
+            <p>L'<strong>Ereditarietà</strong> permette a una nuova classe (<em>Derived</em>) di ereditare proprietà e metodi da una classe esistente (<em>Base</em>). È una relazione di tipo "Is-A" (È un).</p>
+            
+            <h3>Polimorfismo e Funzioni Virtuali</h3>
+            <p>Il polimorfismo fa sì che la stessa chiamata a funzione si comporti diversamente a seconda del tipo o dell'oggetto reale a runtime. Per farlo in C++, il metodo nella classe base deve essere marcato come <code>virtual</code>.</p>
+            
+            <pre class="modern-code">
+<span class="comment">// --- Wizard.h (Deriva da GameCharacter) ---</span>
+<span class="directive">#include</span> <span class="string">"GameCharacter.h"</span>
+
+<span class="keyword">class</span> <span class="type">Wizard</span> : <span class="keyword">public</span> <span class="type">GameCharacter</span> {
+<span class="keyword">public</span>:
+    <span class="function">Wizard</span>(<span class="type">std::string</span> n, <span class="type">int</span> m) : <span class="function">GameCharacter</span>(), name(n), mana(m) {}
+
+    <span class="comment">// Override: Sostituisce il comportamento del metodo base</span>
+    <span class="type">char</span> <span class="function">getCharacterSymbol</span>() <span class="keyword">const override</span> {
+        <span class="keyword">return</span> <span class="string">'W'</span>;
+    }
+
+    <span class="type">virtual void</span> <span class="function">doMagic</span>(); <span class="comment">// Metodo nuovo, marcato virtual per ulteriori estensioni</span>
+
+<span class="keyword">protected</span>:
+    <span class="comment">// Accessibile alle eventuali specializzazioni di Wizard</span>
+    <span class="type">int</span> mana;
+    <span class="type">std::string</span> name;
+};</pre>
+            
+            <p><strong>Overloading vs Overriding:</strong>
+            <br><em>Overloading:</em> Stesso nome di funzione, ma parametri (signature) diversi, risolto a compile-time (es. i costruttori o i metodi <code>move()</code>).
+            <br><em>Overriding:</em> Stesso nome e stessi parametri di una funzione virtuale della classe base, ma in una classe derivata. Risolto a runtime.</p>
+        </section>
+
+        <!-- RISORSE -->
+        <section class="content-section">
+            <h2>Download Materiale (Slide e Codici)</h2>
+            <p>Scarica direttamente le slide originali del corso e i progetti completi:</p>
+            
+            <div style="margin-top: 20px;">
+                <h4>PDF Lezioni:</h4>
+                <a href="materiale/programmazione/Introduction%20to%20OOP%20CPP.pdf" class="download-btn" target="_blank">Introduzione</a>
+                <a href="materiale/programmazione/Classes%20and%20Objects%20C%2B%2B.pdf" class="download-btn" target="_blank">Classi e Oggetti</a>
+                <a href="materiale/programmazione/4-inheritance.pdf" class="download-btn" target="_blank">Ereditarietà</a>
+            </div>
+            
+            <div style="margin-top: 20px;">
+                <h4>Esercizi e Codice (C++ & CMake):</h4>
+                <a href="materiale/programmazione/E0_primo/" class="download-btn">Esempio Compilazione (E0)</a>
+                <a href="materiale/programmazione/E1_class_exercise/" class="download-btn">Creazione Classe (E1)</a>
+                <a href="materiale/programmazione/E2_class_exercise/" class="download-btn">Esercitazione RPG (E2)</a>
+                <a href="materiale/programmazione/E3_inheritance_exercise/" class="download-btn">Ereditarietà RPG (E3)</a>
+            </div>
+        </section>
+
     </div>
 
     <footer>
         <div class="container">
-            <p>&copy; 2010 - 2026 Appunti Ingegneria Informatica. Materiale ad uso accademico.</p>
+            <p>&copy; 2026 Appunti Ingegneria Informatica - Realizzato da Cristian Ceni. Materiale ad uso accademico.</p>
         </div>
     </footer>
 </body>
