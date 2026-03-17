@@ -9,8 +9,8 @@
     <style>
         .download-btn {
             display: inline-block;
-            background: #2c3e50;
-            color: #fff;
+            background: var(--secondary-color);
+            color: var(--text-color-light);
             padding: 8px 15px;
             text-decoration: none;
             border-radius: 4px;
@@ -20,8 +20,8 @@
             transition: background 0.3s;
         }
         .download-btn:hover {
-            background: #1a252f;
-            color: #fff;
+            background: var(--pre-bg);
+            color: var(--text-color-light);
         }
     </style>
 </head>
@@ -44,156 +44,526 @@
     <div class="container">
         <section class="hero">
             <h2>Corso C++ (Programmazione ad Oggetti)</h2>
-            <p>Sintesi completa degli appunti del corso MICC: Introduzione al C++, Classi, Oggetti ed Ereditarietà</p>
+            <p>Sintesi completa degli appunti del corso MICC &mdash; dal primo HelloWorld all'ereditarietà multipla e al polimorfismo.</p>
         </section>
 
-        <!-- INTRO TO C++ -->
+        <!-- ================================================== -->
+        <!-- 1. INTRODUZIONE AL C++ -->
+        <!-- ================================================== -->
         <section class="content-section">
-            <h2>1. Introduzione al C++ e OOP</h2>
-            <p>Il <strong>C++</strong> è un'estensione del linguaggio C creata da Bjarne Stroustrup, che introduce il paradigma della <strong>Programmazione Orientata agli Oggetti (OOP)</strong>. Mantiene la retrocompatibilità (quasi totale) col C ma offre strumenti più potenti per gestire sistemi software complessi.</p>
-            
-            <h3>Punti Chiave (Rispetto al C)</h3>
-            <ul>
-                <li><strong>Classi e Oggetti:</strong> Le struct del C diventano classi (aggregati di dati e <em>metodi</em> che operano su di essi).</li>
-                <li><strong>Incapsulamento:</strong> Nascondere i dettagli implementativi (Information Hiding).</li>
-                <li><strong>Ereditarietà e Polimorfismo:</strong> Creazione di gerarchie di tipi e comportamenti dinamici a runtime.</li>
-                <li><strong>Libreria Standard:</strong> Introduzione della STL (Standard Template Library), di <code>std::string</code> e dei flussi I/O (<code>std::cout</code>, <code>std::cin</code>).</li>
-            </ul>
+            <h2>1. Introduzione al C++ e Differenze con il C</h2>
+            <p>Il <strong>C++</strong> è un'estensione del linguaggio C creata da Bjarne Stroustrup. Introduce il paradigma della <strong>Programmazione Orientata agli Oggetti (OOP)</strong> mantenendo la retrocompatibilità (quasi totale) col C.</p>
 
+            <h3>Tabella delle differenze principali</h3>
+            <table class="comparison">
+                <tr><th>Aspetto</th><th>C</th><th>C++</th></tr>
+                <tr><td>Dichiarazione variabili</td><td>Solo in cima alla funzione o globalmente</td><td>Ovunque nel codice</td></tr>
+                <tr><td>Librerie</td><td>Hanno estensione <code>.h</code> (es. <code>stdio.h</code>)</td><td>Niente estensione <code>.h</code> (es. <code>&lt;iostream&gt;</code>)</td></tr>
+                <tr><td>I/O</td><td><code>printf</code> / <code>scanf</code></td><td><code>std::cout</code> / <code>std::cin</code></td></tr>
+                <tr><td>Stringhe</td><td>Array di <code>char</code></td><td><code>std::string</code> (type-safe, space-safe)</td></tr>
+                <tr><td>Allocazione dinamica</td><td><code>malloc</code> / <code>free</code></td><td><code>new</code> / <code>delete</code></td></tr>
+                <tr><td>Paradigma</td><td>Procedurale</td><td>OOP + Procedurale</td></tr>
+            </table>
+
+            <h3>Primo programma &amp; Compilazione (E0)</h3>
+            <p>L'esercitazione E0 mostra la struttura base: un <code>main.cpp</code>, un header personalizzato e l'uso di <code>CMakeLists.txt</code> per la compilazione.</p>
             <pre class="modern-code">
-<span class="comment">// Esempio base in C++ (HelloWorld)</span>
+<span class="comment">// E0_primo/main.cpp</span>
 <span class="directive">#include &lt;iostream&gt;</span>
+<span class="directive">#include "gabbo.h"</span>
+<span class="keyword">using namespace</span> std;
 
 <span class="type">int</span> <span class="function">main</span>() {
-    <span class="type">std::cout</span> &lt;&lt; <span class="string">"Hello, World!"</span> &lt;&lt; <span class="type">std::endl</span>;
+    cout &lt;&lt; <span class="string">"Hello World!"</span> &lt;&lt; endl;
+    <span class="keyword">return</span> GABBO_H;
+}</pre>
+
+            <h3>Compilazione Multi-file (E0b)</h3>
+            <p>Un progetto C++ reale separa il codice in più file (<code>.h</code> dichiarazione, <code>.cpp</code> implementazione). Il <strong>linker</strong> unisce gli object file in un eseguibile. Bisogna <em>sempre</em> includere le parentesi graffe <code>{}</code> per un metodo, anche se vuoto, altrimenti il linker segnala errori.</p>
+            <pre class="modern-code">
+<span class="comment">// E0b_compilation_example/main.cpp</span>
+<span class="directive">#include &lt;iostream&gt;</span>
+<span class="directive">#include &lt;cstdlib&gt;</span>
+<span class="directive">#include "greeter.h"</span>
+<span class="directive">#include "adder.h"</span>
+
+<span class="type">int</span> <span class="function">main</span>() {
+    <span class="function">sayHello</span>(<span class="string">"Joe"</span>);
+    <span class="type">int</span> *array;
+    <span class="type">int</span> arraySize = <span class="string">10</span>;
+    array = <span class="keyword">static_cast</span>&lt;<span class="type">int</span>*&gt;(std::<span class="function">malloc</span>(arraySize * <span class="keyword">sizeof</span>(<span class="type">int</span>)));
+    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="string">0</span>; i &lt; arraySize; i++)
+        array[i] = i;
+    std::cout &lt;&lt; <span class="function">sum</span>(array, arraySize) &lt;&lt; std::endl;
+    std::<span class="function">free</span>(array);
     <span class="keyword">return</span> <span class="string">0</span>;
 }</pre>
+
+            <h3>Namespace e Scope Resolution</h3>
+            <p>Il C++ introduce i <strong>namespace</strong> per evitare conflitti di nomi. L'operatore <code>::</code> è detto <em>scope resolution operator</em>. Un nome preceduto dal suo namespace si chiama <strong>qualified name</strong> (es. <code>std::cout</code>). Il <strong>Name Mangling</strong> permette al compilatore di risolvere nomi unici per entità con lo stesso identificatore ma firme diverse (overloading).</p>
         </section>
 
-        <!-- CLASSI E OGGETTI -->
+        <!-- ================================================== -->
+        <!-- 2. CLASSI E OGGETTI -->
+        <!-- ================================================== -->
         <section class="content-section">
-            <h2>2. Classi e Oggetti</h2>
-            <p>Una <strong>Classe</strong> è un "progetto" o un "tipo" definito dall'utente. Un <strong>Oggetto</strong> è un'istanza (concreta e in memoria) di una classe. Ogni classe definisce attributi (variabili membro) e metodi (funzioni membro).</p>
-            
-            <h3>Access Specifiers (Visibilità)</h3>
-            <ul>
-                <li><code>public</code>: Accessibile da qualsiasi punto del codice. Di solito usato per l'interfaccia (i metodi).</li>
-                <li><code>private</code>: Accessibile <em>solo</em> dall'interno della classe stessa. (Visibilità di default in C++). I dati dovrebbero sempre essere privati.</li>
-                <li><code>protected</code>: Come il private, ma accessibile anche dalle classi derivate.</li>
-            </ul>
+            <h2>2. Classi e Oggetti &mdash; ADT e Incapsulamento</h2>
+            <p>Una <strong>Classe</strong> è un "progetto" (un tipo definito dall'utente). Un <strong>Oggetto</strong> è un'istanza concreta in memoria. Ogni classe definisce attributi (variabili membro) e metodi (funzioni membro).</p>
+            <p><strong>ADT (Abstract Data Type):</strong> Un tipo di dato definito dal suo <em>comportamento</em> (interfaccia pubblica), nascondendo l'implementazione interna (<strong>Information Hiding</strong>). Garantisce maggiore certezza e modularità del codice.</p>
 
-            <h3>Esempio: File Header (.h) vs Implementazione (.cpp)</h3>
-            <p>In un progetto reale (es. le esercitazioni <code>E1_class_exercise</code>), si separa la dichiarazione della classe (nel file header) dalla sua definizione (nel file cpp).</p>
-            
+            <h3>Access Specifiers (Visibilità)</h3>
+            <table class="comparison">
+                <tr><th>Specifier</th><th>Accesso dalla classe stessa</th><th>Accesso da classi derivate</th><th>Accesso dall'esterno</th></tr>
+                <tr><td><code>public</code></td><td>&#10004;</td><td>&#10004;</td><td>&#10004;</td></tr>
+                <tr><td><code>protected</code></td><td>&#10004;</td><td>&#10004;</td><td>&#10008;</td></tr>
+                <tr><td><code>private</code> (default)</td><td>&#10004;</td><td>&#10008;</td><td>&#10008;</td></tr>
+            </table>
+
+            <h3>Esempio completo: Weapon (E1)</h3>
+            <p>Dalla prima esercitazione: una classe con costruttore, getter, setter e attributi protetti.</p>
             <pre class="modern-code">
-<span class="comment">// --- GameCharacter.h ---</span>
+<span class="comment">// Weapon.h (E1_class_exercise)</span>
+<span class="keyword">class</span> <span class="type">Weapon</span> {
+<span class="keyword">public</span>:
+    <span class="function">Weapon</span>(<span class="type">int</span> s = <span class="string">0</span>, <span class="type">bool</span> magic = <span class="keyword">false</span>) : strength(s), magic(magic) {
+        <span class="keyword">if</span> (strength &lt;= <span class="string">0</span>)
+            strength = <span class="string">1</span>;
+    }
+
+    <span class="type">int</span> <span class="function">use</span>();                     <span class="comment">// Dichiarato qui, definito in Weapon.cpp</span>
+
+    <span class="comment">// Getter</span>
+    <span class="type">int</span> <span class="function">getStrength</span>() { <span class="keyword">return</span> strength; }
+    <span class="type">bool</span> <span class="function">isMagic</span>() { <span class="keyword">return</span> magic; }
+
+    <span class="comment">// Setter (con validazione!)</span>
+    <span class="type">void</span> <span class="function">setStrength</span>(<span class="type">int</span> s) { <span class="keyword">if</span> (s &gt; <span class="string">0</span>) strength = s; }
+    <span class="type">void</span> <span class="function">setMagic</span>(<span class="type">bool</span> m) { magic = m; }
+
+<span class="keyword">protected</span>:
+    <span class="type">int</span> strength;
+    <span class="type">bool</span> magic;
+};</pre>
+            <pre class="modern-code">
+<span class="comment">// Weapon.cpp (implementazione separata)</span>
+<span class="directive">#include "Weapon.h"</span>
+
+<span class="type">int</span> <span class="type">Weapon</span>::<span class="function">use</span>() {
+    <span class="keyword">if</span> (magic)
+        strength = strength * <span class="string">2</span>; <span class="comment">// XXX rischio int overflow!</span>
+    <span class="keyword">return</span> strength;
+}</pre>
+
+            <h3>GameCharacter completo (E1)</h3>
+            <p>Il personaggio del gioco RPG: costruttore con valori di default, overloading di <code>move()</code>, uso di <code>this</code>, e combattimento con Weapon.</p>
+            <pre class="modern-code">
+<span class="comment">// GameCharacter.h (E1_class_exercise)</span>
 <span class="keyword">class</span> <span class="type">GameCharacter</span> {
 <span class="keyword">public</span>:
-    <span class="comment">// Costruttore (inizializza l'oggetto)</span>
     <span class="function">GameCharacter</span>(<span class="type">int</span> hp = <span class="string">10</span>, <span class="type">int</span> a = <span class="string">10</span>);
-    
-    <span class="comment">// Metodi pubblici (Interfaccia)</span>
+
+    <span class="comment">// Overloading: stesso nome, parametri diversi</span>
+    <span class="type">void</span> <span class="function">move</span>(<span class="type">int</span> x, <span class="type">int</span> y);
     <span class="type">void</span> <span class="function">move</span>(<span class="type">int</span> distance);
-    <span class="type">void</span> <span class="function">move</span>(<span class="type">int</span> x, <span class="type">int</span> y); <span class="comment">// Overloading del metodo</span>
+
+    <span class="type">bool</span> <span class="function">fight</span>(<span class="type">GameCharacter</span> &amp;enemy);
+    <span class="type">int</span> <span class="function">receiveDamage</span>(<span class="type">int</span> points);
+
+    <span class="comment">// Getter & Setter</span>
     <span class="type">int</span> <span class="function">getHP</span>();
-    <span class="type">void</span> <span class="function">receiveDamage</span>(<span class="type">int</span> points);
+    <span class="type">void</span> <span class="function">setHP</span>(<span class="type">int</span> hp);
+    <span class="type">Weapon</span>* <span class="function">getWeapon</span>();
+    <span class="type">void</span> <span class="function">setWeapon</span>(<span class="type">Weapon</span>* weapon);
 
 <span class="keyword">private</span>:
-    <span class="comment">// Dati privati (Incapsulamento)</span>
     <span class="type">int</span> HP;
     <span class="type">int</span> armor;
     <span class="type">int</span> posX, posY;
+    <span class="type">Weapon</span>* weapon;
 };</pre>
-        </section>
-
-        <!-- COSTUTTORI E MEMORIA -->
-        <section class="content-section">
-            <h2>3. Costruttori, Distruttori e Memoria Dinamica</h2>
-            <p><strong>Costruttore:</strong> Metodo chiamato automaticamente alla creazione dell'oggetto (stesso nome della classe). Esiste un <em>costruttore di default</em> se non ne dichiariamo nessuno.<br>
-            <strong>Distruttore:</strong> Metodo chiamato alla distruzione (nome classe preceduto da <code>~</code>), fondamentale per liberare risorse (es. memoria allocata, file aperti).</p>
-            
-            <h3>New e Delete</h3>
-            <p>In C++, l'allocazione dinamica si effettua con gli operatori <code>new</code> e <code>delete</code>. <code>new</code> alloca memoria e invoca il costruttore, <code>delete</code> invoca il distruttore e dealloca la memoria.</p>
             <pre class="modern-code">
-<span class="type">GameCharacter</span>* p = <span class="keyword">new</span> <span class="type">GameCharacter</span>(<span class="string">10</span>, <span class="string">5</span>); <span class="comment">// Alloca e costruisce</span>
-<span class="keyword">delete</span> p; <span class="comment">// Distrugge e dealloca</span></pre>
-        </section>
+<span class="comment">// GameCharacter.cpp - Costruttore con lista di inizializzazione</span>
+<span class="type">GameCharacter</span>::<span class="function">GameCharacter</span>(<span class="type">int</span> hp, <span class="type">int</span> a) : HP(hp), armor(a), posX(<span class="string">0</span>), posY(<span class="string">0</span>), weapon(<span class="keyword">nullptr</span>) {
+    <span class="keyword">if</span> (hp &lt;= <span class="string">0</span>) HP = <span class="string">10</span>;
+    <span class="keyword">if</span> (a &lt;= <span class="string">0</span>) armor = <span class="string">10</span>;
+}
 
-        <!-- ADT, UML E OVERLOADING -->
-        <section class="content-section">
-            <h2>4. ADT, Interfacce, Overloading e UML</h2>
-            <p><strong>ADT (Abstract Data Type):</strong> Definisce un tipo di dato in base al suo comportamento (interfaccia pubblica) nascondendone l'implementazione (Information Hiding). Garantisce maggiore <em>certezza del codice</em>.</p>
-            
-            <h3>Interfacce e Classi Astratte</h3>
-            <p>Il C++ non ha una keyword <code>interface</code> nativa. Si usa una classe astratta con soli <em>metodi virtuali puri</em> (es. <code>virtual void use() = 0;</code>). Le classi derivate (es. <code>Sword</code> da <code>Weapon</code>) devono implementare questi metodi (<strong>Regola del binding / override</strong>).</p>
-
-            <h3>Overloading degli Operatori</h3>
-            <p>Permette di ridefinire il funzionamento degli operatori standard (es. <code>+</code>, <code>=</code>, <code>&lt;&lt;</code>) per i nuovi tipi di dato per operare sugli oggetti in modo intutitivo.</p>
-
-            <h3>Diagrammi UML</h3>
-            <p>Si usa l'UML per la progettazione architetturale OOP. Si definiscono le classi, gli attributi e i metodi prima del codice. Aiuta a visualizzare le associazioni, le composizioni e l'ereditarietà.</p>
-        </section>
-
-        <!-- EREDITARIETÀ E POLIMORFISMO -->
-        <section class="content-section">
-            <h2>5. Ereditarietà e Polimorfismo (Virtual/Override)</h2>
-            <p>L'<strong>Ereditarietà</strong> permette a una nuova classe (<em>Derived</em>) di ereditare proprietà e metodi da una classe esistente (<em>Base</em>). È una relazione di tipo "Is-A" (È un). In C++ esiste anche l'ereditarietà multipla.</p>
-            
-            <h3>Polimorfismo e Funzioni Virtuali</h3>
-            <p>Il polimorfismo risolve il <em>Binding Dinamico</em>, permettendo alla stessa chiamata di funzione di comportarsi in base al tipo reale dell'oggetto a runtime. Il metodo nella classe base deve essere <code>virtual</code>.</p>
-            
-            <pre class="modern-code">
-<span class="comment">// --- Wizard.h (Deriva da GameCharacter) ---</span>
-<span class="directive">#include</span> <span class="string">"GameCharacter.h"</span>
-
-<span class="keyword">class</span> <span class="type">Wizard</span> : <span class="keyword">public</span> <span class="type">GameCharacter</span> {
-<span class="keyword">public</span>:
-    <span class="function">Wizard</span>(<span class="type">std::string</span> n, <span class="type">int</span> m) : <span class="function">GameCharacter</span>(), name(n), mana(m) {}
-
-    <span class="comment">// Override: Sostituisce il comportamento del metodo base</span>
-    <span class="type">char</span> <span class="function">getCharacterSymbol</span>() <span class="keyword">const override</span> {
-        <span class="keyword">return</span> <span class="string">'W'</span>;
+<span class="comment">// fight() usa il puntatore weapon e this-&gt;</span>
+<span class="type">bool</span> <span class="type">GameCharacter</span>::<span class="function">fight</span>(<span class="type">GameCharacter</span> &amp;enemy) {
+    <span class="type">int</span> hit = <span class="string">1</span>;
+    <span class="keyword">if</span> (weapon) {
+        hit = weapon-&gt;<span class="function">use</span>();
     }
-
-    <span class="type">virtual void</span> <span class="function">doMagic</span>(); <span class="comment">// Metodo nuovo, marcato virtual per ulteriori estensioni</span>
-
-<span class="keyword">protected</span>:
-    <span class="comment">// Accessibile alle eventuali specializzazioni di Wizard</span>
-    <span class="type">int</span> mana;
-    <span class="type">std::string</span> name;
-};</pre>
-            
-            <p><strong>Overloading vs Overriding:</strong>
-            <br><em>Overloading:</em> Stesso nome di funzione, ma parametri (signature) diversi, risolto a compile-time (es. i costruttori o i metodi <code>move()</code>).
-            <br><em>Overriding:</em> Stesso nome e stessi parametri di una funzione virtuale della classe base, ma in una classe derivata. Risolto a runtime.</p>
+    <span class="type">int</span> damage = <span class="string">0</span>;
+    <span class="keyword">if</span> (hit &gt; enemy.armor) {
+        damage = <span class="function">receiveDamage</span>(hit);
+    }
+    <span class="keyword">return</span> (damage &gt; <span class="string">0</span>);
+}</pre>
         </section>
 
+        <!-- ================================================== -->
+        <!-- 3. COSTRUTTORI IN DETTAGLIO -->
+        <!-- ================================================== -->
+        <section class="content-section">
+            <h2>3. Costruttori in Dettaglio</h2>
+
+            <h3>Tipi di Costruttore</h3>
+            <ul>
+                <li><strong>Costruttore di default:</strong> Senza argomenti. Generato automaticamente dal compilatore solo se non ne dichiariamo nessun altro.</li>
+                <li><strong>Costruttore parametrico:</strong> Con argomenti. Può avere valori di default.</li>
+                <li><strong>Costruttore di copia (Copy Constructor):</strong> Prende un riferimento const allo stesso tipo. Generato automaticamente dal compilatore (shallow copy).</li>
+                <li><strong><code>explicit</code> Constructor:</strong> Un costruttore con un solo argomento va <em>sempre</em> marcato <code>explicit</code> per prevenire conversioni implicite indesiderate. È una norma anche tra i programmatori C++ di Google.</li>
+                <li><strong>Delegating Constructor:</strong> Un costruttore che invoca un altro costruttore della stessa classe nella lista di inizializzazione.</li>
+            </ul>
+
+            <h3>Lista di Inizializzazione</h3>
+            <p>La sintassi <code>: membro1(val1), membro2(val2)</code> è la <strong>lista di inizializzazione</strong> ed è preferibile all'assegnamento nel corpo &mdash; è più efficiente e l'unico modo per inizializzare <code>const</code> e riferimenti.</p>
+            <pre class="modern-code">
+<span class="comment">// ✅ Costruttore con lista di inizializzazione</span>
+<span class="type">GameCharacter</span>::<span class="function">GameCharacter</span>(<span class="type">int</span> hp, <span class="type">int</span> a) : HP(hp), armor(a), posX(<span class="string">0</span>), posY(<span class="string">0</span>) {}
+
+<span class="comment">// ✅ explicit su costruttore a singolo argomento</span>
+<span class="keyword">explicit</span> <span class="function">Sword</span>(<span class="type">int</span> s, <span class="type">bool</span> m = <span class="keyword">false</span>, <span class="type">bool</span> v = <span class="keyword">false</span>);
+
+<span class="comment">// ✅ Delegating Constructor</span>
+<span class="function">Weapon</span>() : <span class="function">Weapon</span>(<span class="string">1</span>, <span class="keyword">false</span>) {}  <span class="comment">// Delega al costruttore parametrico</span>
+
+<span class="comment">// C++11: inizializzazione in-class</span>
+<span class="keyword">class</span> <span class="type">X</span> {
+<span class="keyword">public</span>:
+    <span class="type">int</span> i = <span class="string">4</span>;
+    <span class="type">int</span> j{<span class="string">5</span>}; <span class="comment">// Sintassi alternativa con brace-init</span>
+};</pre>
+        </section>
+
+        <!-- ================================================== -->
+        <!-- 4. DISTRUTTORI, THIS, STATIC -->
+        <!-- ================================================== -->
+        <section class="content-section">
+            <h2>4. Distruttore, <code>this</code>, <code>static</code> e <code>friend</code></h2>
+
+            <h3>Distruttore (<code>~NomeClasse()</code>)</h3>
+            <ul>
+                <li>Chiamato automaticamente alla distruzione dell'oggetto (fine scope o <code>delete</code>).</li>
+                <li>Il suo scopo è <strong>pulizia</strong> (liberare risorse: file, memoria heap, connessioni), <em>non</em> deallocare la memoria dell'oggetto stesso.</li>
+                <li>Lo stack viene pulito automaticamente. Il <code>delete</code> serve solo per memoria allocata con <code>new</code>.</li>
+                <li>Viene generato automaticamente dal compilatore con corpo vuoto.</li>
+            </ul>
+            <pre class="modern-code">
+<span class="comment">// E3 - Distruttore esplicito per risorse dinamiche</span>
+<span class="type">GameCharacter</span>::~<span class="function">GameCharacter</span>() {
+    <span class="keyword">delete</span> weapon;  <span class="comment">// Libera la memoria dell'arma allocata con new</span>
+}</pre>
+
+            <h3>Il puntatore <code>this</code></h3>
+            <p>Ogni oggetto contiene un puntatore implicito a sé stesso: <code>this</code>. È di tipo <code>NomeClasse*</code>. Serve per:</p>
+            <ul>
+                <li>Distinguere attributi da parametri con lo stesso nome: <code>this-&gt;HP = hp;</code></li>
+                <li>Passare l'indirizzo dell'oggetto corrente ad altri oggetti (<strong>inversione di responsabilità</strong>)</li>
+                <li>Ritornare l'oggetto corrente: <code>return *this;</code></li>
+            </ul>
+            <pre class="modern-code">
+<span class="type">void</span> <span class="type">GameCharacter</span>::<span class="function">setHP</span>(<span class="type">int</span> hp) {
+    <span class="keyword">this</span>-&gt;HP = hp;  <span class="comment">// this-&gt; disambigua dal parametro</span>
+}</pre>
+
+            <h3><code>static</code> Members</h3>
+            <ul>
+                <li>Un membro <code>static</code> ha <strong>una sola copia</strong> condivisa tra tutti gli oggetti della classe.</li>
+                <li>Un <strong>metodo statico</strong> non può accedere a membri non-statici (potrebbero non essere inizializzati). Si invoca con <code>Classe::metodo()</code>.</li>
+                <li>In C++17 si può fare <code>static inline</code> direttamente nel file <code>.h</code>.</li>
+            </ul>
+            <pre class="modern-code">
+<span class="comment">// E3 - metodo statico per calcolare distanza (non ha bisogno di un oggetto)</span>
+<span class="keyword">static</span> <span class="type">int</span> <span class="function">l1Distance</span>(<span class="keyword">const</span> <span class="type">GameCharacter</span>&amp; p, <span class="keyword">const</span> <span class="type">GameCharacter</span>&amp; q);
+
+<span class="comment">// Chiamata:</span>
+<span class="type">GameCharacter</span>::<span class="function">l1Distance</span>(hero, enemy);</pre>
+
+            <h3><code>friend</code></h3>
+            <p>Una funzione o classe <code>friend</code> può accedere ai membri <code>private</code> di un'altra classe. <strong>Rompe l'incapsulamento</strong> &mdash; da usare con molta cautela (tipicamente per I/O overloading).</p>
+            <pre class="modern-code">
+<span class="keyword">class</span> <span class="type">Point</span> {
+<span class="keyword">private</span>:
+    <span class="type">int</span> x, y;
+<span class="keyword">public</span>:
+    <span class="keyword">friend</span> <span class="type">bool</span> <span class="keyword">operator</span>==(<span class="type">Point</span> a, <span class="type">Point</span> b);
+    <span class="function">Point</span>() : x(<span class="string">0</span>), y(<span class="string">0</span>) {}
+};
+
+<span class="type">bool</span> <span class="keyword">operator</span>==(<span class="type">Point</span> a, <span class="type">Point</span> b) {
+    <span class="keyword">return</span> (a.x == b.x &amp;&amp; a.y == b.y); <span class="comment">// Accede a x,y privati</span>
+}</pre>
+        </section>
+
+        <!-- ================================================== -->
+        <!-- 5. CONST CORRECTNESS -->
+        <!-- ================================================== -->
+        <section class="content-section">
+            <h2>5. <code>const</code> Correctness</h2>
+            <p>La keyword <code>const</code> in C++ è molto più potente di <code>#define</code> e va usata sistematicamente.</p>
+
+            <h3>Regole del <code>const</code> con i puntatori</h3>
+            <pre class="modern-code">
+<span class="keyword">const</span> <span class="type">char</span>* p = greeting;        <span class="comment">// Puntatore a dato costante (posso solo leggere)</span>
+<span class="type">char</span>* <span class="keyword">const</span> p = greeting;        <span class="comment">// Puntatore costante (punta sempre allo stesso indirizzo)</span>
+<span class="keyword">const</span> <span class="type">char</span>* <span class="keyword">const</span> p = greeting; <span class="comment">// Tutto costante</span></pre>
+
+            <h3>Metodi <code>const</code></h3>
+            <ul>
+                <li>Se un metodo è dichiarato <code>const</code>, promette di non modificare l'oggetto. Così può essere chiamato su oggetti costanti.</li>
+                <li>Si può fare <strong>overloading solo con <code>const</code></strong>: se esistono due versioni dello stesso metodo (una <code>const</code> e una no), il compilatore sceglie in base al tipo dell'oggetto.</li>
+                <li>La keyword <code>mutable</code> rilassa il <code>const</code>: un membro <code>mutable</code> può essere modificato anche da metodi <code>const</code> (es. cache, lazy evaluation).</li>
+            </ul>
+            <pre class="modern-code">
+<span class="comment">// Getter const (dall'E3): promette di non modificare l'oggetto</span>
+<span class="type">int</span> <span class="function">getHP</span>() <span class="keyword">const</span>;
+<span class="type">int</span> <span class="function">getArmor</span>() <span class="keyword">const</span>;
+<span class="type">bool</span> <span class="function">isLegalFight</span>(<span class="keyword">const</span> <span class="type">GameCharacter</span> &amp;enemy) <span class="keyword">const</span>;
+
+<span class="comment">// Overloading con const</span>
+<span class="keyword">const</span> <span class="type">char</span>&amp; <span class="keyword">operator</span>[](<span class="type">size_t</span> pos) <span class="keyword">const</span> { ... }  <span class="comment">// Versione read-only</span>
+      <span class="type">char</span>&amp; <span class="keyword">operator</span>[](<span class="type">size_t</span> pos) { ... }        <span class="comment">// Versione read-write</span></pre>
+        </section>
+
+        <!-- ================================================== -->
+        <!-- 6. SHALLOW & DEEP COPY, RULE OF THREE -->
+        <!-- ================================================== -->
+        <section class="content-section">
+            <h2>6. Shallow Copy vs Deep Copy &amp; Regola dei Tre</h2>
+
+            <h3>Metodi generati dal compilatore</h3>
+            <p>Il compilatore genera automaticamente: <strong>costruttore di copia</strong>, <strong>operatore di assegnamento</strong> (<code>operator=</code>) e <strong>distruttore</strong>. Operano una <strong>shallow copy</strong> (copia bit-a-bit).</p>
+            <pre class="modern-code">
+<span class="comment">// Metodi impliciti generati dal compilatore:</span>
+
+<span class="comment">// 1. Copy constructor</span>
+<span class="function">GameCharacter</span>(<span class="type">GameCharacter</span>&amp; that) : name(that.name), hp(that.hp) {}
+
+<span class="comment">// 2. Copy assignment operator</span>
+<span class="type">GameCharacter</span>&amp; <span class="keyword">operator</span>=(<span class="type">GameCharacter</span>&amp; that) {
+    name = that.name;
+    hp = that.hp;
+    <span class="keyword">return</span> *<span class="keyword">this</span>;
+}
+
+<span class="comment">// 3. Destructor</span>
+~<span class="function">GameCharacter</span>() {}</pre>
+
+            <h3>Problema della Shallow Copy con i Puntatori</h3>
+            <p>Con la copia superficiale, i puntatori vengono copiati <em>bit-a-bit</em>: la copia e l'originale <strong>puntano alla stessa memoria</strong>. Se l'originale viene distrutto, il distruttore dealloca la risorsa, e la copia punta a memoria non più valida &rarr; <strong>crash</strong>.</p>
+            <pre class="modern-code">
+<span class="keyword">class</span> <span class="type">GameCharacter</span> {
+<span class="keyword">public</span>:
+    ~<span class="function">GameCharacter</span>() {
+        <span class="keyword">delete</span>[] inventory; <span class="comment">// Dealloca l'inventario</span>
+    }
+<span class="keyword">private</span>:
+    <span class="type">std::string</span> name;
+    <span class="type">int</span> hp;
+    <span class="type">Potion</span>* inventory;  <span class="comment">// ⚠️ Shallow copy copia il puntatore, non i dati!</span>
+};
+<span class="comment">// Se copio hero in hero2, entrambi puntano allo STESSO inventory.
+// Quando hero viene distrutto, hero2.inventory punta a memoria deallocata!</span></pre>
+
+            <h3>Regola dei Tre (Rule of Three)</h3>
+            <p><strong>Se una classe gestisce risorse</strong> (memoria, file, socket...) allora <em>bisogna</em> implementare esplicitamente tutti e tre:</p>
+            <ol>
+                <li><strong>Copy Constructor</strong> (deep copy)</li>
+                <li><strong>Copy Assignment Operator</strong> (deep copy)</li>
+                <li><strong>Destructor</strong> (rilascio risorse)</li>
+            </ol>
+            <pre class="modern-code">
+<span class="comment">// E3: espliciti nel .h per gestire il puntatore weapon</span>
+<span class="function">GameCharacter</span>(<span class="keyword">const</span> <span class="type">GameCharacter</span> &amp;original);       <span class="comment">// Deep copy constructor</span>
+<span class="type">GameCharacter</span> &amp;<span class="keyword">operator</span>=(<span class="keyword">const</span> <span class="type">GameCharacter</span> &amp;right); <span class="comment">// Deep copy assignment</span>
+~<span class="function">GameCharacter</span>();                                    <span class="comment">// Destructor</span></pre>
+
+            <h3>Disabilitare la copia (<code>= delete</code>)</h3>
+            <p>A volte un oggetto <strong>non deve</strong> essere copiabile (es. singleton, risorse di sistema). Si usa <code>= delete</code>:</p>
+            <pre class="modern-code">
+<span class="type">Foo</span>&amp; <span class="keyword">operator</span>=(<span class="keyword">const</span> <span class="type">Foo</span>&amp;) = <span class="keyword">delete</span>;  <span class="comment">// Disabilita l'assegnamento</span></pre>
+        </section>
+
+        <!-- ================================================== -->
+        <!-- 7. OVERLOADING OPERATORI -->
+        <!-- ================================================== -->
+        <section class="content-section">
+            <h2>7. Overloading degli Operatori</h2>
+            <p>Permette di ridefinire il funzionamento degli operatori standard (<code>+</code>, <code>=</code>, <code>&lt;&lt;</code>, <code>==</code>, <code>[]</code>) per i nostri tipi di dato. In questo modo si possono usare gli oggetti in modo naturale e intuitivo.</p>
+            <pre class="modern-code">
+<span class="comment">// Overloading di operator== con friend</span>
+<span class="keyword">class</span> <span class="type">Point</span> {
+<span class="keyword">private</span>:
+    <span class="type">int</span> x, y;
+<span class="keyword">public</span>:
+    <span class="keyword">friend</span> <span class="type">bool</span> <span class="keyword">operator</span>==(<span class="type">Point</span> a, <span class="type">Point</span> b);
+};
+
+<span class="type">bool</span> <span class="keyword">operator</span>==(<span class="type">Point</span> a, <span class="type">Point</span> b) {
+    <span class="keyword">return</span> (a.x == b.x &amp;&amp; a.y == b.y);
+}
+
+<span class="comment">// Overloading di operator= (copy assignment) dalla Rule of Three</span>
+<span class="type">GameCharacter</span>&amp; <span class="keyword">operator</span>=(<span class="keyword">const</span> <span class="type">GameCharacter</span>&amp; that) {
+    name = that.name;
+    hp = that.hp;
+    <span class="keyword">return</span> *<span class="keyword">this</span>;
+}</pre>
+        </section>
+
+        <!-- ================================================== -->
+        <!-- 8. EREDITARIETÀ -->
+        <!-- ================================================== -->
+        <section class="content-section">
+            <h2>8. Ereditarietà (Inheritance)</h2>
+            <p>Permette a una nuova classe (<em>Derived</em>) di ereditare proprietà e metodi da una classe base. È una relazione <strong>"Is-A"</strong> ("È un"). In C++ esiste anche l'ereditarietà multipla.</p>
+
+            <h3>Tipi di Ereditarietà</h3>
+            <table class="comparison">
+                <tr><th>Tipo</th><th><code>public</code> della base diventa</th><th><code>protected</code> della base diventa</th><th><code>private</code> della base</th></tr>
+                <tr><td><code>class D : public B</code></td><td><code>public</code></td><td><code>protected</code></td><td>Non accessibile</td></tr>
+                <tr><td><code>class D : protected B</code></td><td><code>protected</code></td><td><code>protected</code></td><td>Non accessibile</td></tr>
+                <tr><td><code>class D : private B</code></td><td><code>private</code></td><td><code>private</code></td><td>Non accessibile</td></tr>
+            </table>
+            <p><strong>Ereditarietà pubblica</strong> è la più comune: ci interessa l'<em>interfaccia</em> della classe base.</p>
+
+            <h3>Ereditarietà vs Composizione</h3>
+            <table class="comparison">
+                <tr><th>Inheritance (Is-A)</th><th>Composition (Has-A)</th></tr>
+                <tr><td><code>class Student : public Person</code></td><td><code>class Person { Address home; Address office; }</code></td></tr>
+                <tr><td>Si può usare una sola volta per tipo base</td><td>Si può usare più volte</td></tr>
+            </table>
+
+            <h3>Liskov Substitution Principle</h3>
+            <p>Un oggetto derivato deve poter <strong>sostituire</strong> il suo tipo base senza rompere il programma. Funziona solo in una direzione: se <code>Student : public Person</code>, allora <code>eat(Student)</code> funziona, ma <code>study(Person)</code> no. <strong>Esempio critico:</strong> Se <code>Penguin : Bird</code> e <code>Bird</code> ha <code>fly()</code>, il pinguino viola il principio perché non può volare.</p>
+
+            <h3>Costruttori ed Ereditarietà</h3>
+            <p>Il costruttore della classe derivata invoca il costruttore della base nella lista di inizializzazione. La catena di distruzione procede dalla derivata verso la base.</p>
+            <pre class="modern-code">
+<span class="comment">// Sword estende Weapon: chiama il costruttore della base</span>
+<span class="type">Sword</span>::<span class="function">Sword</span>(<span class="type">int</span> s, <span class="type">bool</span> m, <span class="type">bool</span> v) : <span class="function">Weapon</span>(s, m), valirian(v) {
+    <span class="comment">// Il corpo può restare vuoto</span>
+}
+
+<span class="comment">// Bow: costruttore inline con delegation alla base</span>
+<span class="keyword">explicit</span> <span class="function">Bow</span>(<span class="type">int</span> s, <span class="type">bool</span> m = <span class="keyword">false</span>, <span class="type">int</span> a = <span class="string">20</span>) : <span class="function">Weapon</span>(s, m), arrows(a) {}</pre>
+        </section>
+
+        <!-- ================================================== -->
+        <!-- 9. POLIMORFISMO E VIRTUAL/OVERRIDE -->
+        <!-- ================================================== -->
+        <section class="content-section">
+            <h2>9. Polimorfismo e Virtual/Override (Binding Dinamico)</h2>
+
+            <h3>Il Problema del Binding Statico</h3>
+            <p><strong>Regola del Binding (comportamento default del compilatore):</strong></p>
+            <ol>
+                <li>Se ho una variabile su cui chiamo un metodo, il compilatore chiama il metodo del <strong>tipo della variabile</strong> (non dell'oggetto reale).</li>
+                <li>Se ho un puntatore, sarà chiamato il metodo del <strong>tipo del puntatore</strong>, non dell'oggetto puntato.</li>
+            </ol>
+            <p>Nel metodo <code>fight()</code> di <code>GameCharacter</code> si chiama <code>weapon-&gt;use()</code>. Ma <code>weapon</code> è un puntatore a <code>Weapon*</code>: senza <code>virtual</code>, chiamerebbe <em>sempre</em> <code>Weapon::use()</code>, anche se l'oggetto reale è un <code>Sword</code> o un <code>Bow</code>!</p>
+
+            <h3><code>virtual</code> e <code>override</code></h3>
+            <p>Marcando il metodo come <strong><code>virtual</code></strong> nella classe base, si ritarda la decisione all'esecuzione (<em>late binding</em>). Quando un metodo è <code>virtual</code>, <strong>rimane tale per tutta la gerarchia</strong>. Le classi derivate usano <code>override</code> per dichiarare esplicitamente la riscrittura.</p>
+            <pre class="modern-code">
+<span class="comment">// Weapon.h (E3) - metodo virtual nella base</span>
+<span class="keyword">class</span> <span class="type">Weapon</span> {
+<span class="keyword">public</span>:
+    <span class="keyword">virtual</span> <span class="type">int</span> <span class="function">use</span>();  <span class="comment">// Virtual: il binding è rimandato a runtime</span>
+<span class="keyword">protected</span>:
+    <span class="type">int</span> strength;
+    <span class="type">bool</span> magic;
+};
+
+<span class="comment">// Sword.h - override esplicito</span>
+<span class="keyword">class</span> <span class="type">Sword</span> : <span class="keyword">public</span> <span class="type">Weapon</span> {
+<span class="keyword">public</span>:
+    <span class="keyword">virtual</span> <span class="type">int</span> <span class="function">use</span>() <span class="keyword">override</span>;  <span class="comment">// Riscrive use() della base</span>
+<span class="keyword">protected</span>:
+    <span class="type">bool</span> valirian;
+};</pre>
+
+            <h3>Implementazione dell'Override (Sword)</h3>
+            <pre class="modern-code">
+<span class="comment">// Sword.cpp - override di use()
+// PRIMA chiama il metodo della base, POI aggiunge il comportamento specifico</span>
+<span class="type">int</span> <span class="type">Sword</span>::<span class="function">use</span>() {
+    <span class="type">int</span> result = <span class="type">Weapon</span>::<span class="function">use</span>();  <span class="comment">// Chiama la versione base</span>
+    <span class="keyword">if</span> (valirian)
+        result *= <span class="string">2</span>;              <span class="comment">// Raddoppia il danno se valeriana</span>
+    <span class="keyword">return</span> result;
+}</pre>
+
+            <h3>La gerarchia RPG completa (E3)</h3>
+            <pre class="modern-code">
+<span class="comment">// Gerarchia delle Armi:</span>
+<span class="type">Weapon</span> (base - virtual use())
+  ├── <span class="type">Sword</span> : <span class="keyword">public</span> Weapon   <span class="comment">// override use(), aggiunge valirian</span>
+  └── <span class="type">Bow</span>   : <span class="keyword">public</span> Weapon   <span class="comment">// override use(), aggiunge arrows</span>
+
+<span class="comment">// Gerarchia dei Personaggi:</span>
+<span class="type">GameCharacter</span> (base)
+  ├── <span class="type">Knight</span>   <span class="comment">// dexterity, paladin, override fight()/move()</span>
+  ├── <span class="type">Wizard</span>   <span class="comment">// mana, name, override fight(), virtual doMagic()</span>
+  ├── <span class="type">Orc</span>      <span class="comment">// specializzazione nemica</span>
+  └── <span class="type">Skeleton</span> <span class="comment">// specializzazione nemica</span></pre>
+
+            <h3>Regole chiave per <code>override</code></h3>
+            <ul>
+                <li><code>override</code> va messo <strong>solo nella dichiarazione</strong> (<code>.h</code>), <em>mai</em> nella definizione (<code>.cpp</code>).</li>
+                <li>Il compilatore verifica che esista effettivamente un metodo virtuale con la stessa firma nella classe base.</li>
+                <li>La scelta di <strong>quali metodi devono essere virtuali</strong> è una decisione architetturale <em>importantissima</em>.</li>
+            </ul>
+        </section>
+
+        <!-- ================================================== -->
+        <!-- 10. PRINCIPI DI DESIGN -->
+        <!-- ================================================== -->
+        <section class="content-section">
+            <h2>10. Principi di Design OOP</h2>
+            <ul>
+                <li><strong>Single Responsibility Principle (SRP):</strong> Ogni classe ha una sola responsabilità. Se ha più "cose da fare", va scomposta. <em>Trucco:</em> se il nome della classe non descrive bene cosa fa un metodo, quel metodo probabilmente non appartiene a quella classe.</li>
+                <li><strong>Open/Closed Principle (OCP):</strong> Aperto all'estensione, chiuso alla modifica. L'ereditarietà e il polimorfismo supportano questo principio.</li>
+                <li><strong>Liskov Substitution Principle (LSP):</strong> Un oggetto derivato deve poter sostituire la sua base senza errori (vedi sopra: il caso <code>Penguin/Bird</code>).</li>
+                <li><strong>DRY (Don't Repeat Yourself):</strong> Evitare duplicazione di codice.</li>
+                <li><strong>Coesione alta, Accoppiamento basso:</strong> Le classi devono fare poche cose ma bene (coesione) ed essere il più indipendenti possibile (accoppiamento basso).</li>
+            </ul>
+        </section>
+
+        <!-- ================================================== -->
         <!-- RISORSE -->
+        <!-- ================================================== -->
         <section class="content-section">
             <h2>Download Materiale (Slide e Codici)</h2>
             <p>Scarica direttamente le slide originali del corso e i progetti completi:</p>
-            
+
             <div style="margin-top: 20px;">
                 <h4>PDF Lezioni:</h4>
-                <a href="materiale/programmazione/Introduction%20to%20OOP%20CPP.pdf" class="download-btn" target="_blank">Introduzione</a>
-                <a href="materiale/programmazione/Classes%20and%20Objects%20C%2B%2B.pdf" class="download-btn" target="_blank">Classi e Oggetti</a>
-                <a href="materiale/programmazione/PROGRAMMAZIONE%2009.03.pdf" class="download-btn" target="_blank">09.03 (UML & ADT)</a>
-                <a href="materiale/programmazione/Programmazione%2016.03.pdf" class="download-btn" target="_blank">16.03 (Interfacce & Overload)</a>
-                <a href="materiale/programmazione/Programmazione%2017.03.pdf" class="download-btn" target="_blank">17.03 (Binding & Override)</a>
-                <a href="materiale/programmazione/Programmazione.pdf" class="download-btn" target="_blank">Sommario Programmazione</a>
-                <a href="materiale/programmazione/C%2B%2B-sheet-16032026.pdf" class="download-btn" target="_blank">Cheatsheet C++</a>
-                <a href="materiale/programmazione/4-inheritance.pdf" class="download-btn" target="_blank">Ereditarietà</a>
+                <a href="materiale/programmazione/Introduction%20to%20OOP%20CPP.pdf" class="download-btn" target="_blank">Intro OOP</a>
+                <a href="materiale/programmazione/2-introduction.pdf" class="download-btn" target="_blank">2 - Introduction</a>
+                <a href="materiale/programmazione/Classes%20and%20Objects%20C%2B%2B.pdf" class="download-btn" target="_blank">Classes and Objects</a>
+                <a href="materiale/programmazione/3-classes%20and%20objects.pdf" class="download-btn" target="_blank">3 - Classes (Slide)</a>
+                <a href="materiale/programmazione/4-inheritance.pdf" class="download-btn" target="_blank">4 - Inheritance</a>
             </div>
-            
-            <div style="margin-top: 20px;">
-                <h4>Esercizi e Codice (C++ & CMake):</h4>
-                <a href="materiale/programmazione/E0_primo/" class="download-btn">Esempio Compilazione (E0)</a>
-                <a href="materiale/programmazione/E1_class_exercise/" class="download-btn">Creazione Classe (E1)</a>
-                <a href="materiale/programmazione/E2_class_exercise/" class="download-btn">Esercitazione RPG (E2)</a>
-                <a href="materiale/programmazione/E3_inheritance_exercise/" class="download-btn">Ereditarietà RPG (E3)</a>
+            <div style="margin-top: 15px;">
+                <h4>Appunti e Cheatsheet:</h4>
+                <a href="materiale/programmazione/Programmazione.pdf" class="download-btn" target="_blank">Sommario Programmazione</a>
+                <a href="materiale/programmazione/PROGRAMMAZIONE%2009.03.pdf" class="download-btn" target="_blank">09.03 (UML &amp; ADT)</a>
+                <a href="materiale/programmazione/Programmazione%2016.03.pdf" class="download-btn" target="_blank">16.03 (Copy &amp; Operatori)</a>
+                <a href="materiale/programmazione/Programmazione%2017.03.pdf" class="download-btn" target="_blank">17.03 (Binding &amp; Override)</a>
+                <a href="materiale/programmazione/C%2B%2B-sheet-16032026.pdf" class="download-btn" target="_blank">Cheatsheet C++</a>
+            </div>
+
+            <div style="margin-top: 15px;">
+                <h4>Esercizi e Codice (C++ &amp; CMake):</h4>
+                <a href="materiale/programmazione/E0_primo/" class="download-btn">E0 - Compilazione</a>
+                <a href="materiale/programmazione/E1_class_exercise/" class="download-btn">E1 - Classi</a>
+                <a href="materiale/programmazione/E2_class_exercise/" class="download-btn">E2 - RPG (Dice)</a>
+                <a href="materiale/programmazione/E3_inheritance_exercise/" class="download-btn">E3 - Ereditarietà RPG</a>
             </div>
         </section>
-
     </div>
 
     <footer>
