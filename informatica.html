@@ -25,7 +25,7 @@
 
     <div class="container">
         <section class="hero">
-            <h2>Fondamenti di Informatica (9 CFU)</h2>
+            <h2>Fondamenti di Informatica</h2>
             <p>Docente: Prof. Stefano Berretti | Università degli Studi di Firenze</p>
             <p>Appunti completi: Dal C a MIPS, Strutture Dati, Algoritmi e Regole BNF.</p>
         </section>
@@ -53,7 +53,8 @@
             <h2>0. Sintassi vs. Semantica & Grammatica C</h2>
             <p><strong>Sintassi (BNF)</strong>: È la grammatica (la "forma"). L'albero sintattico verifica se la frase è
                 legale nel linguaggio. Si costruisce usando produzioni come <code>&lt;decl&gt;</code>,
-                <code>&lt;expr&gt;</code>, <code>&lt;var&gt;</code>.</p>
+                <code>&lt;expr&gt;</code>, <code>&lt;var&gt;</code>.
+            </p>
             <p><strong>Semantica (Valori)</strong>: È il significato (valore calcolato) di ogni nodo. All'esame è
                 richiesto di annotare l'albero sintattico con i valori reali.</p>
             <pre class="modern-code">
@@ -77,7 +78,8 @@ val:5   |   val:10
             <h3>0.5 Regole di Precedenza (Sintesi)</h3>
             <p><strong>Per le DICHIARAZIONI (&lt;decl&gt;):</strong> Priorità (Alta &rarr; Bassa): Parentesi
                 <code>&lt;decl&gt;</code>, Suffissi <code>[]</code> e <code>()</code> (sx&rarr;dx), Prefissi
-                <code>*</code> (dx&rarr;sx).</p>
+                <code>*</code> (dx&rarr;sx).
+            </p>
             <pre class="modern-code">
 <span class="type">int</span> *A[<span class="string">10</span>];     <span class="comment">// A -> A[10] (Array) -> *A[10] (Puntatore ad Array)</span>
 <span class="type">int</span> (*A)[<span class="string">10</span>];   <span class="comment">// A -> *A (Puntatore) -> (*A)[10] (Array di Puntatori)</span></pre>
@@ -85,7 +87,8 @@ val:5   |   val:10
             <p><strong>Per le ESPRESSIONI (&lt;expr&gt;):</strong> Priorità: Parentesi <code>()</code>/Accesso
                 <code>[]</code>/<code>.</code>/<code>-&gt;</code>, Unari (<code>!</code>, <code>*</code>,
                 <code>&amp;</code>, <code>++</code>, <code>--</code>), Moltiplicativi, Additivi, Relazionali, Logici
-                (<code>&amp;&amp;</code> poi <code>||</code>), Assegnamento (bassissima).</p>
+                (<code>&amp;&amp;</code> poi <code>||</code>), Assegnamento (bassissima).
+            </p>
         </section>
 
         <!-- ESPRESSIONI -->
@@ -93,7 +96,8 @@ val:5   |   val:10
             <h2>1. Espressioni e Operatori</h2>
             <p>Un'espressione è una combinazione di variabili, costanti e operatori. Può avere
                 <strong>side-effect</strong> (modificare lo stato, es. <code>++</code>, <code>--</code>, <code>=</code>)
-                o essere pura.</p>
+                o essere pura.
+            </p>
             <pre class="modern-code">
 <span class="bnf-rule">&lt;expr&gt; ::= &lt;var&gt; | &lt;const&gt; | &lt;var&gt; ++ | ++ &lt;var&gt; | &lt;var&gt; -- | -- &lt;var&gt;</span>
 <span class="bnf-rule">&lt;var&gt; = &lt;expr&gt; | &lt;expr1&gt;&lt;op2&gt;&lt;expr2&gt; | &lt;op1&gt;&lt;expr1&gt;</span></pre>
@@ -111,7 +115,8 @@ c = a/b; <span class="comment">// c sarà 2.0 (troncamento intero prima dell'ass
             <p><strong>Short-circuit evaluation:</strong> L'operatore <code>&amp;&amp;</code> (AND) non valuta
                 <code>expr2</code> se <code>expr1</code> è falso. L'operatore <code>||</code> (OR) non valuta
                 <code>expr2</code> se <code>expr1</code> è vero. Questo è vitale per ottimizzazione ed evitare
-                segmentation fault (es. check puntatori NULL).</p>
+                segmentation fault (es. check puntatori NULL).
+            </p>
             <pre class="modern-code">
 <span class="type">int</span> a = <span class="string">6</span>; <span class="type">int</span> b = <span class="string">3</span>; <span class="type">int</span> c;
 c = a &lt; b &amp;&amp; a++;  <span class="comment">// Se a &lt; b è falso (come qui), a++ NON viene eseguito. a rimane 6.</span>
@@ -119,7 +124,8 @@ c = a &lt; b &amp;&amp; a++;  <span class="comment">// Se a &lt; b è falso (com
 
             <h3>Operatori Bit-a-bit</h3>
             <p>Lavorano direttamente sui bit: <code>&amp;</code> (AND), <code>|</code> (OR), <code>^</code> (XOR),
-                <code>&lt;&lt;</code> (Shift sx), <code>&gt;&gt;</code> (Shift dx), <code>~</code> (NOT).</p>
+                <code>&lt;&lt;</code> (Shift sx), <code>&gt;&gt;</code> (Shift dx), <code>~</code> (NOT).
+            </p>
         </section>
 
         <!-- PUNTATORI E ARRAY -->
@@ -148,7 +154,8 @@ ptr = &amp;m;
             <h3>Array (Statica vs Dinamica)</h3>
             <p>Un array è un blocco di memoria contigua. La dichiarazione fissa la dimensione a compile-time (statica).
                 Il nome dell'array è valutato come l'indirizzo del suo primo elemento:
-                <code>A[i] &equiv; *(A + i)</code>.</p>
+                <code>A[i] &equiv; *(A + i)</code>.
+            </p>
             <pre class="modern-code">
 <span class="bnf-rule">&lt;decl&gt; ::= &lt;identifier&gt; | *&lt;decl&gt; | &lt;decl&gt;[&lt;const&gt;]</span>
 <span class="bnf-rule">&lt;var&gt; ::= ... | &lt;expr1&gt; [&lt;expr2&gt;]</span></pre>
@@ -269,13 +276,263 @@ ptrLista-&gt;besello += <span class="string">10</span>;    <span class="comment"
 
             <h3>Bubble Sort</h3>
             <p>Confronta elementi adiacenti, gli elementi più grandi "affiorano" (bubble up).<br>
-                <strong>Complessità:</strong> O(n&sup2;) medio/pessimo. <strong>Caso migliore:</strong> O(n) con check
+                <strong>Complessità:</strong> O(n²) medio/pessimo. <strong>Caso migliore:</strong> O(n) con check
                 di uscita anticipata (early exit flag). <strong>Stabile:</strong> SÌ.
             </p>
+            <pre class="modern-code">
+<span class="type">void</span> <span class="function">bubble_sort</span>(<span class="type">int</span> *V, <span class="type">int</span> N) {
+    <span class="type">int</span> i, j, tmp, swapped;
+    <span class="keyword">for</span> (i = N-<span class="string">1</span>; i > <span class="string">0</span>; i--) {
+        swapped = <span class="string">0</span>;
+        <span class="keyword">for</span> (j = <span class="string">0</span>; j < i; j++) {
+            <span class="keyword">if</span> (V[j] > V[j+<span class="string">1</span>]) {
+                tmp=V[j]; V[j]=V[j+<span class="string">1</span>]; V[j+<span class="string">1</span>]=tmp;
+                swapped = <span class="string">1</span>;
+            }
+        }
+        <span class="keyword">if</span> (!swapped) <span class="keyword">break</span>;
+    }
+}</pre>
+
+            <h3>Merge Sort</h3>
+            <p>Divide il vettore a metà, ordina ricorsivamente, poi fonde le due metà (merge).<br>
+                <strong>Complessità:</strong> O(n·log n) sempre. <strong>Spazio:</strong> O(n) extra. <strong>Stabile:</strong> SÌ.
+            </p>
+            <pre class="modern-code">
+<span class="type">void</span> <span class="function">merge</span>(<span class="type">int</span> *V, <span class="type">int</span> left, <span class="type">int</span> mid, <span class="type">int</span> right) {
+    <span class="type">int</span> n1=mid-left+<span class="string">1</span>, n2=right-mid, L[n1], R[n2], i, j, k;
+    <span class="keyword">for</span>(i=<span class="string">0</span>;i&lt;n1;i++) L[i]=V[left+i];
+    <span class="keyword">for</span>(j=<span class="string">0</span>;j&lt;n2;j++) R[j]=V[mid+<span class="string">1</span>+j];
+    <span class="keyword">for</span>(i=<span class="string">0</span>,j=<span class="string">0</span>,k=left; k&lt;=right; k++) {
+        <span class="keyword">if</span>(i&lt;n1 &amp;&amp; (j&gt;=n2 || L[i]&lt;=R[j])) V[k]=L[i++];
+        <span class="keyword">else</span> V[k]=R[j++];
+    }
+}
+<span class="type">void</span> <span class="function">merge_sort</span>(<span class="type">int</span> *V, <span class="type">int</span> l, <span class="type">int</span> r) {
+    <span class="keyword">if</span>(l &gt;= r) <span class="keyword">return</span>;
+    <span class="type">int</span> m = l + (r-l)/<span class="string">2</span>;
+    <span class="function">merge_sort</span>(V, l, m);
+    <span class="function">merge_sort</span>(V, m+<span class="string">1</span>, r);
+    <span class="function">merge</span>(V, l, m, r);
+}</pre>
+
+            <h3>Quick Sort</h3>
+            <p>Sceglie un <em>pivot</em>, partiziona (minori a sx, maggiori a dx), recurse sulle due parti.<br>
+                <strong>Media:</strong> O(n·log n). <strong>Pessimo:</strong> O(n²) su array già ordinato con pivot=ultimo.
+                <strong>Spazio:</strong> O(log n) stack. <strong>Stabile:</strong> NO. In pratica il più veloce (cache locality).
+            </p>
+            <pre class="modern-code">
+<span class="type">int</span> <span class="function">partition</span>(<span class="type">int</span> *V, <span class="type">int</span> lo, <span class="type">int</span> hi) {
+    <span class="type">int</span> pivot=V[hi], i=lo-<span class="string">1</span>, tmp;
+    <span class="keyword">for</span>(<span class="type">int</span> j=lo; j&lt;hi; j++) {
+        <span class="keyword">if</span>(V[j]&lt;=pivot) { i++; tmp=V[i]; V[i]=V[j]; V[j]=tmp; }
+    }
+    tmp=V[i+<span class="string">1</span>]; V[i+<span class="string">1</span>]=V[hi]; V[hi]=tmp;
+    <span class="keyword">return</span> i+<span class="string">1</span>;
+}
+<span class="type">void</span> <span class="function">quick_sort</span>(<span class="type">int</span> *V, <span class="type">int</span> lo, <span class="type">int</span> hi) {
+    <span class="keyword">if</span>(lo &lt; hi) {
+        <span class="type">int</span> p = <span class="function">partition</span>(V, lo, hi);
+        <span class="function">quick_sort</span>(V, lo, p-<span class="string">1</span>);
+        <span class="function">quick_sort</span>(V, p+<span class="string">1</span>, hi);
+    }
+}</pre>
+
+            <h3>Confronto Algoritmi di Ordinamento</h3>
+            <table class="comparison">
+                <tr><th>Algoritmo</th><th>Best</th><th>Medio</th><th>Worst</th><th>Spazio</th><th>Stabile</th></tr>
+                <tr><td>Selection Sort</td><td>O(n²)</td><td>O(n²)</td><td>O(n²)</td><td>O(1)</td><td>NO</td></tr>
+                <tr><td>Bubble Sort</td><td>O(n)</td><td>O(n²)</td><td>O(n²)</td><td>O(1)</td><td>SÌ</td></tr>
+                <tr><td>Merge Sort</td><td>O(n log n)</td><td>O(n log n)</td><td>O(n log n)</td><td>O(n)</td><td>SÌ</td></tr>
+                <tr><td>Quick Sort</td><td>O(n log n)</td><td>O(n log n)</td><td>O(n²)</td><td>O(log n)</td><td>NO</td></tr>
+            </table>
+        </section>
+
+
+        <!-- ALGORITMI DI RICERCA -->
+        <section class="content-section">
+            <h2>8. Algoritmi di Ricerca</h2>
+
+            <h3>Ricerca Sequenziale (Lineare)</h3>
+            <p>Scansione elemento per elemento. Funziona su qualsiasi array (anche non ordinato).<br>
+                <strong>Complessità:</strong> O(n) nel caso medio e pessimo. O(1) nel caso migliore (primo elemento).
+            </p>
+            <pre class="modern-code">
+<span class="type">int</span> <span class="function">linear_search</span>(<span class="type">int</span> *V, <span class="type">int</span> N, <span class="type">int</span> key) {
+    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="string">0</span>; i&lt;N; i++)
+        <span class="keyword">if</span>(V[i] == key) <span class="keyword">return</span> i;  <span class="comment">// Restituisce indice</span>
+    <span class="keyword">return</span> -<span class="string">1</span>;                      <span class="comment">// Non trovato</span>
+}</pre>
+
+            <h3>Ricerca Binaria (Binary Search)</h3>
+            <p><strong>Prerequisito: array ordinato.</strong> Dimezza lo spazio di ricerca ad ogni passo confrontando
+                con l'elemento centrale.<br>
+                <strong>Complessità:</strong> O(log n). Con n=1.000.000 bastano al massimo 20 confronti!
+                <strong>Non funziona su array non ordinati.</strong>
+            </p>
+            <pre class="modern-code">
+<span class="type">int</span> <span class="function">binary_search</span>(<span class="type">int</span> *V, <span class="type">int</span> N, <span class="type">int</span> key) {
+    <span class="type">int</span> lo=<span class="string">0</span>, hi=N-<span class="string">1</span>, mid;
+    <span class="keyword">while</span>(lo &lt;= hi) {
+        mid = lo + (hi-lo)/<span class="string">2</span>; <span class="comment">// Evita overflow rispetto a (lo+hi)/2</span>
+        <span class="keyword">if</span>(V[mid] == key) <span class="keyword">return</span> mid;
+        <span class="keyword">else if</span>(V[mid] &lt; key)  lo = mid+<span class="string">1</span>;
+        <span class="keyword">else</span>                   hi = mid-<span class="string">1</span>;
+    }
+    <span class="keyword">return</span> -<span class="string">1</span>;
+}</pre>
+
+            <h3>Ricerca a Salti (Jump Search)</h3>
+            <p>Compromesso tra lineare e binaria. Salta di passi di dimensione √n, poi fa ricerca lineare nel blocco.
+                <strong>Complessità:</strong> O(√n). Utile quando il costo di tornare indietro (backward) è alto.
+            </p>
+            <pre class="modern-code">
+<span class="type">int</span> <span class="function">jump_search</span>(<span class="type">int</span> *V, <span class="type">int</span> N, <span class="type">int</span> key) {
+    <span class="type">int</span> step = (<span class="type">int</span>)<span class="function">sqrt</span>(N), prev=<span class="string">0</span>, i;
+    <span class="keyword">while</span>(V[step-<span class="string">1</span>] &lt; key) {
+        prev = step; step += (<span class="type">int</span>)<span class="function">sqrt</span>(N);
+        <span class="keyword">if</span>(prev &gt;= N) <span class="keyword">return</span> -<span class="string">1</span>;
+    }
+    <span class="keyword">for</span>(i=prev; i&lt;step &amp;&amp; i&lt;N; i++)
+        <span class="keyword">if</span>(V[i]==key) <span class="keyword">return</span> i;
+    <span class="keyword">return</span> -<span class="string">1</span>;
+}</pre>
+
+            <h3>Confronto Algoritmi di Ricerca</h3>
+            <table class="comparison">
+                <tr><th>Algoritmo</th><th>Complessità</th><th>Array ordinato?</th><th>Note</th></tr>
+                <tr><td>Sequenziale</td><td>O(n)</td><td>Non richiesto</td><td>Semplice, universale</td></tr>
+                <tr><td>Binaria</td><td>O(log n)</td><td>Obbligatorio</td><td>Ottima per grandi dataset</td></tr>
+                <tr><td>A salti</td><td>O(√n)</td><td>Obbligatorio</td><td>Ottima se backward è costoso</td></tr>
+            </table>
+        </section>
+
+        <!-- COMPLESSITÀ E BIG-O -->
+        <section class="content-section">
+            <h2>9. Complessità e Notazione Big-O</h2>
+            <p>La <strong>complessità computazionale</strong> misura quante risorse (tempo, spazio) un algoritmo usa
+                in funzione della dimensione dell'input n. Si usa la notazione <strong>O grande (Big-O)</strong> che
+                esprime il comportamento asintotico nel caso peggiore.</p>
+
+            <h3>Classi di Complessità Comuni</h3>
+            <table class="comparison">
+                <tr><th>Notazione</th><th>Nome</th><th>Esempio</th><th>n=1000 (ops approx)</th></tr>
+                <tr><td>O(1)</td><td>Costante</td><td>Accesso array per indice</td><td>1</td></tr>
+                <tr><td>O(log n)</td><td>Logaritmica</td><td>Ricerca binaria</td><td>~10</td></tr>
+                <tr><td>O(√n)</td><td>Radice</td><td>Jump search</td><td>~32</td></tr>
+                <tr><td>O(n)</td><td>Lineare</td><td>Ricerca sequenziale</td><td>1.000</td></tr>
+                <tr><td>O(n log n)</td><td>Lineare-logaritmica</td><td>Merge Sort, Quick Sort</td><td>~10.000</td></tr>
+                <tr><td>O(n²)</td><td>Quadratica</td><td>Bubble, Selection Sort</td><td>1.000.000</td></tr>
+                <tr><td>O(2ⁿ)</td><td>Esponenziale</td><td>Forza bruta subset</td><td>≫10³⁰⁰</td></tr>
+            </table>
+
+            <h3>Regole per calcolare la complessità</h3>
+            <ul>
+                <li><strong>Istruzioni semplici</strong> (assegnamento, confronto, aritmetica): O(1).</li>
+                <li><strong>Ciclo for</strong> che esegue n iterazioni con corpo O(1): O(n).</li>
+                <li><strong>Cicli annidati</strong> n×n: O(n²).</li>
+                <li><strong>Divide-and-conquer</strong> (dimezza ad ogni passo): O(log n) per trovare, O(n log n) con merge.</li>
+                <li><strong>Si tiene il termine dominante</strong>: O(n² + n) = O(n²). Si ignorano costanti: O(3n) = O(n).</li>
+            </ul>
+            <pre class="modern-code">
+<span class="comment">// Analisi complessità: quante volte si esegue il corpo del while?</span>
+<span class="type">int</span> i = N;
+<span class="keyword">while</span>(i &gt; <span class="string">1</span>) {
+    i = i / <span class="string">2</span>;  <span class="comment">// i dimezza ogni volta: N, N/2, N/4 ... 1 → log₂(N) iterazioni → O(log n)</span>
+}</pre>
+        </section>
+
+        <!-- RICORSIONE VS ITERAZIONE -->
+        <section class="content-section">
+            <h2>10. Ricorsione vs Iterazione</h2>
+            <p>Un problema ricorsivo si risolve richiamando la stessa funzione su un sotto-problema più piccolo,
+                fino a un <strong>caso base</strong> che viene risolto direttamente. Ogni chiamata ricorsiva occupa
+                un frame nello <strong>stack di chiamata</strong>: troppa profondità causa <em>stack overflow</em>.</p>
+
+            <h3>Regole della Ricorsione</h3>
+            <ul>
+                <li><strong>Caso base:</strong> condizione che termina la ricorsione (es. <code>n == 0</code>).</li>
+                <li><strong>Passo ricorsivo:</strong> riduce il problema e richiama sé stesso.</li>
+                <li><strong>Convergenza:</strong> ogni chiamata deve avvicinarsi al caso base.</li>
+            </ul>
+            <pre class="modern-code">
+<span class="comment">// Fattoriale: ricorsivo O(n) spazio stack, iterativo O(1)</span>
+<span class="type">int</span> <span class="function">fact_r</span>(<span class="type">int</span> n) {
+    <span class="keyword">if</span>(n == <span class="string">0</span>) <span class="keyword">return</span> <span class="string">1</span>;   <span class="comment">// Caso base</span>
+    <span class="keyword">return</span> n * <span class="function">fact_r</span>(n-<span class="string">1</span>); <span class="comment">// Passo ricorsivo</span>
+}
+<span class="type">int</span> <span class="function">fact_i</span>(<span class="type">int</span> n) {
+    <span class="type">int</span> res=<span class="string">1</span>;
+    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="string">2</span>; i&lt;=n; i++) res *= i;
+    <span class="keyword">return</span> res;
+}</pre>
+
+            <h3>Ricorsione su Liste Collegate</h3>
+            <pre class="modern-code">
+<span class="comment">// Stampa ricorsiva di una lista (visita pre-order)</span>
+<span class="type">void</span> <span class="function">print_list</span>(<span class="keyword">struct</span> list *ptr) {
+    <span class="keyword">if</span>(ptr == NULL) <span class="keyword">return</span>; <span class="comment">// Caso base: lista vuota</span>
+    <span class="function">printf</span>(<span class="string">"%d "</span>, ptr-&gt;value);
+    <span class="function">print_list</span>(ptr-&gt;next);  <span class="comment">// Passo ricorsivo sul resto</span>
+}
+<span class="comment">// Stampa inversa (post-order): prima recurse, poi stampa</span>
+<span class="type">void</span> <span class="function">print_reverse</span>(<span class="keyword">struct</span> list *ptr) {
+    <span class="keyword">if</span>(ptr == NULL) <span class="keyword">return</span>;
+    <span class="function">print_reverse</span>(ptr-&gt;next);
+    <span class="function">printf</span>(<span class="string">"%d "</span>, ptr-&gt;value);
+}</pre>
+
+            <table class="comparison">
+                <tr><th>Criterio</th><th>Ricorsione</th><th>Iterazione</th></tr>
+                <tr><td>Leggibilità</td><td>Spesso più chiara</td><td>Più verbosa ma esplicita</td></tr>
+                <tr><td>Spazio stack</td><td>O(profondità) — rischio overflow</td><td>O(1) di solito</td></tr>
+                <tr><td>Performance</td><td>Overhead chiamate funzione</td><td>Generalmente più veloce</td></tr>
+                <tr><td>Uso ideale</td><td>Alberi, grafi, divide-and-conquer</td><td>Cicli semplici, accumulo</td></tr>
+            </table>
+        </section>
+
+        <!-- CODIFICA NUMERICA -->
+        <section class="content-section">
+            <h2>11. Codifica Numerica e Rappresentazione in Memoria</h2>
+
+            <h3>Complemento a Due (Integers con Segno)</h3>
+            <p>Il C (e MIPS) usa il complemento a due per rappresentare interi con segno. Con n bit si rappresentano
+                valori da <strong>-2^(n-1)</strong> a <strong>+2^(n-1) - 1</strong>. Il bit più significativo (MSB)
+                è il bit di segno: 0 = positivo, 1 = negativo.
+            </p>
+            <pre class="modern-code">
+<span class="comment">// Con 4 bit: range -8 a +7</span>
+<span class="comment">// +5  = 0101</span>
+<span class="comment">// -5  = NOT(0101) + 1 = 1010 + 1 = 1011</span>
+<span class="comment">// -1  = 1111   (tutti uno)</span>
+<span class="comment">// -8  = 1000   (solo il bit di segno)</span>
+<span class="comment">// Overflow: +7 + 1 = 0111 + 0001 = 1000 = -8 (wrapping)</span></pre>
+
+            <h3>Tipi e Dimensioni in C / MIPS</h3>
+            <table class="comparison">
+                <tr><th>Tipo C</th><th>Byte</th><th>MIPS</th><th>Range</th></tr>
+                <tr><td><code>char</code></td><td>1</td><td><code>lb</code>/<code>sb</code></td><td>-128 a 127</td></tr>
+                <tr><td><code>short</code></td><td>2</td><td><code>lh</code>/<code>sh</code></td><td>-32768 a 32767</td></tr>
+                <tr><td><code>int</code></td><td>4</td><td><code>lw</code>/<code>sw</code></td><td>-2³¹ a 2³¹-1</td></tr>
+                <tr><td><code>float</code></td><td>4</td><td><code>lwc1</code>/<code>swc1</code></td><td>IEEE 754 single</td></tr>
+                <tr><td><code>double</code></td><td>8</td><td><code>ldc1</code>/<code>sdc1</code></td><td>IEEE 754 double</td></tr>
+                <tr><td><code>puntatore</code></td><td>4 (32-bit)</td><td>registro</td><td>0x00000000–0xFFFFFFFF</td></tr>
+            </table>
+
+            <h3>IEEE 754 Floating Point (float da 32 bit)</h3>
+            <p>Un <code>float</code> è suddiviso in: <strong>1 bit segno</strong> | <strong>8 bit esponente</strong>
+                (bias 127) | <strong>23 bit mantissa</strong>. Valore = (-1)^s × 1.mantissa × 2^(exp-127).</p>
+            <pre class="modern-code">
+<span class="comment">// -6.5 in IEEE 754:</span>
+<span class="comment">// -6.5 = -110.1b = -1.101 × 2^2</span>
+<span class="comment">// segno=1, exp=2+127=129=10000001b, mantissa=10100...0</span>
+<span class="comment">// → 1 10000001 10100000000000000000000</span>
+<span class="comment">// Problemi: 0.1 + 0.2 ≠ 0.3 (rappresentazione non esatta!)</span></pre>
         </section>
 
         <!-- TRADUZIONE ASSEMBLER MIPS -->
         <section class="content-section">
+
             <h2>7. Traduzione C in Assembler MIPS (Architettura R4000)</h2>
             <p>Il processore esegue istruzioni macchina. L'assembler è la forma simbolica. Le variabili in MIPS sono
                 mappate direttamente nei registri (es. <code>$s0</code>, <code>$t1</code>).</p>
@@ -296,7 +553,8 @@ ptrLista-&gt;besello += <span class="string">10</span>;    <span class="comment"
                 <tr>
                     <td>Flusso (Branch/Jump)</td>
                     <td><code>bne $s1, $s2, label</code> (If Not Equal) <br> <code>j label</code> (Jump) <br>
-                        <code>slt $t0, $s1, $t5</code> (Set on Less Than)</td>
+                        <code>slt $t0, $s1, $t5</code> (Set on Less Than)
+                    </td>
                 </tr>
             </table>
 
@@ -330,8 +588,49 @@ ptrLista-&gt;besello += <span class="string">10</span>;    <span class="comment"
 
     <span class="comment"># ... (operazioni ramo IF / ELSE e chiusura ciclo)</span>
 </pre>
+
+            <h3>Registri MIPS (R4000)</h3>
+            <table class="comparison">
+                <tr><th>Registro</th><th>Nome convenzione</th><th>Uso</th></tr>
+                <tr><td><code>$0</code></td><td><code>$zero</code></td><td>Sempre 0 (read-only hardware)</td></tr>
+                <tr><td><code>$1</code></td><td><code>$at</code></td><td>Riservato all'assembler</td></tr>
+                <tr><td><code>$2-$3</code></td><td><code>$v0-$v1</code></td><td>Valori di ritorno delle funzioni</td></tr>
+                <tr><td><code>$4-$7</code></td><td><code>$a0-$a3</code></td><td>Argomenti delle funzioni</td></tr>
+                <tr><td><code>$8-$15</code></td><td><code>$t0-$t7</code></td><td>Temporanei (non preservati dalla chiamata)</td></tr>
+                <tr><td><code>$16-$23</code></td><td><code>$s0-$s7</code></td><td>Variabili salvate (preservate dalla chiamata)</td></tr>
+                <tr><td><code>$24-$25</code></td><td><code>$t8-$t9</code></td><td>Temporanei aggiuntivi</td></tr>
+                <tr><td><code>$28</code></td><td><code>$gp</code></td><td>Global Pointer (dati statici)</td></tr>
+                <tr><td><code>$29</code></td><td><code>$sp</code></td><td>Stack Pointer (punta alla cima dello stack)</td></tr>
+                <tr><td><code>$30</code></td><td><code>$fp</code></td><td>Frame Pointer (base del frame corrente)</td></tr>
+                <tr><td><code>$31</code></td><td><code>$ra</code></td><td>Return Address (indirizzo di ritorno per <code>jal</code>)</td></tr>
+            </table>
+
+            <h3>Formati delle Istruzioni MIPS (32 bit ciascuna)</h3>
+            <table class="comparison">
+                <tr><th>Formato</th><th>Campi (bit)</th><th>Uso tipico</th></tr>
+                <tr><td><strong>R-type</strong></td><td>op(6) | rs(5) | rt(5) | rd(5) | shamt(5) | funct(6)</td><td>Operazioni aritmetiche/logiche tra registri: <code>add, sub, and, or, slt, sll, srl</code></td></tr>
+                <tr><td><strong>I-type</strong></td><td>op(6) | rs(5) | rt(5) | imm(16)</td><td>Operazioni con immediato, load/store, branch: <code>addi, lw, sw, beq, bne</code></td></tr>
+                <tr><td><strong>J-type</strong></td><td>op(6) | address(26)</td><td>Jump incondizionato: <code>j, jal</code></td></tr>
+            </table>
+            <pre class="modern-code">
+<span class="comment"># Esempio R-type: add $t0, $s1, $s2</span>
+<span class="comment"># op=000000 rs=$s1(17=10001) rt=$s2(18=10010) rd=$t0(8=01000) shamt=00000 funct=100000(add)</span>
+<span class="comment"># → 00000010001100100100000000100000</span>
+
+<span class="comment"># Esempio I-type: addi $s0, $s1, 15</span>
+<span class="comment"># op=001000 rs=$s1(17=10001) rt=$s0(16=10000) imm=0000000000001111</span></pre>
+
+            <h3>Segmenti di Memoria in un Programma C/MIPS</h3>
+            <table class="comparison">
+                <tr><th>Segmento</th><th>Contenuto</th><th>Indirizzi MIPS</th></tr>
+                <tr><td><strong>Text</strong></td><td>Istruzioni del programma (codice)</td><td>0x00400000+</td></tr>
+                <tr><td><strong>Data</strong></td><td>Variabili globali e statiche inizializzate</td><td>0x10010000+</td></tr>
+                <tr><td><strong>Heap</strong></td><td>Memoria allocata con <code>malloc</code></td><td>Cresce verso l'alto</td></tr>
+                <tr><td><strong>Stack</strong></td><td>Variabili locali, parametri, RA</td><td>0x7FFFFFFF, cresce verso il basso</td></tr>
+            </table>
         </section>
     </div>
+
 
     <footer>
         <div class="container">

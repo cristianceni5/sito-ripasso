@@ -6,24 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Corso C++ - Programmazione OOP (MICC)</title>
     <link rel="stylesheet" href="styles.css">
-    <style>
-        .download-btn {
-            display: inline-block;
-            background: var(--secondary-color);
-            color: var(--text-color-light);
-            padding: 8px 15px;
-            text-decoration: none;
-            border-radius: 4px;
-            font-size: 14px;
-            margin-right: 10px;
-            margin-bottom: 10px;
-            transition: background 0.3s;
-        }
-        .download-btn:hover {
-            background: var(--pre-bg);
-            color: var(--text-color-light);
-        }
-    </style>
 </head>
 
 <body>
@@ -43,8 +25,9 @@
 
     <div class="container">
         <section class="hero">
-            <h2>Corso C++ (Programmazione ad Oggetti)</h2>
-            <p>Sintesi completa degli appunti del corso MICC &mdash; dal primo HelloWorld all'ereditarietà multipla e al polimorfismo.</p>
+            <h2>Programmazione</h2>
+            <p>Docente: Prof. Marco Bertini | Università degli Studi di Firenze</p>
+            <p>Appunti completi: Dal C a C++, differenze, OOP, ereditarietà, polimorfismo.</p>
         </section>
 
         <!-- ================================================== -->
@@ -52,21 +35,52 @@
         <!-- ================================================== -->
         <section class="content-section">
             <h2>1. Introduzione al C++ e Differenze con il C</h2>
-            <p>Il <strong>C++</strong> è un'estensione del linguaggio C creata da Bjarne Stroustrup. Introduce il paradigma della <strong>Programmazione Orientata agli Oggetti (OOP)</strong> mantenendo la retrocompatibilità (quasi totale) col C.</p>
+            <p>Il <strong>C++</strong> è un'estensione del linguaggio C creata da Bjarne Stroustrup. Introduce il
+                paradigma della <strong>Programmazione Orientata agli Oggetti (OOP)</strong> mantenendo la
+                retrocompatibilità (quasi totale) col C.</p>
 
             <h3>Tabella delle differenze principali</h3>
             <table class="comparison">
-                <tr><th>Aspetto</th><th>C</th><th>C++</th></tr>
-                <tr><td>Dichiarazione variabili</td><td>Solo in cima alla funzione o globalmente</td><td>Ovunque nel codice</td></tr>
-                <tr><td>Librerie</td><td>Hanno estensione <code>.h</code> (es. <code>stdio.h</code>)</td><td>Niente estensione <code>.h</code> (es. <code>&lt;iostream&gt;</code>)</td></tr>
-                <tr><td>I/O</td><td><code>printf</code> / <code>scanf</code></td><td><code>std::cout</code> / <code>std::cin</code></td></tr>
-                <tr><td>Stringhe</td><td>Array di <code>char</code></td><td><code>std::string</code> (type-safe, space-safe)</td></tr>
-                <tr><td>Allocazione dinamica</td><td><code>malloc</code> / <code>free</code></td><td><code>new</code> / <code>delete</code></td></tr>
-                <tr><td>Paradigma</td><td>Procedurale</td><td>OOP + Procedurale</td></tr>
+                <tr>
+                    <th>Aspetto</th>
+                    <th>C</th>
+                    <th>C++</th>
+                </tr>
+                <tr>
+                    <td>Dichiarazione variabili</td>
+                    <td>Solo in cima alla funzione o globalmente</td>
+                    <td>Ovunque nel codice</td>
+                </tr>
+                <tr>
+                    <td>Librerie</td>
+                    <td>Hanno estensione <code>.h</code> (es. <code>stdio.h</code>)</td>
+                    <td>Niente estensione <code>.h</code> (es. <code>&lt;iostream&gt;</code>)</td>
+                </tr>
+                <tr>
+                    <td>I/O</td>
+                    <td><code>printf</code> / <code>scanf</code></td>
+                    <td><code>std::cout</code> / <code>std::cin</code></td>
+                </tr>
+                <tr>
+                    <td>Stringhe</td>
+                    <td>Array di <code>char</code></td>
+                    <td><code>std::string</code> (type-safe, space-safe)</td>
+                </tr>
+                <tr>
+                    <td>Allocazione dinamica</td>
+                    <td><code>malloc</code> / <code>free</code></td>
+                    <td><code>new</code> / <code>delete</code></td>
+                </tr>
+                <tr>
+                    <td>Paradigma</td>
+                    <td>Procedurale</td>
+                    <td>OOP + Procedurale</td>
+                </tr>
             </table>
 
             <h3>Primo programma &amp; Compilazione (E0)</h3>
-            <p>L'esercitazione E0 mostra la struttura base: un <code>main.cpp</code>, un header personalizzato e l'uso di <code>CMakeLists.txt</code> per la compilazione.</p>
+            <p>L'esercitazione E0 mostra la struttura base: un <code>main.cpp</code>, un header personalizzato e l'uso
+                di <code>CMakeLists.txt</code> per la compilazione.</p>
             <pre class="modern-code">
 <span class="comment">// E0_primo/main.cpp</span>
 <span class="directive">#include &lt;iostream&gt;</span>
@@ -79,7 +93,10 @@
 }</pre>
 
             <h3>Compilazione Multi-file (E0b)</h3>
-            <p>Un progetto C++ reale separa il codice in più file (<code>.h</code> dichiarazione, <code>.cpp</code> implementazione). Il <strong>linker</strong> unisce gli object file in un eseguibile. Bisogna <em>sempre</em> includere le parentesi graffe <code>{}</code> per un metodo, anche se vuoto, altrimenti il linker segnala errori.</p>
+            <p>Un progetto C++ reale separa il codice in più file (<code>.h</code> dichiarazione, <code>.cpp</code>
+                implementazione). Il <strong>linker</strong> unisce gli object file in un eseguibile. Bisogna
+                <em>sempre</em> includere le parentesi graffe <code>{}</code> per un metodo, anche se vuoto, altrimenti
+                il linker segnala errori.</p>
             <pre class="modern-code">
 <span class="comment">// E0b_compilation_example/main.cpp</span>
 <span class="directive">#include &lt;iostream&gt;</span>
@@ -100,7 +117,11 @@
 }</pre>
 
             <h3>Namespace e Scope Resolution</h3>
-            <p>Il C++ introduce i <strong>namespace</strong> per evitare conflitti di nomi. L'operatore <code>::</code> è detto <em>scope resolution operator</em>. Un nome preceduto dal suo namespace si chiama <strong>qualified name</strong> (es. <code>std::cout</code>). Il <strong>Name Mangling</strong> permette al compilatore di risolvere nomi unici per entità con lo stesso identificatore ma firme diverse (overloading).</p>
+            <p>Il C++ introduce i <strong>namespace</strong> per evitare conflitti di nomi. L'operatore <code>::</code>
+                è detto <em>scope resolution operator</em>. Un nome preceduto dal suo namespace si chiama
+                <strong>qualified name</strong> (es. <code>std::cout</code>). Il <strong>Name Mangling</strong> permette
+                al compilatore di risolvere nomi unici per entità con lo stesso identificatore ma firme diverse
+                (overloading).</p>
         </section>
 
         <!-- ================================================== -->
@@ -108,15 +129,39 @@
         <!-- ================================================== -->
         <section class="content-section">
             <h2>2. Classi e Oggetti &mdash; ADT e Incapsulamento</h2>
-            <p>Una <strong>Classe</strong> è un "progetto" (un tipo definito dall'utente). Un <strong>Oggetto</strong> è un'istanza concreta in memoria. Ogni classe definisce attributi (variabili membro) e metodi (funzioni membro).</p>
-            <p><strong>ADT (Abstract Data Type):</strong> Un tipo di dato definito dal suo <em>comportamento</em> (interfaccia pubblica), nascondendo l'implementazione interna (<strong>Information Hiding</strong>). Garantisce maggiore certezza e modularità del codice.</p>
+            <p>Una <strong>Classe</strong> è un "progetto" (un tipo definito dall'utente). Un <strong>Oggetto</strong> è
+                un'istanza concreta in memoria. Ogni classe definisce attributi (variabili membro) e metodi (funzioni
+                membro).</p>
+            <p><strong>ADT (Abstract Data Type):</strong> Un tipo di dato definito dal suo <em>comportamento</em>
+                (interfaccia pubblica), nascondendo l'implementazione interna (<strong>Information Hiding</strong>).
+                Garantisce maggiore certezza e modularità del codice.</p>
 
             <h3>Access Specifiers (Visibilità)</h3>
             <table class="comparison">
-                <tr><th>Specifier</th><th>Accesso dalla classe stessa</th><th>Accesso da classi derivate</th><th>Accesso dall'esterno</th></tr>
-                <tr><td><code>public</code></td><td>&#10004;</td><td>&#10004;</td><td>&#10004;</td></tr>
-                <tr><td><code>protected</code></td><td>&#10004;</td><td>&#10004;</td><td>&#10008;</td></tr>
-                <tr><td><code>private</code> (default)</td><td>&#10004;</td><td>&#10008;</td><td>&#10008;</td></tr>
+                <tr>
+                    <th>Specifier</th>
+                    <th>Accesso dalla classe stessa</th>
+                    <th>Accesso da classi derivate</th>
+                    <th>Accesso dall'esterno</th>
+                </tr>
+                <tr>
+                    <td><code>public</code></td>
+                    <td>&#10004;</td>
+                    <td>&#10004;</td>
+                    <td>&#10004;</td>
+                </tr>
+                <tr>
+                    <td><code>protected</code></td>
+                    <td>&#10004;</td>
+                    <td>&#10004;</td>
+                    <td>&#10008;</td>
+                </tr>
+                <tr>
+                    <td><code>private</code> (default)</td>
+                    <td>&#10004;</td>
+                    <td>&#10008;</td>
+                    <td>&#10008;</td>
+                </tr>
             </table>
 
             <h3>Esempio completo: Weapon (E1)</h3>
@@ -155,7 +200,8 @@
 }</pre>
 
             <h3>GameCharacter completo (E1)</h3>
-            <p>Il personaggio del gioco RPG: costruttore con valori di default, overloading di <code>move()</code>, uso di <code>this</code>, e combattimento con Weapon.</p>
+            <p>Il personaggio del gioco RPG: costruttore con valori di default, overloading di <code>move()</code>, uso
+                di <code>this</code>, e combattimento con Weapon.</p>
             <pre class="modern-code">
 <span class="comment">// GameCharacter.h (E1_class_exercise)</span>
 <span class="keyword">class</span> <span class="type">GameCharacter</span> {
@@ -210,15 +256,22 @@
 
             <h3>Tipi di Costruttore</h3>
             <ul>
-                <li><strong>Costruttore di default:</strong> Senza argomenti. Generato automaticamente dal compilatore solo se non ne dichiariamo nessun altro.</li>
+                <li><strong>Costruttore di default:</strong> Senza argomenti. Generato automaticamente dal compilatore
+                    solo se non ne dichiariamo nessun altro.</li>
                 <li><strong>Costruttore parametrico:</strong> Con argomenti. Può avere valori di default.</li>
-                <li><strong>Costruttore di copia (Copy Constructor):</strong> Prende un riferimento const allo stesso tipo. Generato automaticamente dal compilatore (shallow copy).</li>
-                <li><strong><code>explicit</code> Constructor:</strong> Un costruttore con un solo argomento va <em>sempre</em> marcato <code>explicit</code> per prevenire conversioni implicite indesiderate. È una norma anche tra i programmatori C++ di Google.</li>
-                <li><strong>Delegating Constructor:</strong> Un costruttore che invoca un altro costruttore della stessa classe nella lista di inizializzazione.</li>
+                <li><strong>Costruttore di copia (Copy Constructor):</strong> Prende un riferimento const allo stesso
+                    tipo. Generato automaticamente dal compilatore (shallow copy).</li>
+                <li><strong><code>explicit</code> Constructor:</strong> Un costruttore con un solo argomento va
+                    <em>sempre</em> marcato <code>explicit</code> per prevenire conversioni implicite indesiderate. È
+                    una norma anche tra i programmatori C++ di Google.</li>
+                <li><strong>Delegating Constructor:</strong> Un costruttore che invoca un altro costruttore della stessa
+                    classe nella lista di inizializzazione.</li>
             </ul>
 
             <h3>Lista di Inizializzazione</h3>
-            <p>La sintassi <code>: membro1(val1), membro2(val2)</code> è la <strong>lista di inizializzazione</strong> ed è preferibile all'assegnamento nel corpo &mdash; è più efficiente e l'unico modo per inizializzare <code>const</code> e riferimenti.</p>
+            <p>La sintassi <code>: membro1(val1), membro2(val2)</code> è la <strong>lista di inizializzazione</strong>
+                ed è preferibile all'assegnamento nel corpo &mdash; è più efficiente e l'unico modo per inizializzare
+                <code>const</code> e riferimenti.</p>
             <pre class="modern-code">
 <span class="comment">// ✅ Costruttore con lista di inizializzazione</span>
 <span class="type">GameCharacter</span>::<span class="function">GameCharacter</span>(<span class="type">int</span> hp, <span class="type">int</span> a) : HP(hp), armor(a), posX(<span class="string">0</span>), posY(<span class="string">0</span>) {}
@@ -246,8 +299,10 @@
             <h3>Distruttore (<code>~NomeClasse()</code>)</h3>
             <ul>
                 <li>Chiamato automaticamente alla distruzione dell'oggetto (fine scope o <code>delete</code>).</li>
-                <li>Il suo scopo è <strong>pulizia</strong> (liberare risorse: file, memoria heap, connessioni), <em>non</em> deallocare la memoria dell'oggetto stesso.</li>
-                <li>Lo stack viene pulito automaticamente. Il <code>delete</code> serve solo per memoria allocata con <code>new</code>.</li>
+                <li>Il suo scopo è <strong>pulizia</strong> (liberare risorse: file, memoria heap, connessioni),
+                    <em>non</em> deallocare la memoria dell'oggetto stesso.</li>
+                <li>Lo stack viene pulito automaticamente. Il <code>delete</code> serve solo per memoria allocata con
+                    <code>new</code>.</li>
                 <li>Viene generato automaticamente dal compilatore con corpo vuoto.</li>
             </ul>
             <pre class="modern-code">
@@ -257,10 +312,12 @@
 }</pre>
 
             <h3>Il puntatore <code>this</code></h3>
-            <p>Ogni oggetto contiene un puntatore implicito a sé stesso: <code>this</code>. È di tipo <code>NomeClasse*</code>. Serve per:</p>
+            <p>Ogni oggetto contiene un puntatore implicito a sé stesso: <code>this</code>. È di tipo
+                <code>NomeClasse*</code>. Serve per:</p>
             <ul>
                 <li>Distinguere attributi da parametri con lo stesso nome: <code>this-&gt;HP = hp;</code></li>
-                <li>Passare l'indirizzo dell'oggetto corrente ad altri oggetti (<strong>inversione di responsabilità</strong>)</li>
+                <li>Passare l'indirizzo dell'oggetto corrente ad altri oggetti (<strong>inversione di
+                        responsabilità</strong>)</li>
                 <li>Ritornare l'oggetto corrente: <code>return *this;</code></li>
             </ul>
             <pre class="modern-code">
@@ -270,8 +327,10 @@
 
             <h3><code>static</code> Members</h3>
             <ul>
-                <li>Un membro <code>static</code> ha <strong>una sola copia</strong> condivisa tra tutti gli oggetti della classe.</li>
-                <li>Un <strong>metodo statico</strong> non può accedere a membri non-statici (potrebbero non essere inizializzati). Si invoca con <code>Classe::metodo()</code>.</li>
+                <li>Un membro <code>static</code> ha <strong>una sola copia</strong> condivisa tra tutti gli oggetti
+                    della classe.</li>
+                <li>Un <strong>metodo statico</strong> non può accedere a membri non-statici (potrebbero non essere
+                    inizializzati). Si invoca con <code>Classe::metodo()</code>.</li>
                 <li>In C++17 si può fare <code>static inline</code> direttamente nel file <code>.h</code>.</li>
             </ul>
             <pre class="modern-code">
@@ -282,7 +341,9 @@
 <span class="type">GameCharacter</span>::<span class="function">l1Distance</span>(hero, enemy);</pre>
 
             <h3><code>friend</code></h3>
-            <p>Una funzione o classe <code>friend</code> può accedere ai membri <code>private</code> di un'altra classe. <strong>Rompe l'incapsulamento</strong> &mdash; da usare con molta cautela (tipicamente per I/O overloading).</p>
+            <p>Una funzione o classe <code>friend</code> può accedere ai membri <code>private</code> di un'altra classe.
+                <strong>Rompe l'incapsulamento</strong> &mdash; da usare con molta cautela (tipicamente per I/O
+                overloading).</p>
             <pre class="modern-code">
 <span class="keyword">class</span> <span class="type">Point</span> {
 <span class="keyword">private</span>:
@@ -302,7 +363,8 @@
         <!-- ================================================== -->
         <section class="content-section">
             <h2>5. <code>const</code> Correctness</h2>
-            <p>La keyword <code>const</code> in C++ è molto più potente di <code>#define</code> e va usata sistematicamente.</p>
+            <p>La keyword <code>const</code> in C++ è molto più potente di <code>#define</code> e va usata
+                sistematicamente.</p>
 
             <h3>Regole del <code>const</code> con i puntatori</h3>
             <pre class="modern-code">
@@ -312,9 +374,13 @@
 
             <h3>Metodi <code>const</code></h3>
             <ul>
-                <li>Se un metodo è dichiarato <code>const</code>, promette di non modificare l'oggetto. Così può essere chiamato su oggetti costanti.</li>
-                <li>Si può fare <strong>overloading solo con <code>const</code></strong>: se esistono due versioni dello stesso metodo (una <code>const</code> e una no), il compilatore sceglie in base al tipo dell'oggetto.</li>
-                <li>La keyword <code>mutable</code> rilassa il <code>const</code>: un membro <code>mutable</code> può essere modificato anche da metodi <code>const</code> (es. cache, lazy evaluation).</li>
+                <li>Se un metodo è dichiarato <code>const</code>, promette di non modificare l'oggetto. Così può essere
+                    chiamato su oggetti costanti.</li>
+                <li>Si può fare <strong>overloading solo con <code>const</code></strong>: se esistono due versioni dello
+                    stesso metodo (una <code>const</code> e una no), il compilatore sceglie in base al tipo
+                    dell'oggetto.</li>
+                <li>La keyword <code>mutable</code> rilassa il <code>const</code>: un membro <code>mutable</code> può
+                    essere modificato anche da metodi <code>const</code> (es. cache, lazy evaluation).</li>
             </ul>
             <pre class="modern-code">
 <span class="comment">// Getter const (dall'E3): promette di non modificare l'oggetto</span>
@@ -334,7 +400,9 @@
             <h2>6. Shallow Copy vs Deep Copy &amp; Regola dei Tre</h2>
 
             <h3>Metodi generati dal compilatore</h3>
-            <p>Il compilatore genera automaticamente: <strong>costruttore di copia</strong>, <strong>operatore di assegnamento</strong> (<code>operator=</code>) e <strong>distruttore</strong>. Operano una <strong>shallow copy</strong> (copia bit-a-bit).</p>
+            <p>Il compilatore genera automaticamente: <strong>costruttore di copia</strong>, <strong>operatore di
+                    assegnamento</strong> (<code>operator=</code>) e <strong>distruttore</strong>. Operano una
+                <strong>shallow copy</strong> (copia bit-a-bit).</p>
             <pre class="modern-code">
 <span class="comment">// Metodi impliciti generati dal compilatore:</span>
 
@@ -352,7 +420,9 @@
 ~<span class="function">GameCharacter</span>() {}</pre>
 
             <h3>Problema della Shallow Copy con i Puntatori</h3>
-            <p>Con la copia superficiale, i puntatori vengono copiati <em>bit-a-bit</em>: la copia e l'originale <strong>puntano alla stessa memoria</strong>. Se l'originale viene distrutto, il distruttore dealloca la risorsa, e la copia punta a memoria non più valida &rarr; <strong>crash</strong>.</p>
+            <p>Con la copia superficiale, i puntatori vengono copiati <em>bit-a-bit</em>: la copia e l'originale
+                <strong>puntano alla stessa memoria</strong>. Se l'originale viene distrutto, il distruttore dealloca la
+                risorsa, e la copia punta a memoria non più valida &rarr; <strong>crash</strong>.</p>
             <pre class="modern-code">
 <span class="keyword">class</span> <span class="type">GameCharacter</span> {
 <span class="keyword">public</span>:
@@ -368,7 +438,8 @@
 // Quando hero viene distrutto, hero2.inventory punta a memoria deallocata!</span></pre>
 
             <h3>Regola dei Tre (Rule of Three)</h3>
-            <p><strong>Se una classe gestisce risorse</strong> (memoria, file, socket...) allora <em>bisogna</em> implementare esplicitamente tutti e tre:</p>
+            <p><strong>Se una classe gestisce risorse</strong> (memoria, file, socket...) allora <em>bisogna</em>
+                implementare esplicitamente tutti e tre:</p>
             <ol>
                 <li><strong>Copy Constructor</strong> (deep copy)</li>
                 <li><strong>Copy Assignment Operator</strong> (deep copy)</li>
@@ -381,7 +452,8 @@
 ~<span class="function">GameCharacter</span>();                                    <span class="comment">// Destructor</span></pre>
 
             <h3>Disabilitare la copia (<code>= delete</code>)</h3>
-            <p>A volte un oggetto <strong>non deve</strong> essere copiabile (es. singleton, risorse di sistema). Si usa <code>= delete</code>:</p>
+            <p>A volte un oggetto <strong>non deve</strong> essere copiabile (es. singleton, risorse di sistema). Si usa
+                <code>= delete</code>:</p>
             <pre class="modern-code">
 <span class="type">Foo</span>&amp; <span class="keyword">operator</span>=(<span class="keyword">const</span> <span class="type">Foo</span>&amp;) = <span class="keyword">delete</span>;  <span class="comment">// Disabilita l'assegnamento</span></pre>
         </section>
@@ -391,7 +463,9 @@
         <!-- ================================================== -->
         <section class="content-section">
             <h2>7. Overloading degli Operatori</h2>
-            <p>Permette di ridefinire il funzionamento degli operatori standard (<code>+</code>, <code>=</code>, <code>&lt;&lt;</code>, <code>==</code>, <code>[]</code>) per i nostri tipi di dato. In questo modo si possono usare gli oggetti in modo naturale e intuitivo.</p>
+            <p>Permette di ridefinire il funzionamento degli operatori standard (<code>+</code>, <code>=</code>,
+                <code>&lt;&lt;</code>, <code>==</code>, <code>[]</code>) per i nostri tipi di dato. In questo modo si
+                possono usare gli oggetti in modo naturale e intuitivo.</p>
             <pre class="modern-code">
 <span class="comment">// Overloading di operator== con friend</span>
 <span class="keyword">class</span> <span class="type">Point</span> {
@@ -418,29 +492,65 @@
         <!-- ================================================== -->
         <section class="content-section">
             <h2>8. Ereditarietà (Inheritance)</h2>
-            <p>Permette a una nuova classe (<em>Derived</em>) di ereditare proprietà e metodi da una classe base. È una relazione <strong>"Is-A"</strong> ("È un"). In C++ esiste anche l'ereditarietà multipla.</p>
+            <p>Permette a una nuova classe (<em>Derived</em>) di ereditare proprietà e metodi da una classe base. È una
+                relazione <strong>"Is-A"</strong> ("È un"). In C++ esiste anche l'ereditarietà multipla.</p>
 
             <h3>Tipi di Ereditarietà</h3>
             <table class="comparison">
-                <tr><th>Tipo</th><th><code>public</code> della base diventa</th><th><code>protected</code> della base diventa</th><th><code>private</code> della base</th></tr>
-                <tr><td><code>class D : public B</code></td><td><code>public</code></td><td><code>protected</code></td><td>Non accessibile</td></tr>
-                <tr><td><code>class D : protected B</code></td><td><code>protected</code></td><td><code>protected</code></td><td>Non accessibile</td></tr>
-                <tr><td><code>class D : private B</code></td><td><code>private</code></td><td><code>private</code></td><td>Non accessibile</td></tr>
+                <tr>
+                    <th>Tipo</th>
+                    <th><code>public</code> della base diventa</th>
+                    <th><code>protected</code> della base diventa</th>
+                    <th><code>private</code> della base</th>
+                </tr>
+                <tr>
+                    <td><code>class D : public B</code></td>
+                    <td><code>public</code></td>
+                    <td><code>protected</code></td>
+                    <td>Non accessibile</td>
+                </tr>
+                <tr>
+                    <td><code>class D : protected B</code></td>
+                    <td><code>protected</code></td>
+                    <td><code>protected</code></td>
+                    <td>Non accessibile</td>
+                </tr>
+                <tr>
+                    <td><code>class D : private B</code></td>
+                    <td><code>private</code></td>
+                    <td><code>private</code></td>
+                    <td>Non accessibile</td>
+                </tr>
             </table>
-            <p><strong>Ereditarietà pubblica</strong> è la più comune: ci interessa l'<em>interfaccia</em> della classe base.</p>
+            <p><strong>Ereditarietà pubblica</strong> è la più comune: ci interessa l'<em>interfaccia</em> della classe
+                base.</p>
 
             <h3>Ereditarietà vs Composizione</h3>
             <table class="comparison">
-                <tr><th>Inheritance (Is-A)</th><th>Composition (Has-A)</th></tr>
-                <tr><td><code>class Student : public Person</code></td><td><code>class Person { Address home; Address office; }</code></td></tr>
-                <tr><td>Si può usare una sola volta per tipo base</td><td>Si può usare più volte</td></tr>
+                <tr>
+                    <th>Inheritance (Is-A)</th>
+                    <th>Composition (Has-A)</th>
+                </tr>
+                <tr>
+                    <td><code>class Student : public Person</code></td>
+                    <td><code>class Person { Address home; Address office; }</code></td>
+                </tr>
+                <tr>
+                    <td>Si può usare una sola volta per tipo base</td>
+                    <td>Si può usare più volte</td>
+                </tr>
             </table>
 
             <h3>Liskov Substitution Principle</h3>
-            <p>Un oggetto derivato deve poter <strong>sostituire</strong> il suo tipo base senza rompere il programma. Funziona solo in una direzione: se <code>Student : public Person</code>, allora <code>eat(Student)</code> funziona, ma <code>study(Person)</code> no. <strong>Esempio critico:</strong> Se <code>Penguin : Bird</code> e <code>Bird</code> ha <code>fly()</code>, il pinguino viola il principio perché non può volare.</p>
+            <p>Un oggetto derivato deve poter <strong>sostituire</strong> il suo tipo base senza rompere il programma.
+                Funziona solo in una direzione: se <code>Student : public Person</code>, allora
+                <code>eat(Student)</code> funziona, ma <code>study(Person)</code> no. <strong>Esempio critico:</strong>
+                Se <code>Penguin : Bird</code> e <code>Bird</code> ha <code>fly()</code>, il pinguino viola il principio
+                perché non può volare.</p>
 
             <h3>Costruttori ed Ereditarietà</h3>
-            <p>Il costruttore della classe derivata invoca il costruttore della base nella lista di inizializzazione. La catena di distruzione procede dalla derivata verso la base.</p>
+            <p>Il costruttore della classe derivata invoca il costruttore della base nella lista di inizializzazione. La
+                catena di distruzione procede dalla derivata verso la base.</p>
             <pre class="modern-code">
 <span class="comment">// Sword estende Weapon: chiama il costruttore della base</span>
 <span class="type">Sword</span>::<span class="function">Sword</span>(<span class="type">int</span> s, <span class="type">bool</span> m, <span class="type">bool</span> v) : <span class="function">Weapon</span>(s, m), valirian(v) {
@@ -460,13 +570,21 @@
             <h3>Il Problema del Binding Statico</h3>
             <p><strong>Regola del Binding (comportamento default del compilatore):</strong></p>
             <ol>
-                <li>Se ho una variabile su cui chiamo un metodo, il compilatore chiama il metodo del <strong>tipo della variabile</strong> (non dell'oggetto reale).</li>
-                <li>Se ho un puntatore, sarà chiamato il metodo del <strong>tipo del puntatore</strong>, non dell'oggetto puntato.</li>
+                <li>Se ho una variabile su cui chiamo un metodo, il compilatore chiama il metodo del <strong>tipo della
+                        variabile</strong> (non dell'oggetto reale).</li>
+                <li>Se ho un puntatore, sarà chiamato il metodo del <strong>tipo del puntatore</strong>, non
+                    dell'oggetto puntato.</li>
             </ol>
-            <p>Nel metodo <code>fight()</code> di <code>GameCharacter</code> si chiama <code>weapon-&gt;use()</code>. Ma <code>weapon</code> è un puntatore a <code>Weapon*</code>: senza <code>virtual</code>, chiamerebbe <em>sempre</em> <code>Weapon::use()</code>, anche se l'oggetto reale è un <code>Sword</code> o un <code>Bow</code>!</p>
+            <p>Nel metodo <code>fight()</code> di <code>GameCharacter</code> si chiama <code>weapon-&gt;use()</code>. Ma
+                <code>weapon</code> è un puntatore a <code>Weapon*</code>: senza <code>virtual</code>, chiamerebbe
+                <em>sempre</em> <code>Weapon::use()</code>, anche se l'oggetto reale è un <code>Sword</code> o un
+                <code>Bow</code>!</p>
 
             <h3><code>virtual</code> e <code>override</code></h3>
-            <p>Marcando il metodo come <strong><code>virtual</code></strong> nella classe base, si ritarda la decisione all'esecuzione (<em>late binding</em>). Quando un metodo è <code>virtual</code>, <strong>rimane tale per tutta la gerarchia</strong>. Le classi derivate usano <code>override</code> per dichiarare esplicitamente la riscrittura.</p>
+            <p>Marcando il metodo come <strong><code>virtual</code></strong> nella classe base, si ritarda la decisione
+                all'esecuzione (<em>late binding</em>). Quando un metodo è <code>virtual</code>, <strong>rimane tale per
+                    tutta la gerarchia</strong>. Le classi derivate usano <code>override</code> per dichiarare
+                esplicitamente la riscrittura.</p>
             <pre class="modern-code">
 <span class="comment">// Weapon.h (E3) - metodo virtual nella base</span>
 <span class="keyword">class</span> <span class="type">Weapon</span> {
@@ -512,9 +630,12 @@
 
             <h3>Regole chiave per <code>override</code></h3>
             <ul>
-                <li><code>override</code> va messo <strong>solo nella dichiarazione</strong> (<code>.h</code>), <em>mai</em> nella definizione (<code>.cpp</code>).</li>
-                <li>Il compilatore verifica che esista effettivamente un metodo virtuale con la stessa firma nella classe base.</li>
-                <li>La scelta di <strong>quali metodi devono essere virtuali</strong> è una decisione architetturale <em>importantissima</em>.</li>
+                <li><code>override</code> va messo <strong>solo nella dichiarazione</strong> (<code>.h</code>),
+                    <em>mai</em> nella definizione (<code>.cpp</code>).</li>
+                <li>Il compilatore verifica che esista effettivamente un metodo virtuale con la stessa firma nella
+                    classe base.</li>
+                <li>La scelta di <strong>quali metodi devono essere virtuali</strong> è una decisione architetturale
+                    <em>importantissima</em>.</li>
             </ul>
         </section>
 
@@ -524,11 +645,16 @@
         <section class="content-section">
             <h2>10. Principi di Design OOP</h2>
             <ul>
-                <li><strong>Single Responsibility Principle (SRP):</strong> Ogni classe ha una sola responsabilità. Se ha più "cose da fare", va scomposta. <em>Trucco:</em> se il nome della classe non descrive bene cosa fa un metodo, quel metodo probabilmente non appartiene a quella classe.</li>
-                <li><strong>Open/Closed Principle (OCP):</strong> Aperto all'estensione, chiuso alla modifica. L'ereditarietà e il polimorfismo supportano questo principio.</li>
-                <li><strong>Liskov Substitution Principle (LSP):</strong> Un oggetto derivato deve poter sostituire la sua base senza errori (vedi sopra: il caso <code>Penguin/Bird</code>).</li>
+                <li><strong>Single Responsibility Principle (SRP):</strong> Ogni classe ha una sola responsabilità. Se
+                    ha più "cose da fare", va scomposta. <em>Trucco:</em> se il nome della classe non descrive bene cosa
+                    fa un metodo, quel metodo probabilmente non appartiene a quella classe.</li>
+                <li><strong>Open/Closed Principle (OCP):</strong> Aperto all'estensione, chiuso alla modifica.
+                    L'ereditarietà e il polimorfismo supportano questo principio.</li>
+                <li><strong>Liskov Substitution Principle (LSP):</strong> Un oggetto derivato deve poter sostituire la
+                    sua base senza errori (vedi sopra: il caso <code>Penguin/Bird</code>).</li>
                 <li><strong>DRY (Don't Repeat Yourself):</strong> Evitare duplicazione di codice.</li>
-                <li><strong>Coesione alta, Accoppiamento basso:</strong> Le classi devono fare poche cose ma bene (coesione) ed essere il più indipendenti possibile (accoppiamento basso).</li>
+                <li><strong>Coesione alta, Accoppiamento basso:</strong> Le classi devono fare poche cose ma bene
+                    (coesione) ed essere il più indipendenti possibile (accoppiamento basso).</li>
             </ul>
         </section>
 
@@ -537,7 +663,9 @@
         <!-- ================================================== -->
         <section class="content-section">
             <h2>11. <code>enum class</code> (C++11)</h2>
-            <p>Il C++11 introduce <code>enum class</code> (detto <em>scoped enum</em>) come alternativa tipizzata e sicura alla vecchia <code>enum</code> del C. I valori non inquinano il namespace e non si convertono implicitamente a <code>int</code>.</p>
+            <p>Il C++11 introduce <code>enum class</code> (detto <em>scoped enum</em>) come alternativa tipizzata e
+                sicura alla vecchia <code>enum</code> del C. I valori non inquinano il namespace e non si convertono
+                implicitamente a <code>int</code>.</p>
             <pre class="modern-code">
 <span class="comment">// E2 / E3 - GameEvent come enum class</span>
 <span class="keyword">enum class</span> <span class="type">GameEvent</span> {
@@ -567,7 +695,9 @@
         <!-- ================================================== -->
         <section class="content-section">
             <h2>12. Classe Dice: <code>static</code>, <code>srand</code> e <code>const</code> come membro</h2>
-            <p>La classe <code>Dice</code> (E2/E3) è un ottimo esempio pratico di utilizzo avanzato di: membro <code>static</code> condiviso tra tutte le istanze, membro <code>const</code> inizializzato nella lista, e uso di <code>srand</code>/<code>rand</code> con re-seeding controllato.</p>
+            <p>La classe <code>Dice</code> (E2/E3) è un ottimo esempio pratico di utilizzo avanzato di: membro
+                <code>static</code> condiviso tra tutte le istanze, membro <code>const</code> inizializzato nella lista,
+                e uso di <code>srand</code>/<code>rand</code> con re-seeding controllato.</p>
             <pre class="modern-code">
 <span class="comment">// Dice.h (E2_class_exercise)</span>
 <span class="keyword">class</span> <span class="type">Dice</span> {
@@ -599,7 +729,10 @@
         result += <span class="function">rand</span>() % faces;
     <span class="keyword">return</span> result;
 }</pre>
-            <p><strong>Nota importante su <code>srand</code>:</strong> Chiamare <code>srand(time(0))</code> ripetutamente in poco tempo assegna lo stesso seed (perché <code>time()</code> ha risoluzione al secondo) producendo la stessa sequenza. Per questo si usa un contatore statico <code>numRoll</code> che triggera il re-seed solo ogni NUM_MAX lanci.</p>
+            <p><strong>Nota importante su <code>srand</code>:</strong> Chiamare <code>srand(time(0))</code>
+                ripetutamente in poco tempo assegna lo stesso seed (perché <code>time()</code> ha risoluzione al
+                secondo) producendo la stessa sequenza. Per questo si usa un contatore statico <code>numRoll</code> che
+                triggera il re-seed solo ogni NUM_MAX lanci.</p>
 
             <h3>Dice in GameCharacter.cpp (E3)</h3>
             <p>Il metodo <code>fight()</code> usa un dado a 6 facce per introdurre casualità nel combattimento:</p>
@@ -624,7 +757,9 @@
         <!-- ================================================== -->
         <section class="content-section">
             <h2>13. Implementazione Completa della Deep Copy (E3)</h2>
-            <p>In E3, <code>GameCharacter</code> gestisce un puntatore a <code>Weapon*</code>. La shallow copy del compilatore causerebbe doppia deallocazione. Ecco l'implementazione completa della <strong>Rule of Three</strong>:</p>
+            <p>In E3, <code>GameCharacter</code> gestisce un puntatore a <code>Weapon*</code>. La shallow copy del
+                compilatore causerebbe doppia deallocazione. Ecco l'implementazione completa della <strong>Rule of
+                    Three</strong>:</p>
             <pre class="modern-code">
 <span class="comment">// Copy Constructor: deep copy del puntatore weapon</span>
 <span class="type">GameCharacter</span>::<span class="function">GameCharacter</span>(<span class="keyword">const</span> <span class="type">GameCharacter</span> &amp;original) {
@@ -661,7 +796,9 @@
     <span class="keyword">if</span> (weapon != <span class="keyword">nullptr</span>)
         <span class="keyword">delete</span> weapon;                <span class="comment">// Evita delete su nullptr</span>
 }</pre>
-            <p><strong>Il Self-Assignment Check (<code>if (this != &amp;right)</code>) è critico!</strong> Senza di esso, se scrivi <code>hero = hero;</code>, il codice prima dealloca <code>weapon</code> e poi cerca di copiarlo: crash immediato.</p>
+            <p><strong>Il Self-Assignment Check (<code>if (this != &amp;right)</code>) è critico!</strong> Senza di
+                esso, se scrivi <code>hero = hero;</code>, il codice prima dealloca <code>weapon</code> e poi cerca di
+                copiarlo: crash immediato.</p>
         </section>
 
         <!-- ================================================== -->
@@ -669,10 +806,13 @@
         <!-- ================================================== -->
         <section class="content-section">
             <h2>14. Specializzazioni dei Personaggi (E3)</h2>
-            <p>L'esercitazione E3 costruisce una gerarchia di classi derivate da <code>GameCharacter</code>, ognuna con comportamenti specifici. Questo è polimorfismo in azione.</p>
+            <p>L'esercitazione E3 costruisce una gerarchia di classi derivate da <code>GameCharacter</code>, ognuna con
+                comportamenti specifici. Questo è polimorfismo in azione.</p>
 
             <h3>Knight (Cavaliere)</h3>
-            <p>Ha <em>destrezza</em> (<code>dexterity</code>) e può essere un <em>paladino</em> (<code>paladin</code>). Override di <code>fight()</code> (secondo attacco se destrezza &gt; 10, +10 danno se paladino) e di <code>move()</code> (+1 movimento se destrezza &gt; 10).</p>
+            <p>Ha <em>destrezza</em> (<code>dexterity</code>) e può essere un <em>paladino</em> (<code>paladin</code>).
+                Override di <code>fight()</code> (secondo attacco se destrezza &gt; 10, +10 danno se paladino) e di
+                <code>move()</code> (+1 movimento se destrezza &gt; 10).</p>
             <pre class="modern-code">
 <span class="comment">// Knight.h</span>
 <span class="keyword">class</span> <span class="type">Knight</span> : <span class="keyword">public</span> <span class="type">GameCharacter</span> {
@@ -687,7 +827,9 @@
 };</pre>
 
             <h3>Wizard (Mago)</h3>
-            <p>Ha <em>mana</em> e un <em>nome</em>. Override di <code>fight()</code> che usa il mana per cambiare il comportamento. Introduce <code>doMagic()</code> come nuovo metodo <code>virtual</code> (può essere ulteriormente esteso da sottoclassi di Wizard).</p>
+            <p>Ha <em>mana</em> e un <em>nome</em>. Override di <code>fight()</code> che usa il mana per cambiare il
+                comportamento. Introduce <code>doMagic()</code> come nuovo metodo <code>virtual</code> (può essere
+                ulteriormente esteso da sottoclassi di Wizard).</p>
             <pre class="modern-code">
 <span class="comment">// Wizard.h</span>
 <span class="keyword">class</span> <span class="type">Wizard</span> : <span class="keyword">public</span> <span class="type">GameCharacter</span> {
@@ -701,7 +843,8 @@
 };</pre>
 
             <h3>Orc (Nemico)</h3>
-            <p>Nemico con forza bruta. Override di <code>fight()</code> (secondo attacco se forza &gt; 10) e <code>move()</code>.</p>
+            <p>Nemico con forza bruta. Override di <code>fight()</code> (secondo attacco se forza &gt; 10) e
+                <code>move()</code>.</p>
             <pre class="modern-code">
 <span class="comment">// Orc.h</span>
 <span class="keyword">class</span> <span class="type">Orc</span> : <span class="keyword">public</span> <span class="type">GameCharacter</span> {
@@ -714,7 +857,8 @@
 };</pre>
 
             <h3>Skeleton (Nemico)</h3>
-            <p>Nemico resistente alla magia. Override di <code>receiveDamage()</code>: se <code>magicRecover</code> è true, il danno magico viene ridotto.</p>
+            <p>Nemico resistente alla magia. Override di <code>receiveDamage()</code>: se <code>magicRecover</code> è
+                true, il danno magico viene ridotto.</p>
             <pre class="modern-code">
 <span class="comment">// Skeleton.h</span>
 <span class="keyword">class</span> <span class="type">Skeleton</span> : <span class="keyword">public</span> <span class="type">GameCharacter</span> {
@@ -731,7 +875,11 @@
         <!-- ================================================== -->
         <section class="content-section">
             <h2>15. Polimorfismo in Azione: <code>getCharacterSymbol()</code></h2>
-            <p>Il momento più bello di E3: un puntatore <code>GameCharacter*</code> può puntare a un <code>Knight</code>, un <code>Wizard</code>, un <code>Orc</code> o uno <code>Skeleton</code>. Grazie al polimorfismo, chiamare <code>getCharacterSymbol()</code> restituisce il simbolo corretto a runtime (<code>'K'</code>, <code>'W'</code>, <code>'O'</code>, <code>'S'</code>) senza dover sapere il tipo concreto.</p>
+            <p>Il momento più bello di E3: un puntatore <code>GameCharacter*</code> può puntare a un
+                <code>Knight</code>, un <code>Wizard</code>, un <code>Orc</code> o uno <code>Skeleton</code>. Grazie al
+                polimorfismo, chiamare <code>getCharacterSymbol()</code> restituisce il simbolo corretto a runtime
+                (<code>'K'</code>, <code>'W'</code>, <code>'O'</code>, <code>'S'</code>) senza dover sapere il tipo
+                concreto.</p>
             <pre class="modern-code">
 <span class="comment">// E3 main.cpp - il commento "XXX polymorphism in action" è del prof!</span>
 <span class="type">bool</span> <span class="function">checkMonsterPosition</span>(<span class="type">int</span> x, <span class="type">int</span> y, <span class="keyword">const</span> <span class="type">GameCharacter</span>&amp; enemy, <span class="type">char</span>&amp; renderSymbol) {
@@ -755,7 +903,9 @@
 <span class="function">renderHUD</span>(*hero);</pre>
 
             <h3>Classe Dungeon</h3>
-            <p>Il <code>Dungeon</code> è la mappa di gioco generata proceduralmente. Usa un array dinamico <code>TileType* dungeonMap</code> e ha membri <code>const</code> per xmax, ymax, chanceRoom ecc., che devono essere inizializzati nella lista di inizializzazione del costruttore.</p>
+            <p>Il <code>Dungeon</code> è la mappa di gioco generata proceduralmente. Usa un array dinamico
+                <code>TileType* dungeonMap</code> e ha membri <code>const</code> per xmax, ymax, chanceRoom ecc., che
+                devono essere inizializzati nella lista di inizializzazione del costruttore.</p>
             <pre class="modern-code">
 <span class="comment">// Dungeon.h - membri const, puntatore dinamico, metodi privati</span>
 <span class="keyword">class</span> <span class="type">Dungeon</span> {
@@ -781,7 +931,10 @@
         <!-- ================================================== -->
         <section class="content-section">
             <h2>16. Game Loop Pattern e Architettura dell'Applicazione (E2/E3)</h2>
-            <p>Il progetto RPG demonstra un pattern fondamentale dell'architettura software: il <strong>Game Loop</strong>. Il loop ripete all'infinito: <em>poll input → update stato → render</em>. Vedi <a href="http://gameprogrammingpatterns.com/game-loop.html" target="_blank" style="color: var(--primary-color);">gameprogrammingpatterns.com/game-loop.html</a>.</p>
+            <p>Il progetto RPG demonstra un pattern fondamentale dell'architettura software: il <strong>Game
+                    Loop</strong>. Il loop ripete all'infinito: <em>poll input → update stato → render</em>. Vedi <a
+                    href="http://gameprogrammingpatterns.com/game-loop.html" target="_blank"
+                    style="color: var(--primary-color);">gameprogrammingpatterns.com/game-loop.html</a>.</p>
             <pre class="modern-code">
 <span class="comment">// main.cpp (E2/E3) - Struttura del Game Loop</span>
 <span class="type">int</span> <span class="function">main</span>() {
@@ -813,13 +966,34 @@
             <h3>Separazione delle Responsabilità (SRP in pratica)</h3>
             <p>Il codice di E2/E3 mostra SRP "in the wild": ogni funzione ha un unico scopo.</p>
             <table class="comparison">
-                <tr><th>Funzione</th><th>Responsabilità</th></tr>
-                <tr><td><code>getEvent()</code></td><td>Solo lettura da tastiera, mappa <code>char</code> a <code>GameEvent</code></td></tr>
-                <tr><td><code>isLegalCell()</code></td><td>Solo: questa cella è percorribile?</td></tr>
-                <tr><td><code>isLegalMove()</code></td><td>Solo: questo movimento è legale? (usa isLegalCell + check nemici)</td></tr>
-                <tr><td><code>updateGame()</code></td><td>Solo: applica l'evento al game state</td></tr>
-                <tr><td><code>renderGame()</code></td><td>Solo: disegna a schermo il game state corrente</td></tr>
-                <tr><td><code>renderHUD()</code></td><td>Solo: stampa HP, armor, weapon strength dell'eroe</td></tr>
+                <tr>
+                    <th>Funzione</th>
+                    <th>Responsabilità</th>
+                </tr>
+                <tr>
+                    <td><code>getEvent()</code></td>
+                    <td>Solo lettura da tastiera, mappa <code>char</code> a <code>GameEvent</code></td>
+                </tr>
+                <tr>
+                    <td><code>isLegalCell()</code></td>
+                    <td>Solo: questa cella è percorribile?</td>
+                </tr>
+                <tr>
+                    <td><code>isLegalMove()</code></td>
+                    <td>Solo: questo movimento è legale? (usa isLegalCell + check nemici)</td>
+                </tr>
+                <tr>
+                    <td><code>updateGame()</code></td>
+                    <td>Solo: applica l'evento al game state</td>
+                </tr>
+                <tr>
+                    <td><code>renderGame()</code></td>
+                    <td>Solo: disegna a schermo il game state corrente</td>
+                </tr>
+                <tr>
+                    <td><code>renderHUD()</code></td>
+                    <td>Solo: stampa HP, armor, weapon strength dell'eroe</td>
+                </tr>
             </table>
         </section>
 
@@ -828,136 +1002,722 @@
         <!-- ================================================== -->
         <section class="content-section">
             <h2>17. Grammatica e Semantica del C++ &mdash; Riferimento Completo</h2>
-            <p>Questa tabella raccoglie <strong>ogni costrutto fondamentale del C++</strong> con la sua sintassi esatta, il significato semantico preciso, e un esempio applicato. È pensata come riferimento rapido e completo per prepararsi all'esame.</p>
+            <p>Questa tabella raccoglie <strong>ogni costrutto fondamentale del C++</strong> con la sua sintassi esatta,
+                il significato semantico preciso, e un esempio applicato. È pensata come riferimento rapido e completo
+                per prepararsi all'esame.</p>
 
             <h3>Tipi di Dato Fondamentali</h3>
             <table class="comparison">
-                <tr><th>Tipo</th><th>Dimensione tipica</th><th>Intervallo / Comportamento</th><th>Note semantiche</th></tr>
-                <tr><td><code>bool</code></td><td>1 byte</td><td><code>true</code> o <code>false</code>.</td><td>Convertito implicitamente a <code>int</code> (0/1). Qualsiasi valore non-zero è considerato <code>true</code> dal compilatore. <strong>Evitare</strong> confronti come <code>if (flag == true)</code>: preferire <code>if (flag)</code>.</td></tr>
-                <tr><td><code>char</code></td><td>1 byte</td><td>-128 a 127 (o 0-255 se <code>unsigned</code>)</td><td>Rappresenta un singolo carattere ASCII. Internamente è un intero: <code>'A'</code> vale 65. Usare <code>signed char</code> o <code>unsigned char</code> quando si lavora con valori numerici a 8-bit per chiarezza.</td></tr>
-                <tr><td><code>int</code></td><td>4 byte</td><td>-2.147.483.648 a +2.147.483.647</td><td>Il tipo intero "preferito" del processore (word size nativa). L'overflow non viene segnalato a runtime: il risultato è <em>undefined behavior</em> in C++. Usare <code>long long</code> o <code>int64_t</code> per valori grandi.</td></tr>
-                <tr><td><code>long long</code></td><td>8 byte</td><td>±9,2 × 10<sup>18</sup></td><td>Garantito almeno 64 bit su tutti i compilatori C++11+. Usare il suffisso <code>LL</code> nei letterali: <code>9000000000LL</code>.</td></tr>
-                <tr><td><code>float</code></td><td>4 byte</td><td>~7 cifre decimali significative</td><td>IEEE 754 single precision. Attenzione: <code>0.1f + 0.2f != 0.3f</code> a causa dell'aritmetica floating point. Non usare per confronti esatti: usare <code>std::abs(a-b) &lt; epsilon</code>.</td></tr>
-                <tr><td><code>double</code></td><td>8 byte</td><td>~15 cifre decimali significative</td><td>IEEE 754 double precision. Il tipo floating point di default in C++. Il letterale <code>3.14</code> è un <code>double</code>; <code>3.14f</code> è un <code>float</code>.</td></tr>
-                <tr><td><code>void</code></td><td>—</td><td>Tipo "vuoto"</td><td>Non può essere istanziato. Usato: (1) come tipo di ritorno di funzioni senza valore di ritorno; (2) come <code>void*</code> puntatore generico (non tipizzato). Non si può dereferenziare un <code>void*</code> senza prima fare un cast.</td></tr>
-                <tr><td><code>std::string</code></td><td>Variabile</td><td>Sequenza di caratteri di lunghezza arbitraria</td><td>Non è un tipo primitivo ma una classe della STL. Gestisce automaticamente la memoria (RAII). Supporta <code>+</code> per concatenazione, <code>==</code> per confronto, <code>.size()</code>, <code>.substr()</code>, <code>.find()</code>. È <em>type-safe</em> e <em>space-safe</em> (supporta spazi, a differenza degli array di <code>char</code> in C).</td></tr>
+                <tr>
+                    <th>Tipo</th>
+                    <th>Dimensione tipica</th>
+                    <th>Intervallo / Comportamento</th>
+                    <th>Note semantiche</th>
+                </tr>
+                <tr>
+                    <td><code>bool</code></td>
+                    <td>1 byte</td>
+                    <td><code>true</code> o <code>false</code>.</td>
+                    <td>Convertito implicitamente a <code>int</code> (0/1). Qualsiasi valore non-zero è considerato
+                        <code>true</code> dal compilatore. <strong>Evitare</strong> confronti come
+                        <code>if (flag == true)</code>: preferire <code>if (flag)</code>.</td>
+                </tr>
+                <tr>
+                    <td><code>char</code></td>
+                    <td>1 byte</td>
+                    <td>-128 a 127 (o 0-255 se <code>unsigned</code>)</td>
+                    <td>Rappresenta un singolo carattere ASCII. Internamente è un intero: <code>'A'</code> vale 65.
+                        Usare <code>signed char</code> o <code>unsigned char</code> quando si lavora con valori numerici
+                        a 8-bit per chiarezza.</td>
+                </tr>
+                <tr>
+                    <td><code>int</code></td>
+                    <td>4 byte</td>
+                    <td>-2.147.483.648 a +2.147.483.647</td>
+                    <td>Il tipo intero "preferito" del processore (word size nativa). L'overflow non viene segnalato a
+                        runtime: il risultato è <em>undefined behavior</em> in C++. Usare <code>long long</code> o
+                        <code>int64_t</code> per valori grandi.</td>
+                </tr>
+                <tr>
+                    <td><code>long long</code></td>
+                    <td>8 byte</td>
+                    <td>±9,2 × 10<sup>18</sup></td>
+                    <td>Garantito almeno 64 bit su tutti i compilatori C++11+. Usare il suffisso <code>LL</code> nei
+                        letterali: <code>9000000000LL</code>.</td>
+                </tr>
+                <tr>
+                    <td><code>float</code></td>
+                    <td>4 byte</td>
+                    <td>~7 cifre decimali significative</td>
+                    <td>IEEE 754 single precision. Attenzione: <code>0.1f + 0.2f != 0.3f</code> a causa dell'aritmetica
+                        floating point. Non usare per confronti esatti: usare <code>std::abs(a-b) &lt; epsilon</code>.
+                    </td>
+                </tr>
+                <tr>
+                    <td><code>double</code></td>
+                    <td>8 byte</td>
+                    <td>~15 cifre decimali significative</td>
+                    <td>IEEE 754 double precision. Il tipo floating point di default in C++. Il letterale
+                        <code>3.14</code> è un <code>double</code>; <code>3.14f</code> è un <code>float</code>.</td>
+                </tr>
+                <tr>
+                    <td><code>void</code></td>
+                    <td>—</td>
+                    <td>Tipo "vuoto"</td>
+                    <td>Non può essere istanziato. Usato: (1) come tipo di ritorno di funzioni senza valore di ritorno;
+                        (2) come <code>void*</code> puntatore generico (non tipizzato). Non si può dereferenziare un
+                        <code>void*</code> senza prima fare un cast.</td>
+                </tr>
+                <tr>
+                    <td><code>std::string</code></td>
+                    <td>Variabile</td>
+                    <td>Sequenza di caratteri di lunghezza arbitraria</td>
+                    <td>Non è un tipo primitivo ma una classe della STL. Gestisce automaticamente la memoria (RAII).
+                        Supporta <code>+</code> per concatenazione, <code>==</code> per confronto, <code>.size()</code>,
+                        <code>.substr()</code>, <code>.find()</code>. È <em>type-safe</em> e <em>space-safe</em>
+                        (supporta spazi, a differenza degli array di <code>char</code> in C).</td>
+                </tr>
             </table>
 
             <h3>Dichiarazioni e Inizializzazioni</h3>
             <table class="comparison">
-                <tr><th>Costrutto</th><th>Sintassi</th><th>Semantica dettagliata</th></tr>
-                <tr><td>Dichiarazione variabile</td><td><code>Tipo nome;</code></td><td>Riserva spazio in memoria per la variabile. <strong>Se è locale (sullo stack) NON viene inizializzata automaticamente</strong>: il suo valore è spazzatura (garbage). <strong>Se è globale o static</strong>, viene zero-inizializzata automaticamente prima del <code>main()</code>. Questo è un errore comune: leggere una variabile locale non inizializzata è <em>undefined behavior</em>.</td></tr>
-                <tr><td>Inizializzazione con <code>=</code></td><td><code>int x = 5;</code></td><td>Sintassi "tradizionale" C. Chiama il <strong>costruttore di copia</strong> (prima C++11). Con i tipi primitivi è equivalente all'inizializzazione diretta.</td></tr>
-                <tr><td>Inizializzazione diretta</td><td><code>int x(5);</code></td><td>Chiama il costruttore direttamente. Unica forma disponibile prima del C++11 per inizializzare oggetti con argomenti.</td></tr>
-                <tr><td>Uniform initialization (C++11)</td><td><code>int x{5};</code></td><td>Introdotta in C++11. Previene il <strong>narrowing</strong>: <code>int x{3.7}</code> è un <em>errore di compilazione</em>, mentre <code>int x = 3.7</code> compila silenziosamente (con troncamento). È la forma <strong>consigliata</strong> per inizializzazioni in classi e costruttori.</td></tr>
-                <tr><td><code>const</code></td><td><code>const int N = 10;</code></td><td>Rende la variabile immutabile dopo l'inizializzazione. <strong>DEVE essere inizializzata nella stessa istruzione</strong> (o nella lista di inizializzazione del costruttore per i membri di classe). Il compilatore può ottimizzare le costanti folding-le (sostituendo i punti di uso con il valore diretto).</td></tr>
-                <tr><td><code>auto</code> (C++11)</td><td><code>auto x = 3.14;</code></td><td>Il compilatore <strong>deduce il tipo</strong> dall'espressione di inizializzazione (<code>x</code> sarà <code>double</code>). Non significa tipizzazione dinamica: il tipo è fisso a compile-time. Utile per tipi complessi come iteratori. <strong>Non usare <code>auto</code> quando il tipo non è ovvio</strong> dalla lettura del codice.</td></tr>
-                <tr><td><code>nullptr</code> (C++11)</td><td><code>Tipo* p = nullptr;</code></td><td>Il puntatore nullo type-safe di C++11. Sostituisce <code>NULL</code> (che era un semplice <code>0</code> o <code>void*</code>). Non si converte implicitamente a <code>int</code>, prevenendo errori di overloading ambigui. Un puntatore <code>nullptr</code> non può essere dereferenziato: porta a <em>undefined behavior</em> (spesso crash a runtime).</td></tr>
+                <tr>
+                    <th>Costrutto</th>
+                    <th>Sintassi</th>
+                    <th>Semantica dettagliata</th>
+                </tr>
+                <tr>
+                    <td>Dichiarazione variabile</td>
+                    <td><code>Tipo nome;</code></td>
+                    <td>Riserva spazio in memoria per la variabile. <strong>Se è locale (sullo stack) NON viene
+                            inizializzata automaticamente</strong>: il suo valore è spazzatura (garbage). <strong>Se è
+                            globale o static</strong>, viene zero-inizializzata automaticamente prima del
+                        <code>main()</code>. Questo è un errore comune: leggere una variabile locale non inizializzata è
+                        <em>undefined behavior</em>.</td>
+                </tr>
+                <tr>
+                    <td>Inizializzazione con <code>=</code></td>
+                    <td><code>int x = 5;</code></td>
+                    <td>Sintassi "tradizionale" C. Chiama il <strong>costruttore di copia</strong> (prima C++11). Con i
+                        tipi primitivi è equivalente all'inizializzazione diretta.</td>
+                </tr>
+                <tr>
+                    <td>Inizializzazione diretta</td>
+                    <td><code>int x(5);</code></td>
+                    <td>Chiama il costruttore direttamente. Unica forma disponibile prima del C++11 per inizializzare
+                        oggetti con argomenti.</td>
+                </tr>
+                <tr>
+                    <td>Uniform initialization (C++11)</td>
+                    <td><code>int x{5};</code></td>
+                    <td>Introdotta in C++11. Previene il <strong>narrowing</strong>: <code>int x{3.7}</code> è un
+                        <em>errore di compilazione</em>, mentre <code>int x = 3.7</code> compila silenziosamente (con
+                        troncamento). È la forma <strong>consigliata</strong> per inizializzazioni in classi e
+                        costruttori.</td>
+                </tr>
+                <tr>
+                    <td><code>const</code></td>
+                    <td><code>const int N = 10;</code></td>
+                    <td>Rende la variabile immutabile dopo l'inizializzazione. <strong>DEVE essere inizializzata nella
+                            stessa istruzione</strong> (o nella lista di inizializzazione del costruttore per i membri
+                        di classe). Il compilatore può ottimizzare le costanti folding-le (sostituendo i punti di uso
+                        con il valore diretto).</td>
+                </tr>
+                <tr>
+                    <td><code>auto</code> (C++11)</td>
+                    <td><code>auto x = 3.14;</code></td>
+                    <td>Il compilatore <strong>deduce il tipo</strong> dall'espressione di inizializzazione
+                        (<code>x</code> sarà <code>double</code>). Non significa tipizzazione dinamica: il tipo è fisso
+                        a compile-time. Utile per tipi complessi come iteratori. <strong>Non usare <code>auto</code>
+                            quando il tipo non è ovvio</strong> dalla lettura del codice.</td>
+                </tr>
+                <tr>
+                    <td><code>nullptr</code> (C++11)</td>
+                    <td><code>Tipo* p = nullptr;</code></td>
+                    <td>Il puntatore nullo type-safe di C++11. Sostituisce <code>NULL</code> (che era un semplice
+                        <code>0</code> o <code>void*</code>). Non si converte implicitamente a <code>int</code>,
+                        prevenendo errori di overloading ambigui. Un puntatore <code>nullptr</code> non può essere
+                        dereferenziato: porta a <em>undefined behavior</em> (spesso crash a runtime).</td>
+                </tr>
             </table>
 
             <h3>Operatori</h3>
             <table class="comparison">
-                <tr><th>Categoria</th><th>Operatori</th><th>Semantica e Precedenza</th></tr>
-                <tr><td>Aritmetici</td><td><code>+</code> <code>-</code> <code>*</code> <code>/</code> <code>%</code></td><td><code>/</code> su interi esegue <strong>divisione intera con troncamento verso zero</strong>: <code>7/2 == 3</code>. <code>%</code> è il resto: <code>7%2 == 1</code>. Per la divisione floating point almeno uno degli operandi deve essere <code>float</code>/<code>double</code>: <code>7.0/2 == 3.5</code>.</td></tr>
-                <tr><td>Confronto</td><td><code>==</code> <code>!=</code> <code>&lt;</code> <code>&gt;</code> <code>&lt;=</code> <code>&gt;=</code></td><td>Restituiscono <code>bool</code>. <strong>ATTENZIONE: <code>==</code> non è uguale a <code>=</code></strong>. Scrivere <code>if (x = 5)</code> al posto di <code>if (x == 5)</code> è un errore logico silenzioso (assegna 5 a x e valuta come <code>true</code>). La convenzione "Yoda" <code>if (5 == x)</code> previene questo.</td></tr>
-                <tr><td>Logici</td><td><code>&amp;&amp;</code> <code>||</code> <code>!</code></td><td><strong>Short-circuit evaluation</strong>: in <code>A &amp;&amp; B</code>, se A è false B non viene valutato. In <code>A || B</code>, se A è true B non viene valutato. Questo permette pattern come <code>if (p != nullptr &amp;&amp; p-&gt;value &gt; 0)</code> senza rischio di null dereference.</td></tr>
-                <tr><td>Bit a bit</td><td><code>&amp;</code> <code>|</code> <code>^</code> <code>~</code> <code>&lt;&lt;</code> <code>&gt;&gt;</code></td><td>Operano sui singoli bit della rappresentazione binaria. <code>&lt;&lt; n</code> equivale a moltiplicare per 2<sup>n</sup> (velocissimo). <code>&gt;&gt; n</code> divide per 2<sup>n</sup>. Usati per flag di stato, maschere, ottimizzazioni.</td></tr>
-                <tr><td>Assegnamento composto</td><td><code>+=</code> <code>-=</code> <code>*=</code> <code>/=</code> <code>%=</code></td><td><code>x += 5</code> è equivalente a <code>x = x + 5</code> ma viene valutato <strong>una sola volta</strong> (importante se <code>x</code> ha side effects). Più leggibile e preferibile.</td></tr>
-                <tr><td>Incremento/Decremento</td><td><code>++</code> <code>--</code> (pre e post)</td><td><strong>Pre-incremento (<code>++i</code>)</strong>: incrementa e restituisce il nuovo valore. <strong>Post-incremento (<code>i++</code>)</strong>: restituisce il vecchio valore, poi incrementa. Per oggetti complessi (iteratori), <code>++i</code> è più efficiente perché non crea una copia temporanea.</td></tr>
-                <tr><td>Ternario</td><td><code>cond ? a : b</code></td><td>Se <code>cond</code> è vera, l'espressione vale <code>a</code>, altrimenti <code>b</code>. Entrambi i rami devono avere tipi compatibili. NON usare per espressioni con side effects complessi: riduce la leggibilità.</td></tr>
-                <tr><td>Scope (::)</td><td><code>Classe::membro</code></td><td>Scope Resolution Operator. Accede a un membro di un namespace, classe o enum class. Usato anche per definire metodi fuori dalla classe nel <code>.cpp</code>: <code>void Weapon::use()</code>. Se preceduto da nulla (<code>::nome</code>), indica il namespace globale.</td></tr>
-                <tr><td>Freccia (->)</td><td><code>ptr-&gt;membro</code></td><td>Equivalente a <code>(*ptr).membro</code>. Accede a un membro attraverso un puntatore. Se <code>ptr</code> è <code>nullptr</code>, causerà un crash (<em>undefined behavior</em>). Usare sempre il null check prima: <code>if (weapon) weapon-&gt;use();</code>.</td></tr>
-                <tr><td>Sizeof</td><td><code>sizeof(tipo)</code> o <code>sizeof expr</code></td><td>Operatore evaluato a <em>compile time</em> (non a runtime) che restituisce la dimensione in byte del tipo o dell'espressione. Non valuta l'espressione: <code>sizeof(x++)</code> non incrementa x. Ritorna un valore di tipo <code>size_t</code> (intero senza segno).</td></tr>
-                <tr><td>Cast espliciti (C++)</td><td><code>static_cast&lt;T&gt;(x)</code></td><td><strong><code>static_cast</code></strong>: conversione controllata a compile-time. È il cast sicuro preferito in C++. <strong><code>dynamic_cast</code></strong>: cast a runtime su gerarchia di classi con funzioni virtuali (verifica se la conversione è valida). <strong><code>reinterpret_cast</code></strong>: cast pericoloso, interpreta la sequenza di bit in modo diverso. <strong><code>const_cast</code></strong>: rimuove/aggiunge <code>const</code>. I cast in stile C (<code>(int)x</code>) sono sconsigliati perché non esplicitano le intenzioni.</td></tr>
+                <tr>
+                    <th>Categoria</th>
+                    <th>Operatori</th>
+                    <th>Semantica e Precedenza</th>
+                </tr>
+                <tr>
+                    <td>Aritmetici</td>
+                    <td><code>+</code> <code>-</code> <code>*</code> <code>/</code> <code>%</code></td>
+                    <td><code>/</code> su interi esegue <strong>divisione intera con troncamento verso zero</strong>:
+                        <code>7/2 == 3</code>. <code>%</code> è il resto: <code>7%2 == 1</code>. Per la divisione
+                        floating point almeno uno degli operandi deve essere <code>float</code>/<code>double</code>:
+                        <code>7.0/2 == 3.5</code>.</td>
+                </tr>
+                <tr>
+                    <td>Confronto</td>
+                    <td><code>==</code> <code>!=</code> <code>&lt;</code> <code>&gt;</code> <code>&lt;=</code>
+                        <code>&gt;=</code></td>
+                    <td>Restituiscono <code>bool</code>. <strong>ATTENZIONE: <code>==</code> non è uguale a
+                            <code>=</code></strong>. Scrivere <code>if (x = 5)</code> al posto di
+                        <code>if (x == 5)</code> è un errore logico silenzioso (assegna 5 a x e valuta come
+                        <code>true</code>). La convenzione "Yoda" <code>if (5 == x)</code> previene questo.</td>
+                </tr>
+                <tr>
+                    <td>Logici</td>
+                    <td><code>&amp;&amp;</code> <code>||</code> <code>!</code></td>
+                    <td><strong>Short-circuit evaluation</strong>: in <code>A &amp;&amp; B</code>, se A è false B non
+                        viene valutato. In <code>A || B</code>, se A è true B non viene valutato. Questo permette
+                        pattern come <code>if (p != nullptr &amp;&amp; p-&gt;value &gt; 0)</code> senza rischio di null
+                        dereference.</td>
+                </tr>
+                <tr>
+                    <td>Bit a bit</td>
+                    <td><code>&amp;</code> <code>|</code> <code>^</code> <code>~</code> <code>&lt;&lt;</code>
+                        <code>&gt;&gt;</code></td>
+                    <td>Operano sui singoli bit della rappresentazione binaria. <code>&lt;&lt; n</code> equivale a
+                        moltiplicare per 2<sup>n</sup> (velocissimo). <code>&gt;&gt; n</code> divide per 2<sup>n</sup>.
+                        Usati per flag di stato, maschere, ottimizzazioni.</td>
+                </tr>
+                <tr>
+                    <td>Assegnamento composto</td>
+                    <td><code>+=</code> <code>-=</code> <code>*=</code> <code>/=</code> <code>%=</code></td>
+                    <td><code>x += 5</code> è equivalente a <code>x = x + 5</code> ma viene valutato <strong>una sola
+                            volta</strong> (importante se <code>x</code> ha side effects). Più leggibile e preferibile.
+                    </td>
+                </tr>
+                <tr>
+                    <td>Incremento/Decremento</td>
+                    <td><code>++</code> <code>--</code> (pre e post)</td>
+                    <td><strong>Pre-incremento (<code>++i</code>)</strong>: incrementa e restituisce il nuovo valore.
+                        <strong>Post-incremento (<code>i++</code>)</strong>: restituisce il vecchio valore, poi
+                        incrementa. Per oggetti complessi (iteratori), <code>++i</code> è più efficiente perché non crea
+                        una copia temporanea.</td>
+                </tr>
+                <tr>
+                    <td>Ternario</td>
+                    <td><code>cond ? a : b</code></td>
+                    <td>Se <code>cond</code> è vera, l'espressione vale <code>a</code>, altrimenti <code>b</code>.
+                        Entrambi i rami devono avere tipi compatibili. NON usare per espressioni con side effects
+                        complessi: riduce la leggibilità.</td>
+                </tr>
+                <tr>
+                    <td>Scope (::)</td>
+                    <td><code>Classe::membro</code></td>
+                    <td>Scope Resolution Operator. Accede a un membro di un namespace, classe o enum class. Usato anche
+                        per definire metodi fuori dalla classe nel <code>.cpp</code>: <code>void Weapon::use()</code>.
+                        Se preceduto da nulla (<code>::nome</code>), indica il namespace globale.</td>
+                </tr>
+                <tr>
+                    <td>Freccia (->)</td>
+                    <td><code>ptr-&gt;membro</code></td>
+                    <td>Equivalente a <code>(*ptr).membro</code>. Accede a un membro attraverso un puntatore. Se
+                        <code>ptr</code> è <code>nullptr</code>, causerà un crash (<em>undefined behavior</em>). Usare
+                        sempre il null check prima: <code>if (weapon) weapon-&gt;use();</code>.</td>
+                </tr>
+                <tr>
+                    <td>Sizeof</td>
+                    <td><code>sizeof(tipo)</code> o <code>sizeof expr</code></td>
+                    <td>Operatore evaluato a <em>compile time</em> (non a runtime) che restituisce la dimensione in byte
+                        del tipo o dell'espressione. Non valuta l'espressione: <code>sizeof(x++)</code> non incrementa
+                        x. Ritorna un valore di tipo <code>size_t</code> (intero senza segno).</td>
+                </tr>
+                <tr>
+                    <td>Cast espliciti (C++)</td>
+                    <td><code>static_cast&lt;T&gt;(x)</code></td>
+                    <td><strong><code>static_cast</code></strong>: conversione controllata a compile-time. È il cast
+                        sicuro preferito in C++. <strong><code>dynamic_cast</code></strong>: cast a runtime su gerarchia
+                        di classi con funzioni virtuali (verifica se la conversione è valida).
+                        <strong><code>reinterpret_cast</code></strong>: cast pericoloso, interpreta la sequenza di bit
+                        in modo diverso. <strong><code>const_cast</code></strong>: rimuove/aggiunge <code>const</code>.
+                        I cast in stile C (<code>(int)x</code>) sono sconsigliati perché non esplicitano le intenzioni.
+                    </td>
+                </tr>
             </table>
 
             <h3>Strutture di Controllo</h3>
             <table class="comparison">
-                <tr><th>Costrutto</th><th>Sintassi</th><th>Semantica dettagliata</th></tr>
-                <tr><td><code>if</code> / <code>else if</code> / <code>else</code></td><td><code>if (cond) { ... } else { ... }</code></td><td>Le parentesi graffe sono <strong>facoltative se il corpo è una sola istruzione</strong>, ma <em>omettere le graffe è una pratica rischiosa</em>: il famoso bug "goto fail" di Apple (2014) fu causato da un <code>if</code> senza graffe con indentazione ingannevole. Il corso raccomanda sempre di usare le graffe.</td></tr>
-                <tr><td><code>switch</code></td><td><code>switch(valore) { case X: ...; break; default: ... }</code></td><td>Confronta un valore intero/enum con costanti. Senza <code>break</code> c'è il <strong>fall-through</strong>: l'esecuzione prosegue nel case successivo (a volte intenzionale, spesso bug). Con <code>enum class</code> il compilatore può avvisare di case non gestiti se si omette il <code>default</code>.</td></tr>
-                <tr><td><code>while</code></td><td><code>while (cond) { ... }</code></td><td>Valuta la condizione <strong>prima</strong> del corpo. Se la condizione è falsa sin dall'inizio, il corpo non viene mai eseguito. Attenzione ai loop infiniti: assicurarsi che la condizione diventi falsa ad un certo punto (o usare <code>break</code>).</td></tr>
-                <tr><td><code>do-while</code></td><td><code>do { ... } while (cond);</code></td><td>Valuta la condizione <strong>dopo</strong> il corpo. Il corpo viene eseguito <strong>almeno una volta</strong>. Utile per menu interattivi (almeno una volta si mostra il menu). Nota il <code>;</code> obbligatorio dopo la parentesi.</td></tr>
-                <tr><td><code>for</code> classico</td><td><code>for (init; cond; step) { ... }</code></td><td>Le tre parti sono tutte opzionali: <code>for(;;)</code> è un loop infinito. La variabile di controllo dichiarata nell'init (<code>int i = 0</code>) è visible <strong>solo all'interno del for</strong> (scoping). L'init viene eseguita una volta; cond e step ad ogni iterazione.</td></tr>
-                <tr><td>Range-based <code>for</code> (C++11)</td><td><code>for (auto&amp; elem : collezione) { ... }</code></td><td>Itera su tutti gli elementi di un container (array, <code>std::vector</code>, <code>std::string</code>...). <code>auto&amp;</code> evita la copia (usa riferimento). <code>const auto&amp;</code> se non si deve modificare. <strong>Non usare quando si deve anche accedere all'indice</strong>: in quel caso preferire il <code>for</code> classico.</td></tr>
-                <tr><td><code>break</code> / <code>continue</code></td><td><code>break;</code> / <code>continue;</code></td><td><code>break</code>: esce immediatamente dal loop o switch più interno. <code>continue</code>: salta il resto del corpo e passa alla prossima iterazione (valutando di nuovo la condizione). In un <code>for</code>, <code>continue</code> esegue comunque il <code>step</code>.</td></tr>
-                <tr><td><code>return</code></td><td><code>return valore;</code></td><td>Termina la funzione corrente e ritorna il valore al chiamante. Il tipo del valore deve essere compatibile con il tipo di ritorno dichiarato. <code>return;</code> in una funzione <code>void</code> è opzionale ma valido. Eseguire una funzione non-void senza <code>return</code> è <em>undefined behavior</em>.</td></tr>
+                <tr>
+                    <th>Costrutto</th>
+                    <th>Sintassi</th>
+                    <th>Semantica dettagliata</th>
+                </tr>
+                <tr>
+                    <td><code>if</code> / <code>else if</code> / <code>else</code></td>
+                    <td><code>if (cond) { ... } else { ... }</code></td>
+                    <td>Le parentesi graffe sono <strong>facoltative se il corpo è una sola istruzione</strong>, ma
+                        <em>omettere le graffe è una pratica rischiosa</em>: il famoso bug "goto fail" di Apple (2014)
+                        fu causato da un <code>if</code> senza graffe con indentazione ingannevole. Il corso raccomanda
+                        sempre di usare le graffe.</td>
+                </tr>
+                <tr>
+                    <td><code>switch</code></td>
+                    <td><code>switch(valore) { case X: ...; break; default: ... }</code></td>
+                    <td>Confronta un valore intero/enum con costanti. Senza <code>break</code> c'è il
+                        <strong>fall-through</strong>: l'esecuzione prosegue nel case successivo (a volte intenzionale,
+                        spesso bug). Con <code>enum class</code> il compilatore può avvisare di case non gestiti se si
+                        omette il <code>default</code>.</td>
+                </tr>
+                <tr>
+                    <td><code>while</code></td>
+                    <td><code>while (cond) { ... }</code></td>
+                    <td>Valuta la condizione <strong>prima</strong> del corpo. Se la condizione è falsa sin dall'inizio,
+                        il corpo non viene mai eseguito. Attenzione ai loop infiniti: assicurarsi che la condizione
+                        diventi falsa ad un certo punto (o usare <code>break</code>).</td>
+                </tr>
+                <tr>
+                    <td><code>do-while</code></td>
+                    <td><code>do { ... } while (cond);</code></td>
+                    <td>Valuta la condizione <strong>dopo</strong> il corpo. Il corpo viene eseguito <strong>almeno una
+                            volta</strong>. Utile per menu interattivi (almeno una volta si mostra il menu). Nota il
+                        <code>;</code> obbligatorio dopo la parentesi.</td>
+                </tr>
+                <tr>
+                    <td><code>for</code> classico</td>
+                    <td><code>for (init; cond; step) { ... }</code></td>
+                    <td>Le tre parti sono tutte opzionali: <code>for(;;)</code> è un loop infinito. La variabile di
+                        controllo dichiarata nell'init (<code>int i = 0</code>) è visible <strong>solo all'interno del
+                            for</strong> (scoping). L'init viene eseguita una volta; cond e step ad ogni iterazione.
+                    </td>
+                </tr>
+                <tr>
+                    <td>Range-based <code>for</code> (C++11)</td>
+                    <td><code>for (auto&amp; elem : collezione) { ... }</code></td>
+                    <td>Itera su tutti gli elementi di un container (array, <code>std::vector</code>,
+                        <code>std::string</code>...). <code>auto&amp;</code> evita la copia (usa riferimento).
+                        <code>const auto&amp;</code> se non si deve modificare. <strong>Non usare quando si deve anche
+                            accedere all'indice</strong>: in quel caso preferire il <code>for</code> classico.</td>
+                </tr>
+                <tr>
+                    <td><code>break</code> / <code>continue</code></td>
+                    <td><code>break;</code> / <code>continue;</code></td>
+                    <td><code>break</code>: esce immediatamente dal loop o switch più interno. <code>continue</code>:
+                        salta il resto del corpo e passa alla prossima iterazione (valutando di nuovo la condizione). In
+                        un <code>for</code>, <code>continue</code> esegue comunque il <code>step</code>.</td>
+                </tr>
+                <tr>
+                    <td><code>return</code></td>
+                    <td><code>return valore;</code></td>
+                    <td>Termina la funzione corrente e ritorna il valore al chiamante. Il tipo del valore deve essere
+                        compatibile con il tipo di ritorno dichiarato. <code>return;</code> in una funzione
+                        <code>void</code> è opzionale ma valido. Eseguire una funzione non-void senza
+                        <code>return</code> è <em>undefined behavior</em>.</td>
+                </tr>
             </table>
 
             <h3>Puntatori e Riferimenti</h3>
             <table class="comparison">
-                <tr><th>Costrutto</th><th>Sintassi</th><th>Semantica dettagliata</th></tr>
-                <tr><td>Puntatore</td><td><code>int* p = &amp;x;</code></td><td>Una variabile che contiene un <strong>indirizzo di memoria</strong>. <code>&amp;x</code> è l'operatore "address-of": prende l'indirizzo della variabile x. <code>*p</code> è il "dereference": accede al valore puntato. I puntatori possono essere <code>nullptr</code>, possono cambiare ciò che puntano, e possono essere aritmeticamente incrementati (pointer arithmetic). Questa flessibilità li rende potenti ma pericolosi.</td></tr>
-                <tr><td>Riferimento (Reference)</td><td><code>int&amp; r = x;</code></td><td>Un riferimento è un <strong>alias</strong> della variabile originale: non crea una copia, punta allo stesso oggetto in memoria. <strong>Differenze chiave con i puntatori</strong>: (1) <em>deve</em> essere inizializzato alla dichiarazione; (2) non può essere riassegnato per puntare ad altro; (3) non può essere <code>null</code>; (4) non ha sintassi di dereferenziamento (si usa <code>r</code> direttamente come se fosse <code>x</code>). Nei parametri di funzione, passare per riferimento evita la copia.</td></tr>
-                <tr><td>Riferimento const</td><td><code>const int&amp; r = x;</code></td><td>Riferimento a sola lettura. Può essere legato anche a <strong>temporanei e letterali</strong>, a differenza di <code>int&amp;</code>. Idioma classico per parametri funzione: <code>void foo(const std::string&amp; s)</code> evita la copia della stringa ma garantisce che la funzione non la modifichi. Il lifetime del temporaneo è esteso per tutta la vita del riferimento const.</td></tr>
-                <tr><td>Puntatore a const</td><td><code>const int* p = &amp;x;</code></td><td>Il <em>dato puntato</em> è costante; il puntatore può essere riassegnato. <code>*p = 5</code> è illegale. <code>p = &amp;y</code> è legale. Mnemonica: leggere da destra a sinistra rispetto a <code>*</code>: "puntatore a int-costante".</td></tr>
-                <tr><td>Puntatore const</td><td><code>int* const p = &amp;x;</code></td><td>Il <em>puntatore</em> è costante; il dato puntato è modificabile. <code>p = &amp;y</code> è illegale. <code>*p = 5</code> è legale. Usato tipicamente per array passati a funzioni (l'indirizzo base non cambia).</td></tr>
-                <tr><td>Allocazione dinamica</td><td><code>int* p = new int(5);</code></td><td><code>new</code> alloca memoria sull'<strong>heap</strong> (non sullo stack) e chiama il costruttore. La memoria rimane valida finché non si chiama <code>delete</code> esplicitamente, indipendentemente dallo scope. <strong>Memory leak</strong>: se si perde il puntatore prima di chiamare <code>delete</code>, la memoria non viene più liberata per tutta la durata del programma.</td></tr>
-                <tr><td>Deallocazione</td><td><code>delete p; delete[] arr;</code></td><td><code>delete</code> chiama il distruttore e libera la memoria heap. <code>delete[]</code> va usato per array allocati con <code>new[]</code>. Chiamare <code>delete</code> su un puntatore già deallocato (<em>double free</em>) è <em>undefined behavior</em>. Dopo il delete, mettere il puntatore a <code>nullptr</code> per sicurezza.</td></tr>
-                <tr><td>Array statici</td><td><code>int arr[10];</code></td><td>Array a dimensione fissa allocato sullo <strong>stack</strong>. La dimensione deve essere una costante a compile-time. In C++ moderno preferire <code>std::array&lt;int, 10&gt;</code> o <code>std::vector&lt;int&gt;</code>. Gli array C nudi decadono a puntatore: <code>arr</code> equivale a <code>&amp;arr[0]</code>. Non hanno controllo dei bound: accedere fuori range è UB.</td></tr>
+                <tr>
+                    <th>Costrutto</th>
+                    <th>Sintassi</th>
+                    <th>Semantica dettagliata</th>
+                </tr>
+                <tr>
+                    <td>Puntatore</td>
+                    <td><code>int* p = &amp;x;</code></td>
+                    <td>Una variabile che contiene un <strong>indirizzo di memoria</strong>. <code>&amp;x</code> è
+                        l'operatore "address-of": prende l'indirizzo della variabile x. <code>*p</code> è il
+                        "dereference": accede al valore puntato. I puntatori possono essere <code>nullptr</code>,
+                        possono cambiare ciò che puntano, e possono essere aritmeticamente incrementati (pointer
+                        arithmetic). Questa flessibilità li rende potenti ma pericolosi.</td>
+                </tr>
+                <tr>
+                    <td>Riferimento (Reference)</td>
+                    <td><code>int&amp; r = x;</code></td>
+                    <td>Un riferimento è un <strong>alias</strong> della variabile originale: non crea una copia, punta
+                        allo stesso oggetto in memoria. <strong>Differenze chiave con i puntatori</strong>: (1)
+                        <em>deve</em> essere inizializzato alla dichiarazione; (2) non può essere riassegnato per
+                        puntare ad altro; (3) non può essere <code>null</code>; (4) non ha sintassi di dereferenziamento
+                        (si usa <code>r</code> direttamente come se fosse <code>x</code>). Nei parametri di funzione,
+                        passare per riferimento evita la copia.</td>
+                </tr>
+                <tr>
+                    <td>Riferimento const</td>
+                    <td><code>const int&amp; r = x;</code></td>
+                    <td>Riferimento a sola lettura. Può essere legato anche a <strong>temporanei e letterali</strong>, a
+                        differenza di <code>int&amp;</code>. Idioma classico per parametri funzione:
+                        <code>void foo(const std::string&amp; s)</code> evita la copia della stringa ma garantisce che
+                        la funzione non la modifichi. Il lifetime del temporaneo è esteso per tutta la vita del
+                        riferimento const.</td>
+                </tr>
+                <tr>
+                    <td>Puntatore a const</td>
+                    <td><code>const int* p = &amp;x;</code></td>
+                    <td>Il <em>dato puntato</em> è costante; il puntatore può essere riassegnato. <code>*p = 5</code> è
+                        illegale. <code>p = &amp;y</code> è legale. Mnemonica: leggere da destra a sinistra rispetto a
+                        <code>*</code>: "puntatore a int-costante".</td>
+                </tr>
+                <tr>
+                    <td>Puntatore const</td>
+                    <td><code>int* const p = &amp;x;</code></td>
+                    <td>Il <em>puntatore</em> è costante; il dato puntato è modificabile. <code>p = &amp;y</code> è
+                        illegale. <code>*p = 5</code> è legale. Usato tipicamente per array passati a funzioni
+                        (l'indirizzo base non cambia).</td>
+                </tr>
+                <tr>
+                    <td>Allocazione dinamica</td>
+                    <td><code>int* p = new int(5);</code></td>
+                    <td><code>new</code> alloca memoria sull'<strong>heap</strong> (non sullo stack) e chiama il
+                        costruttore. La memoria rimane valida finché non si chiama <code>delete</code> esplicitamente,
+                        indipendentemente dallo scope. <strong>Memory leak</strong>: se si perde il puntatore prima di
+                        chiamare <code>delete</code>, la memoria non viene più liberata per tutta la durata del
+                        programma.</td>
+                </tr>
+                <tr>
+                    <td>Deallocazione</td>
+                    <td><code>delete p; delete[] arr;</code></td>
+                    <td><code>delete</code> chiama il distruttore e libera la memoria heap. <code>delete[]</code> va
+                        usato per array allocati con <code>new[]</code>. Chiamare <code>delete</code> su un puntatore
+                        già deallocato (<em>double free</em>) è <em>undefined behavior</em>. Dopo il delete, mettere il
+                        puntatore a <code>nullptr</code> per sicurezza.</td>
+                </tr>
+                <tr>
+                    <td>Array statici</td>
+                    <td><code>int arr[10];</code></td>
+                    <td>Array a dimensione fissa allocato sullo <strong>stack</strong>. La dimensione deve essere una
+                        costante a compile-time. In C++ moderno preferire <code>std::array&lt;int, 10&gt;</code> o
+                        <code>std::vector&lt;int&gt;</code>. Gli array C nudi decadono a puntatore: <code>arr</code>
+                        equivale a <code>&amp;arr[0]</code>. Non hanno controllo dei bound: accedere fuori range è UB.
+                    </td>
+                </tr>
             </table>
 
             <h3>Funzioni</h3>
             <table class="comparison">
-                <tr><th>Costrutto</th><th>Sintassi</th><th>Semantica dettagliata</th></tr>
-                <tr><td>Dichiarazione (prototipo)</td><td><code>int foo(int a, int b);</code></td><td>Nel file <code>.h</code>. Dice al compilatore che la funzione esiste e quale è la sua firma. Non include il corpo. Il compilatore usa la dichiarazione per verificare le chiamate; il linker poi trova la definizione nel <code>.cpp</code> corrispondente.</td></tr>
-                <tr><td>Definizione</td><td><code>int foo(int a, int b) { return a+b; }</code></td><td>Nel file <code>.cpp</code>. Include il corpo della funzione. Una funzione può avere <em>una sola definizione</em> in tutto il programma (ODR - One Definition Rule), ma può avere quante dichiarazioni si vuole.</td></tr>
-                <tr><td>Parametri di default</td><td><code>void f(int a, int b=4, int c=3);</code></td><td>I parametri con default <strong>vanno dichiarati nel <code>.h</code> e NON ripetuti nel <code>.cpp</code></strong>. Devono essere alla fine della lista parametri. Con <code>f(1)</code> i parametri b e c assumono i loro default. Il default viene "inserito" dal compilatore nel punto di chiamata.</td></tr>
-                <tr><td>Overloading</td><td><code>void move(int x, int y);</code><br><code>void move(int d);</code></td><td>Stesso nome, firma diversa (tipo o numero di parametri). Il compilatore sceglie la versione corretta in base agli argomenti (<strong>risoluzione dell'overloading</strong>). Il tipo di ritorno <strong>non basta</strong> per distinguere due overload: <code>int foo()</code> e <code>void foo()</code> non possono coesistere. Il Name Mangling permette al linker di distinguerle.</td></tr>
-                <tr><td>Passaggio per valore</td><td><code>void f(int x)</code></td><td>Viene creata una copia del valore. Modificare <code>x</code> dentro la funzione non altera l'originale. Per tipi piccoli (<code>int</code>, <code>double</code>, <code>bool</code>) è la scelta migliore. Per oggetti grandi (stringhe, vettori) è <strong>costoso</strong>: evitare.</td></tr>
-                <tr><td>Passaggio per riferimento</td><td><code>void f(int&amp; x)</code></td><td>La funzione lavora direttamente sull'oggetto originale senza copiarlo. Modifiche a <code>x</code> cambiano il valore originale. Preferito per oggetti grandi che la funzione deve <em>modificare</em>. Se la funzione non deve modificare l'oggetto, usare <code>const</code> reference.</td></tr>
-                <tr><td>Passaggio per puntatore</td><td><code>void f(int* x)</code></td><td>Simile al passaggio per reference, ma rende esplicito che si lavora con un indirizzo (e permette <code>nullptr</code>). In C++ moderno preferire i riferimenti quando possibile; usare i puntatori quando l'argomento può essere opzionale (nullable).</td></tr>
-                <tr><td>Funzioni <code>inline</code></td><td><code>inline int square(int x) { return x*x; }</code></td><td>Suggerisce al compilatore di sostituire la chiamata a funzione con il corpo direttamente nel codice chiamante (evitando overhead della chiamata). Il compilatore può ignorare l'hint. Usato soprattutto per funzioni molto brevi definite negli header. I metodi definiti dentro la classe sono implicitamente <code>inline</code>.</td></tr>
+                <tr>
+                    <th>Costrutto</th>
+                    <th>Sintassi</th>
+                    <th>Semantica dettagliata</th>
+                </tr>
+                <tr>
+                    <td>Dichiarazione (prototipo)</td>
+                    <td><code>int foo(int a, int b);</code></td>
+                    <td>Nel file <code>.h</code>. Dice al compilatore che la funzione esiste e quale è la sua firma. Non
+                        include il corpo. Il compilatore usa la dichiarazione per verificare le chiamate; il linker poi
+                        trova la definizione nel <code>.cpp</code> corrispondente.</td>
+                </tr>
+                <tr>
+                    <td>Definizione</td>
+                    <td><code>int foo(int a, int b) { return a+b; }</code></td>
+                    <td>Nel file <code>.cpp</code>. Include il corpo della funzione. Una funzione può avere <em>una sola
+                            definizione</em> in tutto il programma (ODR - One Definition Rule), ma può avere quante
+                        dichiarazioni si vuole.</td>
+                </tr>
+                <tr>
+                    <td>Parametri di default</td>
+                    <td><code>void f(int a, int b=4, int c=3);</code></td>
+                    <td>I parametri con default <strong>vanno dichiarati nel <code>.h</code> e NON ripetuti nel
+                            <code>.cpp</code></strong>. Devono essere alla fine della lista parametri. Con
+                        <code>f(1)</code> i parametri b e c assumono i loro default. Il default viene "inserito" dal
+                        compilatore nel punto di chiamata.</td>
+                </tr>
+                <tr>
+                    <td>Overloading</td>
+                    <td><code>void move(int x, int y);</code><br><code>void move(int d);</code></td>
+                    <td>Stesso nome, firma diversa (tipo o numero di parametri). Il compilatore sceglie la versione
+                        corretta in base agli argomenti (<strong>risoluzione dell'overloading</strong>). Il tipo di
+                        ritorno <strong>non basta</strong> per distinguere due overload: <code>int foo()</code> e
+                        <code>void foo()</code> non possono coesistere. Il Name Mangling permette al linker di
+                        distinguerle.</td>
+                </tr>
+                <tr>
+                    <td>Passaggio per valore</td>
+                    <td><code>void f(int x)</code></td>
+                    <td>Viene creata una copia del valore. Modificare <code>x</code> dentro la funzione non altera
+                        l'originale. Per tipi piccoli (<code>int</code>, <code>double</code>, <code>bool</code>) è la
+                        scelta migliore. Per oggetti grandi (stringhe, vettori) è <strong>costoso</strong>: evitare.
+                    </td>
+                </tr>
+                <tr>
+                    <td>Passaggio per riferimento</td>
+                    <td><code>void f(int&amp; x)</code></td>
+                    <td>La funzione lavora direttamente sull'oggetto originale senza copiarlo. Modifiche a
+                        <code>x</code> cambiano il valore originale. Preferito per oggetti grandi che la funzione deve
+                        <em>modificare</em>. Se la funzione non deve modificare l'oggetto, usare <code>const</code>
+                        reference.</td>
+                </tr>
+                <tr>
+                    <td>Passaggio per puntatore</td>
+                    <td><code>void f(int* x)</code></td>
+                    <td>Simile al passaggio per reference, ma rende esplicito che si lavora con un indirizzo (e permette
+                        <code>nullptr</code>). In C++ moderno preferire i riferimenti quando possibile; usare i
+                        puntatori quando l'argomento può essere opzionale (nullable).</td>
+                </tr>
+                <tr>
+                    <td>Funzioni <code>inline</code></td>
+                    <td><code>inline int square(int x) { return x*x; }</code></td>
+                    <td>Suggerisce al compilatore di sostituire la chiamata a funzione con il corpo direttamente nel
+                        codice chiamante (evitando overhead della chiamata). Il compilatore può ignorare l'hint. Usato
+                        soprattutto per funzioni molto brevi definite negli header. I metodi definiti dentro la classe
+                        sono implicitamente <code>inline</code>.</td>
+                </tr>
             </table>
 
             <h3>Classi: Struttura e Semantica</h3>
             <table class="comparison">
-                <tr><th>Costrutto</th><th>Sintassi</th><th>Semantica dettagliata</th></tr>
-                <tr><td>Dichiarazione classe</td><td><code>class Nome { ... };</code></td><td>Definisce un nuovo tipo. <strong>Il punto e virgola finale è obbligatorio</strong> (errore comune dimenticarlo). I membri sono <code>private</code> di default. <code>struct</code> è identico a <code>class</code> ma con visibilità <code>public</code> di default.</td></tr>
-                <tr><td>Lista di inizializzazione</td><td><code>Foo(int a) : membA(a), membB(0) {}</code></td><td>I membri vengono <strong>costruiti direttamente</strong> con i valori forniti, prima del corpo del costruttore. È <em>più efficiente</em> dell'assegnazione nel corpo (che prima costruisce il membro con default e poi lo riassegna). Per i <code>const</code> member e i riferimenti, è l'<em>unica</em> alternativa. L'ordine di inizializzazione segue l'ordine di dichiarazione nella classe, non quello nella lista.</td></tr>
-                <tr><td>Costruttore <code>explicit</code></td><td><code>explicit Foo(int x);</code></td><td>Impedisce le conversioni implicite. Senza <code>explicit</code>: <code>Foo f = 5;</code> compilerebbe silenziosamente (il compilatore convertirebbe 5 a Foo). Con <code>explicit</code>: solo <code>Foo f(5);</code> o <code>Foo f{5};</code> sono validi. <strong>Regola</strong>: qualsiasi costruttore chiamabile con un solo argomento va marcato <code>explicit</code> (norma Google C++ Style).</td></tr>
-                <tr><td>Costruttore di default</td><td><code>Foo() {}</code> o <code>Foo() = default;</code></td><td>Viene generato automaticamente dal compilatore <strong>solo se non si dichiara nessun altro costruttore</strong>. Se si dichiara un costruttore parametrico, il costruttore di default <em>sparisce</em> automaticamente. <code>= default</code> lo ripristina esplicitamente (C++11).</td></tr>
-                <tr><td>Metodo <code>const</code></td><td><code>int getValue() const;</code></td><td>Promette di non modificare lo stato dell'oggetto (nessun membro non-mutable viene modificato). Può essere chiamato su oggetti <code>const</code> e su riferimenti <code>const</code>. Il compilatore verifica la promessa: se il metodo tenta di modificare un membro, è un errore. Tutti i getter devono essere <code>const</code>.</td></tr>
-                <tr><td>Membro <code>static</code></td><td><code>static int count;</code></td><td>Esiste <strong>una sola copia</strong> condivisa da tutte le istanze della classe. Non è legato a un oggetto specifico. <strong>Va definito nel <code>.cpp</code></strong> (es. <code>int Foo::count = 0;</code>): la dichiarazione nel <code>.h</code> non alloca memoria. Può essere acceduto con <code>Foo::count</code> senza alcun oggetto.</td></tr>
-                <tr><td>Membro <code>mutable</code></td><td><code>mutable int cache;</code></td><td>Può essere modificato anche da metodi <code>const</code>. Usato per cache, contatori di accesso, mutex: cose che non cambiano lo "stato logico" dell'oggetto ma richiedono modifica fisica. È un'eccezione alla garanzia di immutabilità del <code>const</code>.</td></tr>
-                <tr><td><code>this</code></td><td><code>this-&gt;membro</code></td><td>Puntatore implicito all'oggetto corrente, disponible in tutti i metodi non-statici. <strong>Ha tipo <code>Foo* const</code></strong> (puntatore costante, non può essere cambiato a puntare ad altro). In un metodo <code>const</code>, ha tipo <code>const Foo* const</code>. Usato per: disambiguare nomi, passare l'oggetto a funzioni esterne, implementare pattern <em>method chaining</em> (<code>return *this;</code>).</td></tr>
-                <tr><td>Operatore di assegnamento</td><td><code>Foo&amp; operator=(const Foo&amp; rhs)</code></td><td>Chiamato in <code>a = b</code> (dove a ed b esistono già). <strong>Differ dal copy constructor</strong> che viene chiamato in <code>Foo a = b;</code> (a è già in costruzione). L'operatore di assegnamento deve: (1) verificare il self-assignment (<code>if(this == &amp;rhs)</code>); (2) liberare le risorse esistenti; (3) copiare in profondità; (4) ritornare <code>*this</code> per permettere <code>a = b = c</code>.</td></tr>
+                <tr>
+                    <th>Costrutto</th>
+                    <th>Sintassi</th>
+                    <th>Semantica dettagliata</th>
+                </tr>
+                <tr>
+                    <td>Dichiarazione classe</td>
+                    <td><code>class Nome { ... };</code></td>
+                    <td>Definisce un nuovo tipo. <strong>Il punto e virgola finale è obbligatorio</strong> (errore
+                        comune dimenticarlo). I membri sono <code>private</code> di default. <code>struct</code> è
+                        identico a <code>class</code> ma con visibilità <code>public</code> di default.</td>
+                </tr>
+                <tr>
+                    <td>Lista di inizializzazione</td>
+                    <td><code>Foo(int a) : membA(a), membB(0) {}</code></td>
+                    <td>I membri vengono <strong>costruiti direttamente</strong> con i valori forniti, prima del corpo
+                        del costruttore. È <em>più efficiente</em> dell'assegnazione nel corpo (che prima costruisce il
+                        membro con default e poi lo riassegna). Per i <code>const</code> member e i riferimenti, è
+                        l'<em>unica</em> alternativa. L'ordine di inizializzazione segue l'ordine di dichiarazione nella
+                        classe, non quello nella lista.</td>
+                </tr>
+                <tr>
+                    <td>Costruttore <code>explicit</code></td>
+                    <td><code>explicit Foo(int x);</code></td>
+                    <td>Impedisce le conversioni implicite. Senza <code>explicit</code>: <code>Foo f = 5;</code>
+                        compilerebbe silenziosamente (il compilatore convertirebbe 5 a Foo). Con <code>explicit</code>:
+                        solo <code>Foo f(5);</code> o <code>Foo f{5};</code> sono validi. <strong>Regola</strong>:
+                        qualsiasi costruttore chiamabile con un solo argomento va marcato <code>explicit</code> (norma
+                        Google C++ Style).</td>
+                </tr>
+                <tr>
+                    <td>Costruttore di default</td>
+                    <td><code>Foo() {}</code> o <code>Foo() = default;</code></td>
+                    <td>Viene generato automaticamente dal compilatore <strong>solo se non si dichiara nessun altro
+                            costruttore</strong>. Se si dichiara un costruttore parametrico, il costruttore di default
+                        <em>sparisce</em> automaticamente. <code>= default</code> lo ripristina esplicitamente (C++11).
+                    </td>
+                </tr>
+                <tr>
+                    <td>Metodo <code>const</code></td>
+                    <td><code>int getValue() const;</code></td>
+                    <td>Promette di non modificare lo stato dell'oggetto (nessun membro non-mutable viene modificato).
+                        Può essere chiamato su oggetti <code>const</code> e su riferimenti <code>const</code>. Il
+                        compilatore verifica la promessa: se il metodo tenta di modificare un membro, è un errore. Tutti
+                        i getter devono essere <code>const</code>.</td>
+                </tr>
+                <tr>
+                    <td>Membro <code>static</code></td>
+                    <td><code>static int count;</code></td>
+                    <td>Esiste <strong>una sola copia</strong> condivisa da tutte le istanze della classe. Non è legato
+                        a un oggetto specifico. <strong>Va definito nel <code>.cpp</code></strong> (es.
+                        <code>int Foo::count = 0;</code>): la dichiarazione nel <code>.h</code> non alloca memoria. Può
+                        essere acceduto con <code>Foo::count</code> senza alcun oggetto.</td>
+                </tr>
+                <tr>
+                    <td>Membro <code>mutable</code></td>
+                    <td><code>mutable int cache;</code></td>
+                    <td>Può essere modificato anche da metodi <code>const</code>. Usato per cache, contatori di accesso,
+                        mutex: cose che non cambiano lo "stato logico" dell'oggetto ma richiedono modifica fisica. È
+                        un'eccezione alla garanzia di immutabilità del <code>const</code>.</td>
+                </tr>
+                <tr>
+                    <td><code>this</code></td>
+                    <td><code>this-&gt;membro</code></td>
+                    <td>Puntatore implicito all'oggetto corrente, disponible in tutti i metodi non-statici. <strong>Ha
+                            tipo <code>Foo* const</code></strong> (puntatore costante, non può essere cambiato a puntare
+                        ad altro). In un metodo <code>const</code>, ha tipo <code>const Foo* const</code>. Usato per:
+                        disambiguare nomi, passare l'oggetto a funzioni esterne, implementare pattern <em>method
+                            chaining</em> (<code>return *this;</code>).</td>
+                </tr>
+                <tr>
+                    <td>Operatore di assegnamento</td>
+                    <td><code>Foo&amp; operator=(const Foo&amp; rhs)</code></td>
+                    <td>Chiamato in <code>a = b</code> (dove a ed b esistono già). <strong>Differ dal copy
+                            constructor</strong> che viene chiamato in <code>Foo a = b;</code> (a è già in costruzione).
+                        L'operatore di assegnamento deve: (1) verificare il self-assignment
+                        (<code>if(this == &amp;rhs)</code>); (2) liberare le risorse esistenti; (3) copiare in
+                        profondità; (4) ritornare <code>*this</code> per permettere <code>a = b = c</code>.</td>
+                </tr>
             </table>
 
             <h3>Ereditarietà e Polimorfismo: Dettaglio Semantico</h3>
             <table class="comparison">
-                <tr><th>Costrutto</th><th>Sintassi</th><th>Semantica dettagliata</th></tr>
-                <tr><td>Ereditarietà pubblica</td><td><code>class D : public B {}</code></td><td>Stabilisce la relazione <strong>Is-A</strong>. I membri <code>public</code> di B diventano <code>public</code> in D; quelli <code>protected</code> restano <code>protected</code>. È la forma più comune: l'interfaccia pubblica di B fa parte dell'interfaccia di D. Un puntatore a B può puntare a un oggetto D senza cast (<em>upcast</em>). Un puntatore a D che punta a B richiede <code>dynamic_cast</code> e può fallire (<em>downcast</em>).</td></tr>
-                <tr><td>Ereditarietà privata</td><td><code>class D : private B {}</code></td><td>Relazione <strong>Implemented-In-Terms-Of</strong>. Tutti i membri di B diventano <code>private</code> in D: l'utente di D non sa né può usare l'interfaccia di B. <strong>Non è una relazione Is-A</strong>: un puntatore a B non può puntare a D senza cast. Alternativa alla composizione quando si ha bisogno di accedere ai membri <code>protected</code> di B.</td></tr>
-                <tr><td>Virtual function</td><td><code>virtual void use();</code></td><td>Il compilatore crea una <strong>vtable</strong> (virtual function table) per la classe: una tabella di puntatori a funzione. Ogni oggetto contiene un puntatore nascosto (<code>vptr</code>) alla vtable della sua classe reale. Quando si chiama <code>ptr-&gt;use()</code> su un puntatore base, il compilatore segue il vptr e chiama la versione corretta a runtime. Questo ha un costo: un'indirezione in più rispetto alla chiamata diretta. <strong>Una volta virtual, sempre virtual</strong>: il metodo rimane virtual in tutta la gerarchia discendente.</td></tr>
-                <tr><td>Pure virtual / Classe astratta</td><td><code>virtual void f() = 0;</code></td><td>Un metodo <em>puro virtuale</em> non ha implementazione nella classe corrente. La classe che lo contiene diventa <strong>astratta</strong>: non può essere istanziata direttamente (<code>new Base()</code> è un errore). Serve come interfaccia contrattuale: ogni classe derivata concreta <em>deve</em> fornire un implementazione. Se una derivata non implementa tutti i metodi puri, diventa anch'essa astratta.</td></tr>
-                <tr><td><code>override</code> (C++11)</td><td><code>virtual void use() override;</code></td><td>Dice al compilatore: "sto riscrivendo un metodo virtuale della classe base". Il compilatore verifica che esista effettivamente un metodo virtuale con quella firma nella classe base. Senza <code>override</code>, una firma leggermente sbagliata (es. parametro sbagliato) creerebbe silenziosamente un nuovo metodo invece di riuscire nell'override. <code>override</code> va messo <strong>solo nella dichiarazione nel <code>.h</code></strong>, non nel <code>.cpp</code>.</td></tr>
-                <tr><td><code>final</code> (C++11)</td><td><code>class Foo final {}</code> o <code>virtual void f() final;</code></td><td>Impedisce l'ereditarietà dalla classe o l'override del metodo. Il compilatore può ottimizzare le chiamate a metodi <code>final</code> de-virtualizzandole (devirtualization). Usato per classi di utilità o metodi critici per le performance.</td></tr>
-                <tr><td>Distruttore virtuale</td><td><code>virtual ~Base();</code></td><td>Se si elimina un oggetto derivato attraverso un puntatore base, il distruttore corretto (quello della classe derivata) viene chiamato solo se il distruttore della base è <code>virtual</code>. Senza <code>virtual</code>: viene chiamato solo il distruttore di Base (memory leak o undefined behavior). <strong>Regola: se una classe ha una virtual function, il distruttore deve essere virtual</strong>.</td></tr>
-                <tr><td>Costruttori ed ereditarietà</td><td><code>Derived(int a) : Base(a) {}</code></td><td>Il costruttore della classe derivata <strong>deve invocare esplicitamente</strong> un costruttore della base nella lista di inizializzazione, se la base non ha costruttore di default. I costruttori <strong>non vengono ereditati</strong> (pre-C++11); con <code>using Base::Base;</code> (C++11) si possono ereditare. La catena di costruzione va dalla base verso la derivata; quella di distruzione è l'inverso.</td></tr>
+                <tr>
+                    <th>Costrutto</th>
+                    <th>Sintassi</th>
+                    <th>Semantica dettagliata</th>
+                </tr>
+                <tr>
+                    <td>Ereditarietà pubblica</td>
+                    <td><code>class D : public B {}</code></td>
+                    <td>Stabilisce la relazione <strong>Is-A</strong>. I membri <code>public</code> di B diventano
+                        <code>public</code> in D; quelli <code>protected</code> restano <code>protected</code>. È la
+                        forma più comune: l'interfaccia pubblica di B fa parte dell'interfaccia di D. Un puntatore a B
+                        può puntare a un oggetto D senza cast (<em>upcast</em>). Un puntatore a D che punta a B richiede
+                        <code>dynamic_cast</code> e può fallire (<em>downcast</em>).</td>
+                </tr>
+                <tr>
+                    <td>Ereditarietà privata</td>
+                    <td><code>class D : private B {}</code></td>
+                    <td>Relazione <strong>Implemented-In-Terms-Of</strong>. Tutti i membri di B diventano
+                        <code>private</code> in D: l'utente di D non sa né può usare l'interfaccia di B. <strong>Non è
+                            una relazione Is-A</strong>: un puntatore a B non può puntare a D senza cast. Alternativa
+                        alla composizione quando si ha bisogno di accedere ai membri <code>protected</code> di B.</td>
+                </tr>
+                <tr>
+                    <td>Virtual function</td>
+                    <td><code>virtual void use();</code></td>
+                    <td>Il compilatore crea una <strong>vtable</strong> (virtual function table) per la classe: una
+                        tabella di puntatori a funzione. Ogni oggetto contiene un puntatore nascosto (<code>vptr</code>)
+                        alla vtable della sua classe reale. Quando si chiama <code>ptr-&gt;use()</code> su un puntatore
+                        base, il compilatore segue il vptr e chiama la versione corretta a runtime. Questo ha un costo:
+                        un'indirezione in più rispetto alla chiamata diretta. <strong>Una volta virtual, sempre
+                            virtual</strong>: il metodo rimane virtual in tutta la gerarchia discendente.</td>
+                </tr>
+                <tr>
+                    <td>Pure virtual / Classe astratta</td>
+                    <td><code>virtual void f() = 0;</code></td>
+                    <td>Un metodo <em>puro virtuale</em> non ha implementazione nella classe corrente. La classe che lo
+                        contiene diventa <strong>astratta</strong>: non può essere istanziata direttamente
+                        (<code>new Base()</code> è un errore). Serve come interfaccia contrattuale: ogni classe derivata
+                        concreta <em>deve</em> fornire un implementazione. Se una derivata non implementa tutti i metodi
+                        puri, diventa anch'essa astratta.</td>
+                </tr>
+                <tr>
+                    <td><code>override</code> (C++11)</td>
+                    <td><code>virtual void use() override;</code></td>
+                    <td>Dice al compilatore: "sto riscrivendo un metodo virtuale della classe base". Il compilatore
+                        verifica che esista effettivamente un metodo virtuale con quella firma nella classe base. Senza
+                        <code>override</code>, una firma leggermente sbagliata (es. parametro sbagliato) creerebbe
+                        silenziosamente un nuovo metodo invece di riuscire nell'override. <code>override</code> va messo
+                        <strong>solo nella dichiarazione nel <code>.h</code></strong>, non nel <code>.cpp</code>.</td>
+                </tr>
+                <tr>
+                    <td><code>final</code> (C++11)</td>
+                    <td><code>class Foo final {}</code> o <code>virtual void f() final;</code></td>
+                    <td>Impedisce l'ereditarietà dalla classe o l'override del metodo. Il compilatore può ottimizzare le
+                        chiamate a metodi <code>final</code> de-virtualizzandole (devirtualization). Usato per classi di
+                        utilità o metodi critici per le performance.</td>
+                </tr>
+                <tr>
+                    <td>Distruttore virtuale</td>
+                    <td><code>virtual ~Base();</code></td>
+                    <td>Se si elimina un oggetto derivato attraverso un puntatore base, il distruttore corretto (quello
+                        della classe derivata) viene chiamato solo se il distruttore della base è <code>virtual</code>.
+                        Senza <code>virtual</code>: viene chiamato solo il distruttore di Base (memory leak o undefined
+                        behavior). <strong>Regola: se una classe ha una virtual function, il distruttore deve essere
+                            virtual</strong>.</td>
+                </tr>
+                <tr>
+                    <td>Costruttori ed ereditarietà</td>
+                    <td><code>Derived(int a) : Base(a) {}</code></td>
+                    <td>Il costruttore della classe derivata <strong>deve invocare esplicitamente</strong> un
+                        costruttore della base nella lista di inizializzazione, se la base non ha costruttore di
+                        default. I costruttori <strong>non vengono ereditati</strong> (pre-C++11); con
+                        <code>using Base::Base;</code> (C++11) si possono ereditare. La catena di costruzione va dalla
+                        base verso la derivata; quella di distruzione è l'inverso.</td>
+                </tr>
             </table>
 
             <h3>Preprocessore, Compilazione e Linker</h3>
             <table class="comparison">
-                <tr><th>Costrutto</th><th>Sintassi</th><th>Semantica dettagliata</th></tr>
-                <tr><td>Include guard</td><td><code>#ifndef NOME_H #define NOME_H ... #endif</code></td><td>Evita che un header venga incluso più di una volta nella stessa <em>translation unit</em>, il che causerebbe errori di "definizione multipla". Alternativa moderna (non standard ma universal supportata): <code>#pragma once</code> in cima all'header.</td></tr>
-                <tr><td><code>#include &lt;&gt;</code> vs <code>#include ""</code></td><td><code>#include &lt;iostream&gt;</code> vs <code>#include "myfile.h"</code></td><td><code>&lt;&gt;</code>: il preprocessore cerca nei percorsi di sistema (librerie standard e di sistema). <code>""</code>: il preprocessore cerca prima nella directory del file corrente, poi nei percorsi di sistema. Usare <code>""</code> per i propri header e <code>&lt;&gt;</code> per le librerie esterne.</td></tr>
-                <tr><td>Translation Unit</td><td>Un file <code>.cpp</code> dopo il preprocessing</td><td>L'unità atomica di compilazione. Ogni <code>.cpp</code> viene compilato <strong>indipendentemente</strong> in un <em>object file</em> (<code>.o</code>). I file <code>.h</code> non vengono compilati direttamente: sono testo che viene incollato dentro i <code>.cpp</code> che li includono. Il linker poi unisce tutti gli object file.</td></tr>
-                <tr><td>Linker</td><td>Fase successiva alla compilazione</td><td>Risolve i <em>symbolic references</em>: sostituisce ogni chiamata a funzione con l'indirizzo reale della funzione compilata. Errore di linker "undefined reference": la dichiarazione esiste (il compilatore è contento), ma la definizione non è stata trovata. Cause comuni: file <code>.cpp</code> non incluso nel build, nome di funzione scritto diversamente nel <code>.h</code> e nel <code>.cpp</code>.</td></tr>
-                <tr><td>Name Mangling</td><td>Gestito automaticamente</td><td>Il compilatore C++ modifica i nomi dei simboli per includere informazioni sul tipo dei parametri. <code>void move(int x, int y)</code> diventa qualcosa come <code>_Z4moveii</code>. Questo permette l'overloading (due funzioni con lo stesso nome ma parametri diversi hanno nomi mangled diversi). Per interfacciarsi con codice C (che non fa mangling), si usa <code>extern "C" { ... }</code>.</td></tr>
-                <tr><td>ODR (One Definition Rule)</td><td>—</td><td>Ogni entità (funzione, variabile globale, classe) può avere <strong>una sola definizione</strong> nel programma. Le classi possono avere la stessa definizione in più translation unit (per questo vanno negli header e si usano le include guard). I metodi inline possono avere la stessa definizione in più translation unit.</td></tr>
+                <tr>
+                    <th>Costrutto</th>
+                    <th>Sintassi</th>
+                    <th>Semantica dettagliata</th>
+                </tr>
+                <tr>
+                    <td>Include guard</td>
+                    <td><code>#ifndef NOME_H #define NOME_H ... #endif</code></td>
+                    <td>Evita che un header venga incluso più di una volta nella stessa <em>translation unit</em>, il
+                        che causerebbe errori di "definizione multipla". Alternativa moderna (non standard ma universal
+                        supportata): <code>#pragma once</code> in cima all'header.</td>
+                </tr>
+                <tr>
+                    <td><code>#include &lt;&gt;</code> vs <code>#include ""</code></td>
+                    <td><code>#include &lt;iostream&gt;</code> vs <code>#include "myfile.h"</code></td>
+                    <td><code>&lt;&gt;</code>: il preprocessore cerca nei percorsi di sistema (librerie standard e di
+                        sistema). <code>""</code>: il preprocessore cerca prima nella directory del file corrente, poi
+                        nei percorsi di sistema. Usare <code>""</code> per i propri header e <code>&lt;&gt;</code> per
+                        le librerie esterne.</td>
+                </tr>
+                <tr>
+                    <td>Translation Unit</td>
+                    <td>Un file <code>.cpp</code> dopo il preprocessing</td>
+                    <td>L'unità atomica di compilazione. Ogni <code>.cpp</code> viene compilato
+                        <strong>indipendentemente</strong> in un <em>object file</em> (<code>.o</code>). I file
+                        <code>.h</code> non vengono compilati direttamente: sono testo che viene incollato dentro i
+                        <code>.cpp</code> che li includono. Il linker poi unisce tutti gli object file.</td>
+                </tr>
+                <tr>
+                    <td>Linker</td>
+                    <td>Fase successiva alla compilazione</td>
+                    <td>Risolve i <em>symbolic references</em>: sostituisce ogni chiamata a funzione con l'indirizzo
+                        reale della funzione compilata. Errore di linker "undefined reference": la dichiarazione esiste
+                        (il compilatore è contento), ma la definizione non è stata trovata. Cause comuni: file
+                        <code>.cpp</code> non incluso nel build, nome di funzione scritto diversamente nel
+                        <code>.h</code> e nel <code>.cpp</code>.</td>
+                </tr>
+                <tr>
+                    <td>Name Mangling</td>
+                    <td>Gestito automaticamente</td>
+                    <td>Il compilatore C++ modifica i nomi dei simboli per includere informazioni sul tipo dei
+                        parametri. <code>void move(int x, int y)</code> diventa qualcosa come <code>_Z4moveii</code>.
+                        Questo permette l'overloading (due funzioni con lo stesso nome ma parametri diversi hanno nomi
+                        mangled diversi). Per interfacciarsi con codice C (che non fa mangling), si usa
+                        <code>extern "C" { ... }</code>.</td>
+                </tr>
+                <tr>
+                    <td>ODR (One Definition Rule)</td>
+                    <td>—</td>
+                    <td>Ogni entità (funzione, variabile globale, classe) può avere <strong>una sola
+                            definizione</strong> nel programma. Le classi possono avere la stessa definizione in più
+                        translation unit (per questo vanno negli header e si usano le include guard). I metodi inline
+                        possono avere la stessa definizione in più translation unit.</td>
+                </tr>
             </table>
 
             <h3>Memoria: Stack vs Heap</h3>
             <table class="comparison">
-                <tr><th>Aspetto</th><th>Stack (Pila)</th><th>Heap (Mucchio)</th></tr>
-                <tr><td>Allocazione</td><td>Automatica: al momento della dichiarazione di una variabile locale</td><td>Manuale: con <code>new</code> in C++ (o <code>malloc</code> in C)</td></tr>
-                <tr><td>Deallocazione</td><td>Automatica: quando la variabile esce dallo scope (fine blocco <code>{}</code>)</td><td>Manuale: con <code>delete</code>. Se dimenticato → <strong>memory leak</strong></td></tr>
-                <tr><td>Velocità</td><td>Molto veloce: spostamento semplice del puntatore allo stack (SP)</td><td>Più lenta: richiede di trovare un blocco libero nell'heap (allocation overhead)</td></tr>
-                <tr><td>Dimensione</td><td>Limitata (tipicamente 1-8 MB). Stack overflow se si supera.</td><td>Limitata solo dalla RAM disponibile</td></tr>
-                <tr><td>Lifetime</td><td>Legata allo scope: non si può restituire un puntatore a una variabile locale!</td><td>Legata alla chiamata a <code>delete</code>: dura finché si vuole</td></tr>
-                <tr><td>Uso tipico</td><td>Variabili locali, parametri di funzione, oggetti di dimensione nota e piccola</td><td>Oggetti grandi, oggetti con lifetime non determinabile a compile-time, array di dimensione variabile</td></tr>
-                <tr><td>Esempio</td><td><code>int x = 5;</code> (locale) — automatico</td><td><code>int* p = new int(5);</code> — manuale, richiede <code>delete p;</code></td></tr>
+                <tr>
+                    <th>Aspetto</th>
+                    <th>Stack (Pila)</th>
+                    <th>Heap (Mucchio)</th>
+                </tr>
+                <tr>
+                    <td>Allocazione</td>
+                    <td>Automatica: al momento della dichiarazione di una variabile locale</td>
+                    <td>Manuale: con <code>new</code> in C++ (o <code>malloc</code> in C)</td>
+                </tr>
+                <tr>
+                    <td>Deallocazione</td>
+                    <td>Automatica: quando la variabile esce dallo scope (fine blocco <code>{}</code>)</td>
+                    <td>Manuale: con <code>delete</code>. Se dimenticato → <strong>memory leak</strong></td>
+                </tr>
+                <tr>
+                    <td>Velocità</td>
+                    <td>Molto veloce: spostamento semplice del puntatore allo stack (SP)</td>
+                    <td>Più lenta: richiede di trovare un blocco libero nell'heap (allocation overhead)</td>
+                </tr>
+                <tr>
+                    <td>Dimensione</td>
+                    <td>Limitata (tipicamente 1-8 MB). Stack overflow se si supera.</td>
+                    <td>Limitata solo dalla RAM disponibile</td>
+                </tr>
+                <tr>
+                    <td>Lifetime</td>
+                    <td>Legata allo scope: non si può restituire un puntatore a una variabile locale!</td>
+                    <td>Legata alla chiamata a <code>delete</code>: dura finché si vuole</td>
+                </tr>
+                <tr>
+                    <td>Uso tipico</td>
+                    <td>Variabili locali, parametri di funzione, oggetti di dimensione nota e piccola</td>
+                    <td>Oggetti grandi, oggetti con lifetime non determinabile a compile-time, array di dimensione
+                        variabile</td>
+                </tr>
+                <tr>
+                    <td>Esempio</td>
+                    <td><code>int x = 5;</code> (locale) — automatico</td>
+                    <td><code>int* p = new int(5);</code> — manuale, richiede <code>delete p;</code></td>
+                </tr>
             </table>
         </section>
 
@@ -971,19 +1731,29 @@
 
             <div style="margin-top: 20px;">
                 <h4>PDF Lezioni:</h4>
-                <a href="materiale/programmazione/Introduction%20to%20OOP%20CPP.pdf" class="download-btn" target="_blank">Intro OOP</a>
-                <a href="materiale/programmazione/2-introduction.pdf" class="download-btn" target="_blank">2 - Introduction</a>
-                <a href="materiale/programmazione/Classes%20and%20Objects%20C%2B%2B.pdf" class="download-btn" target="_blank">Classes and Objects</a>
-                <a href="materiale/programmazione/3-classes%20and%20objects.pdf" class="download-btn" target="_blank">3 - Classes (Slide)</a>
-                <a href="materiale/programmazione/4-inheritance.pdf" class="download-btn" target="_blank">4 - Inheritance</a>
+                <a href="materiale/programmazione/Introduction%20to%20OOP%20CPP.pdf" class="download-btn"
+                    target="_blank">Intro OOP</a>
+                <a href="materiale/programmazione/2-introduction.pdf" class="download-btn" target="_blank">2 -
+                    Introduction</a>
+                <a href="materiale/programmazione/Classes%20and%20Objects%20C%2B%2B.pdf" class="download-btn"
+                    target="_blank">Classes and Objects</a>
+                <a href="materiale/programmazione/3-classes%20and%20objects.pdf" class="download-btn" target="_blank">3
+                    - Classes (Slide)</a>
+                <a href="materiale/programmazione/4-inheritance.pdf" class="download-btn" target="_blank">4 -
+                    Inheritance</a>
             </div>
             <div style="margin-top: 15px;">
                 <h4>Appunti e Cheatsheet:</h4>
-                <a href="materiale/programmazione/Programmazione.pdf" class="download-btn" target="_blank">Sommario Programmazione</a>
-                <a href="materiale/programmazione/PROGRAMMAZIONE%2009.03.pdf" class="download-btn" target="_blank">09.03 (UML &amp; ADT)</a>
-                <a href="materiale/programmazione/Programmazione%2016.03.pdf" class="download-btn" target="_blank">16.03 (Copy &amp; Operatori)</a>
-                <a href="materiale/programmazione/Programmazione%2017.03.pdf" class="download-btn" target="_blank">17.03 (Binding &amp; Override)</a>
-                <a href="materiale/programmazione/C%2B%2B-sheet-16032026.pdf" class="download-btn" target="_blank">Cheatsheet C++</a>
+                <a href="materiale/programmazione/Programmazione.pdf" class="download-btn" target="_blank">Sommario
+                    Programmazione</a>
+                <a href="materiale/programmazione/PROGRAMMAZIONE%2009.03.pdf" class="download-btn" target="_blank">09.03
+                    (UML &amp; ADT)</a>
+                <a href="materiale/programmazione/Programmazione%2016.03.pdf" class="download-btn" target="_blank">16.03
+                    (Copy &amp; Operatori)</a>
+                <a href="materiale/programmazione/Programmazione%2017.03.pdf" class="download-btn" target="_blank">17.03
+                    (Binding &amp; Override)</a>
+                <a href="materiale/programmazione/C%2B%2B-sheet-16032026.pdf" class="download-btn"
+                    target="_blank">Cheatsheet C++</a>
             </div>
 
             <div style="margin-top: 15px;">
@@ -991,14 +1761,16 @@
                 <a href="materiale/programmazione/E0_primo/" class="download-btn">E0 - Compilazione</a>
                 <a href="materiale/programmazione/E1_class_exercise/" class="download-btn">E1 - Classi</a>
                 <a href="materiale/programmazione/E2_class_exercise/" class="download-btn">E2 - RPG (Dice)</a>
-                <a href="materiale/programmazione/E3_inheritance_exercise/" class="download-btn">E3 - Ereditarietà RPG</a>
+                <a href="materiale/programmazione/E3_inheritance_exercise/" class="download-btn">E3 - Ereditarietà
+                    RPG</a>
             </div>
         </section>
     </div>
 
     <footer>
         <div class="container">
-            <p>&copy; 2026 Appunti Ingegneria Informatica - Realizzato da Cristian Ceni. Materiale ad uso accademico.</p>
+            <p>&copy; 2026 Appunti Ingegneria Informatica - Realizzato da Cristian Ceni. Materiale ad uso accademico.
+            </p>
         </div>
     </footer>
 </body>
