@@ -1,0 +1,25 @@
+{
+  "name": "sito-ripasso",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "netlify dev",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cristianceni5/sito-ripasso.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/cristianceni5/sito-ripasso/issues"
+  },
+  "homepage": "https://github.com/cristianceni5/sito-ripasso#readme",
+  "devDependencies": {
+    "netlify-cli": "^24.3.0"
+  }
+}
