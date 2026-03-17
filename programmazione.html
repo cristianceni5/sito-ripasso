@@ -533,7 +533,298 @@
         </section>
 
         <!-- ================================================== -->
-        <!-- RISORSE -->
+        <!-- 11. ENUM CLASS -->
+        <!-- ================================================== -->
+        <section class="content-section">
+            <h2>11. <code>enum class</code> (C++11)</h2>
+            <p>Il C++11 introduce <code>enum class</code> (detto <em>scoped enum</em>) come alternativa tipizzata e sicura alla vecchia <code>enum</code> del C. I valori non inquinano il namespace e non si convertono implicitamente a <code>int</code>.</p>
+            <pre class="modern-code">
+<span class="comment">// E2 / E3 - GameEvent come enum class</span>
+<span class="keyword">enum class</span> <span class="type">GameEvent</span> {
+    quit, left, up, down, right, fight, noop
+};
+
+<span class="comment">// I valori DEVONO essere qualificati con il nome dell'enum</span>
+<span class="type">GameEvent</span> e = <span class="type">GameEvent</span>::fight;   <span class="comment">// ✅ corretto</span>
+<span class="comment">// GameEvent e = fight;            // ❌ errore di compilazione</span>
+
+<span class="comment">// TileType per il Dungeon (E3)</span>
+<span class="keyword">enum class</span> <span class="type">TileType</span> {
+    Unused = <span class="string">0</span>, DirtWall, DirtFloor, StoneWall,
+    Corridor, Door, UpStairs, DownStairs, Chest
+};
+
+<span class="comment">// Uso nella funzione isLegalCell()</span>
+<span class="keyword">switch</span> (map.<span class="function">getCell</span>(x, y)) {
+    <span class="keyword">case</span> <span class="type">TileType</span>::DirtFloor: <span class="keyword">return</span> <span class="keyword">true</span>;   <span class="comment">// Cella percorribile</span>
+    <span class="keyword">case</span> <span class="type">TileType</span>::DirtWall:  <span class="keyword">return</span> <span class="keyword">false</span>;  <span class="comment">// Muro, non percorribile</span>
+    <span class="keyword">default</span>: <span class="keyword">return</span> <span class="keyword">false</span>;
+}</pre>
+        </section>
+
+        <!-- ================================================== -->
+        <!-- 12. CLASSE DICE: STATIC, SRAND, CONST MEMBRO -->
+        <!-- ================================================== -->
+        <section class="content-section">
+            <h2>12. Classe Dice: <code>static</code>, <code>srand</code> e <code>const</code> come membro</h2>
+            <p>La classe <code>Dice</code> (E2/E3) è un ottimo esempio pratico di utilizzo avanzato di: membro <code>static</code> condiviso tra tutte le istanze, membro <code>const</code> inizializzato nella lista, e uso di <code>srand</code>/<code>rand</code> con re-seeding controllato.</p>
+            <pre class="modern-code">
+<span class="comment">// Dice.h (E2_class_exercise)</span>
+<span class="keyword">class</span> <span class="type">Dice</span> {
+<span class="keyword">public</span>:
+    <span class="keyword">explicit</span> <span class="function">Dice</span>(<span class="type">int</span> f = <span class="string">6</span>) : faces(f) {
+        <span class="keyword">if</span> (faces &lt; <span class="string">2</span>) faces = <span class="string">6</span>;
+        <span class="function">srand</span>(<span class="function">time</span>(<span class="string">0</span>));   <span class="comment">// Inizializza il generatore casuale</span>
+    }
+
+    <span class="type">int</span> <span class="function">roll</span>(<span class="type">int</span> r);
+
+<span class="keyword">private</span>:
+    <span class="type">int</span> faces;
+    <span class="keyword">static</span> <span class="type">int</span> numRoll;         <span class="comment">// UNA sola copia per tutte le istanze</span>
+    <span class="keyword">const</span> <span class="type">int</span> NUM_MAX = <span class="string">6969</span>;  <span class="comment">// Costante per-oggetto inizializzata in-class</span>
+};</pre>
+            <pre class="modern-code">
+<span class="comment">// Dice.cpp - il membro static va DEFINITO fuori dalla classe</span>
+<span class="type">int</span> <span class="type">Dice</span>::numRoll = <span class="string">0</span>;
+
+<span class="type">int</span> <span class="type">Dice</span>::<span class="function">roll</span>(<span class="type">int</span> r) {
+    <span class="type">int</span> result = <span class="string">0</span>;
+    <span class="comment">// Se il dado è stato lanciato troppo spesso, re-seed il RNG</span>
+    <span class="keyword">if</span> (numRoll &gt; NUM_MAX) {
+        <span class="function">srand</span>(<span class="function">time</span>(<span class="string">0</span>));
+        numRoll = <span class="string">0</span>;
+    }
+    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="string">0</span>; i &lt; r; i++)
+        result += <span class="function">rand</span>() % faces;
+    <span class="keyword">return</span> result;
+}</pre>
+            <p><strong>Nota importante su <code>srand</code>:</strong> Chiamare <code>srand(time(0))</code> ripetutamente in poco tempo assegna lo stesso seed (perché <code>time()</code> ha risoluzione al secondo) producendo la stessa sequenza. Per questo si usa un contatore statico <code>numRoll</code> che triggera il re-seed solo ogni NUM_MAX lanci.</p>
+
+            <h3>Dice in GameCharacter.cpp (E3)</h3>
+            <p>Il metodo <code>fight()</code> usa un dado a 6 facce per introdurre casualità nel combattimento:</p>
+            <pre class="modern-code">
+<span class="type">int</span> <span class="type">GameCharacter</span>::<span class="function">fight</span>(<span class="type">GameCharacter</span> &amp;enemy) {
+    <span class="type">Dice</span> myDice(<span class="string">6</span>);                <span class="comment">// Dado a 6 facce, locale alla funzione</span>
+    <span class="type">int</span> hit = (weapon) ? weapon-&gt;<span class="function">use</span>() : <span class="string">1</span>;
+
+    <span class="type">int</span> hitChance = myDice.<span class="function">roll</span>(<span class="string">2</span>);  <span class="comment">// Tira 2 dadi</span>
+    <span class="keyword">if</span> (hitChance &gt; <span class="string">4</span>) {             <span class="comment">// Colpo riuscito se somma &gt; 4</span>
+        hit += myDice.<span class="function">roll</span>(<span class="string">1</span>);       <span class="comment">// Danno bonus casuale</span>
+        <span class="keyword">if</span> (hit &gt; enemy.<span class="function">getArmor</span>()) {
+            <span class="keyword">return</span> enemy.<span class="function">receiveDamage</span>(hit);
+        }
+    }
+    <span class="keyword">return</span> <span class="string">0</span>;  <span class="comment">// Nessun danno</span>
+}</pre>
+        </section>
+
+        <!-- ================================================== -->
+        <!-- 13. DEEP COPY COMPLETA - GAMECHARACTER E3 -->
+        <!-- ================================================== -->
+        <section class="content-section">
+            <h2>13. Implementazione Completa della Deep Copy (E3)</h2>
+            <p>In E3, <code>GameCharacter</code> gestisce un puntatore a <code>Weapon*</code>. La shallow copy del compilatore causerebbe doppia deallocazione. Ecco l'implementazione completa della <strong>Rule of Three</strong>:</p>
+            <pre class="modern-code">
+<span class="comment">// Copy Constructor: deep copy del puntatore weapon</span>
+<span class="type">GameCharacter</span>::<span class="function">GameCharacter</span>(<span class="keyword">const</span> <span class="type">GameCharacter</span> &amp;original) {
+    HP = original.HP;
+    posX = original.posX;
+    posY = original.posY;
+
+    <span class="keyword">if</span> (original.weapon != <span class="keyword">nullptr</span>)
+        weapon = <span class="keyword">new</span> <span class="type">Weapon</span>(*original.weapon);  <span class="comment">// Alloca una NUOVA arma</span>
+    <span class="keyword">else</span>
+        weapon = <span class="keyword">nullptr</span>;
+}
+
+<span class="comment">// Copy Assignment Operator: gestisce self-assignment e dealloca il vecchio</span>
+<span class="type">GameCharacter</span> &amp;<span class="type">GameCharacter</span>::<span class="keyword">operator</span>=(<span class="keyword">const</span> <span class="type">GameCharacter</span> &amp;right) {
+    <span class="keyword">if</span> (<span class="keyword">this</span> != &amp;right) {             <span class="comment">// ⚠️ Self-assignment check!</span>
+        <span class="keyword">if</span> (weapon != <span class="keyword">nullptr</span>)
+            <span class="keyword">delete</span> weapon;          <span class="comment">// Libera la vecchia arma</span>
+
+        HP = right.HP;
+        posX = right.posX;
+        posY = right.posY;
+
+        <span class="keyword">if</span> (right.weapon != <span class="keyword">nullptr</span>)
+            weapon = <span class="keyword">new</span> <span class="type">Weapon</span>(*right.weapon); <span class="comment">// Copia profonda</span>
+        <span class="keyword">else</span>
+            weapon = <span class="keyword">nullptr</span>;
+    }
+    <span class="keyword">return</span> *<span class="keyword">this</span>;  <span class="comment">// Permette a = b = c</span>
+}
+
+<span class="comment">// Destructor: libera l'arma solo se esiste</span>
+<span class="type">GameCharacter</span>::~<span class="function">GameCharacter</span>() {
+    <span class="keyword">if</span> (weapon != <span class="keyword">nullptr</span>)
+        <span class="keyword">delete</span> weapon;                <span class="comment">// Evita delete su nullptr</span>
+}</pre>
+            <p><strong>Il Self-Assignment Check (<code>if (this != &amp;right)</code>) è critico!</strong> Senza di esso, se scrivi <code>hero = hero;</code>, il codice prima dealloca <code>weapon</code> e poi cerca di copiarlo: crash immediato.</p>
+        </section>
+
+        <!-- ================================================== -->
+        <!-- 14. SPECIALIZZAZIONI DEI PERSONAGGI (E3) -->
+        <!-- ================================================== -->
+        <section class="content-section">
+            <h2>14. Specializzazioni dei Personaggi (E3)</h2>
+            <p>L'esercitazione E3 costruisce una gerarchia di classi derivate da <code>GameCharacter</code>, ognuna con comportamenti specifici. Questo è polimorfismo in azione.</p>
+
+            <h3>Knight (Cavaliere)</h3>
+            <p>Ha <em>destrezza</em> (<code>dexterity</code>) e può essere un <em>paladino</em> (<code>paladin</code>). Override di <code>fight()</code> (secondo attacco se destrezza &gt; 10, +10 danno se paladino) e di <code>move()</code> (+1 movimento se destrezza &gt; 10).</p>
+            <pre class="modern-code">
+<span class="comment">// Knight.h</span>
+<span class="keyword">class</span> <span class="type">Knight</span> : <span class="keyword">public</span> <span class="type">GameCharacter</span> {
+<span class="keyword">public</span>:
+    <span class="type">char</span> <span class="function">getCharacterSymbol</span>() <span class="keyword">const</span> { <span class="keyword">return</span> <span class="string">'K'</span>; }
+    <span class="comment">// override fight(): se dexterity &gt; 10, secondo attacco; +10 danno se paladin</span>
+    <span class="comment">// override move():  se dexterity &gt; 10, +1 movement</span>
+<span class="keyword">private</span>:
+    <span class="type">int</span> dexterity;
+    <span class="type">bool</span> paladin;
+    <span class="type">std::string</span> name;
+};</pre>
+
+            <h3>Wizard (Mago)</h3>
+            <p>Ha <em>mana</em> e un <em>nome</em>. Override di <code>fight()</code> che usa il mana per cambiare il comportamento. Introduce <code>doMagic()</code> come nuovo metodo <code>virtual</code> (può essere ulteriormente esteso da sottoclassi di Wizard).</p>
+            <pre class="modern-code">
+<span class="comment">// Wizard.h</span>
+<span class="keyword">class</span> <span class="type">Wizard</span> : <span class="keyword">public</span> <span class="type">GameCharacter</span> {
+<span class="keyword">public</span>:
+    <span class="type">char</span> <span class="function">getCharacterSymbol</span>() <span class="keyword">const</span> { <span class="keyword">return</span> <span class="string">'W'</span>; }
+    <span class="keyword">virtual</span> <span class="type">void</span> <span class="function">doMagic</span>();  <span class="comment">// Nuovo metodo, virtual per ulteriori estensioni</span>
+    <span class="comment">// override fight(): usa mana per modificare behaviour</span>
+<span class="keyword">protected</span>:
+    <span class="type">int</span> mana;
+    <span class="type">std::string</span> name;
+};</pre>
+
+            <h3>Orc (Nemico)</h3>
+            <p>Nemico con forza bruta. Override di <code>fight()</code> (secondo attacco se forza &gt; 10) e <code>move()</code>.</p>
+            <pre class="modern-code">
+<span class="comment">// Orc.h</span>
+<span class="keyword">class</span> <span class="type">Orc</span> : <span class="keyword">public</span> <span class="type">GameCharacter</span> {
+<span class="keyword">public</span>:
+    <span class="keyword">explicit</span> <span class="function">Orc</span>(<span class="type">int</span> s, <span class="type">int</span> hp=<span class="string">20</span>);
+    <span class="type">char</span> <span class="function">getCharacterSymbol</span>() { <span class="keyword">return</span> <span class="string">'O'</span>; }
+    <span class="comment">// override fight(): se strength &gt; 10, secondo attacco</span>
+<span class="keyword">protected</span>:
+    <span class="type">int</span> strength;
+};</pre>
+
+            <h3>Skeleton (Nemico)</h3>
+            <p>Nemico resistente alla magia. Override di <code>receiveDamage()</code>: se <code>magicRecover</code> è true, il danno magico viene ridotto.</p>
+            <pre class="modern-code">
+<span class="comment">// Skeleton.h</span>
+<span class="keyword">class</span> <span class="type">Skeleton</span> : <span class="keyword">public</span> <span class="type">GameCharacter</span> {
+<span class="keyword">public</span>:
+    <span class="type">char</span> <span class="function">getCharacterSymbol</span>() <span class="keyword">const</span> { <span class="keyword">return</span> <span class="string">'S'</span>; }
+    <span class="comment">// override receiveDamage(): magicRecover riduce il danno magico</span>
+<span class="keyword">private</span>:
+    <span class="type">bool</span> magicRecover;
+};</pre>
+        </section>
+
+        <!-- ================================================== -->
+        <!-- 15. POLIMORFISMO IN AZIONE: RENDERING DEL GIOCO -->
+        <!-- ================================================== -->
+        <section class="content-section">
+            <h2>15. Polimorfismo in Azione: <code>getCharacterSymbol()</code></h2>
+            <p>Il momento più bello di E3: un puntatore <code>GameCharacter*</code> può puntare a un <code>Knight</code>, un <code>Wizard</code>, un <code>Orc</code> o uno <code>Skeleton</code>. Grazie al polimorfismo, chiamare <code>getCharacterSymbol()</code> restituisce il simbolo corretto a runtime (<code>'K'</code>, <code>'W'</code>, <code>'O'</code>, <code>'S'</code>) senza dover sapere il tipo concreto.</p>
+            <pre class="modern-code">
+<span class="comment">// E3 main.cpp - il commento "XXX polymorphism in action" è del prof!</span>
+<span class="type">bool</span> <span class="function">checkMonsterPosition</span>(<span class="type">int</span> x, <span class="type">int</span> y, <span class="keyword">const</span> <span class="type">GameCharacter</span>&amp; enemy, <span class="type">char</span>&amp; renderSymbol) {
+    <span class="keyword">if</span> (x == enemy.<span class="function">getPosX</span>() &amp;&amp; y == enemy.<span class="function">getPosY</span>()) {
+        renderSymbol = enemy.<span class="function">getCharacterSymbol</span>(); <span class="comment">// XXX polymorphism in action</span>
+        <span class="keyword">return</span> <span class="keyword">true</span>;
+    }
+    <span class="keyword">return</span> <span class="keyword">false</span>;
+}
+
+<span class="comment">// main() usa puntatori a GameCharacter* per hero ed enemy</span>
+<span class="type">GameCharacter</span>* hero;
+<span class="type">bool</span> useKnight = <span class="keyword">true</span>;
+<span class="comment">// TODO: hero = new Knight(...) oppure hero = new Wizard(...)</span>
+
+<span class="type">GameCharacter</span>* enemy;
+<span class="comment">// TODO: enemy = new Orc(...) oppure enemy = new Skeleton(...)</span>
+
+<span class="comment">// Il rendering usa i puntatori base: non sa il tipo concreto!</span>
+<span class="function">renderGame</span>(map, *hero, *enemy);  <span class="comment">// Dereferenzia i puntatori</span>
+<span class="function">renderHUD</span>(*hero);</pre>
+
+            <h3>Classe Dungeon</h3>
+            <p>Il <code>Dungeon</code> è la mappa di gioco generata proceduralmente. Usa un array dinamico <code>TileType* dungeonMap</code> e ha membri <code>const</code> per xmax, ymax, chanceRoom ecc., che devono essere inizializzati nella lista di inizializzazione del costruttore.</p>
+            <pre class="modern-code">
+<span class="comment">// Dungeon.h - membri const, puntatore dinamico, metodi privati</span>
+<span class="keyword">class</span> <span class="type">Dungeon</span> {
+<span class="keyword">public</span>:
+    <span class="function">Dungeon</span>();
+    ~<span class="function">Dungeon</span>();                           <span class="comment">// Deallocazione di dungeonMap</span>
+    <span class="type">bool</span> <span class="function">createDungeon</span>(<span class="type">int</span> x, <span class="type">int</span> y, <span class="type">int</span> obj = <span class="string">10</span>);
+    <span class="type">TileType</span> <span class="function">getCell</span>(<span class="type">int</span> x, <span class="type">int</span> y) <span class="keyword">const</span>;  <span class="comment">// const: non modifica la mappa</span>
+    <span class="type">int</span> <span class="function">getXsize</span>() <span class="keyword">const</span>;
+    <span class="type">int</span> <span class="function">getYsize</span>() <span class="keyword">const</span>;
+<span class="keyword">private</span>:
+    <span class="type">TileType</span>* dungeonMap;   <span class="comment">// Array dinamico (new[] / delete[])</span>
+    <span class="type">int</span> xsize, ysize;
+    <span class="keyword">const</span> <span class="type">int</span> xmax;         <span class="comment">// 80 colonne</span>
+    <span class="keyword">const</span> <span class="type">int</span> ymax;         <span class="comment">// 25 righe</span>
+    <span class="keyword">const</span> <span class="type">int</span> chanceRoom;   <span class="comment">// Probabilità stanza nel dungeon builder</span>
+    <span class="keyword">const</span> <span class="type">int</span> chanceCorridor;
+};</pre>
+        </section>
+
+        <!-- ================================================== -->
+        <!-- 16. GAME LOOP E ARCHITETTURA COMPLESSIVA -->
+        <!-- ================================================== -->
+        <section class="content-section">
+            <h2>16. Game Loop Pattern e Architettura dell'Applicazione (E2/E3)</h2>
+            <p>Il progetto RPG demonstra un pattern fondamentale dell'architettura software: il <strong>Game Loop</strong>. Il loop ripete all'infinito: <em>poll input → update stato → render</em>. Vedi <a href="http://gameprogrammingpatterns.com/game-loop.html" target="_blank" style="color: var(--primary-color);">gameprogrammingpatterns.com/game-loop.html</a>.</p>
+            <pre class="modern-code">
+<span class="comment">// main.cpp (E2/E3) - Struttura del Game Loop</span>
+<span class="type">int</span> <span class="function">main</span>() {
+    <span class="comment">// 1. SETUP: crea mappa, personaggi, armi</span>
+    <span class="type">Dungeon</span> map;
+    map.<span class="function">createDungeon</span>(<span class="string">80</span>, <span class="string">25</span>, <span class="string">50</span>);
+
+    <span class="type">GameCharacter</span>* hero;  <span class="comment">// Puntatore base → polimorfismo</span>
+    <span class="comment">// hero = new Knight(...) o new Wizard(...)</span>
+
+    <span class="type">Weapon</span>* sword;
+    <span class="comment">// sword = new Sword(10) o new Bow(8)</span>
+    hero-&gt;<span class="function">setWeapon</span>(sword);
+
+    <span class="comment">// 2. RENDER iniziale</span>
+    <span class="function">renderHUD</span>(*hero);
+    <span class="function">renderGame</span>(map, *hero, *enemy);
+
+    <span class="comment">// 3. GAME LOOP infinito</span>
+    <span class="keyword">while</span> (<span class="keyword">true</span>) {
+        <span class="type">GameEvent</span> event = <span class="function">getEvent</span>();         <span class="comment">// Poll: legge tastiera</span>
+        <span class="type">bool</span> quit = <span class="function">updateGame</span>(event, *hero, *enemy, map); <span class="comment">// Update</span>
+        <span class="keyword">if</span> (quit) <span class="keyword">return</span> <span class="string">0</span>;
+        <span class="function">renderHUD</span>(*hero);
+        <span class="function">renderGame</span>(map, *hero, *enemy);        <span class="comment">// Render</span>
+    }
+}</pre>
+
+            <h3>Separazione delle Responsabilità (SRP in pratica)</h3>
+            <p>Il codice di E2/E3 mostra SRP "in the wild": ogni funzione ha un unico scopo.</p>
+            <table class="comparison">
+                <tr><th>Funzione</th><th>Responsabilità</th></tr>
+                <tr><td><code>getEvent()</code></td><td>Solo lettura da tastiera, mappa <code>char</code> a <code>GameEvent</code></td></tr>
+                <tr><td><code>isLegalCell()</code></td><td>Solo: questa cella è percorribile?</td></tr>
+                <tr><td><code>isLegalMove()</code></td><td>Solo: questo movimento è legale? (usa isLegalCell + check nemici)</td></tr>
+                <tr><td><code>updateGame()</code></td><td>Solo: applica l'evento al game state</td></tr>
+                <tr><td><code>renderGame()</code></td><td>Solo: disegna a schermo il game state corrente</td></tr>
+                <tr><td><code>renderHUD()</code></td><td>Solo: stampa HP, armor, weapon strength dell'eroe</td></tr>
+            </table>
+        </section>
+
+        <!-- ================================================== -->
+        <!-- DOWNLOAD RISORSE -->
         <!-- ================================================== -->
         <section class="content-section">
             <h2>Download Materiale (Slide e Codici)</h2>
