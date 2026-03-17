@@ -106,13 +106,41 @@
 };</pre>
         </section>
 
+        <!-- COSTUTTORI E MEMORIA -->
+        <section class="content-section">
+            <h2>3. Costruttori, Distruttori e Memoria Dinamica</h2>
+            <p><strong>Costruttore:</strong> Metodo chiamato automaticamente alla creazione dell'oggetto (stesso nome della classe). Esiste un <em>costruttore di default</em> se non ne dichiariamo nessuno.<br>
+            <strong>Distruttore:</strong> Metodo chiamato alla distruzione (nome classe preceduto da <code>~</code>), fondamentale per liberare risorse (es. memoria allocata, file aperti).</p>
+            
+            <h3>New e Delete</h3>
+            <p>In C++, l'allocazione dinamica si effettua con gli operatori <code>new</code> e <code>delete</code>. <code>new</code> alloca memoria e invoca il costruttore, <code>delete</code> invoca il distruttore e dealloca la memoria.</p>
+            <pre class="modern-code">
+<span class="type">GameCharacter</span>* p = <span class="keyword">new</span> <span class="type">GameCharacter</span>(<span class="string">10</span>, <span class="string">5</span>); <span class="comment">// Alloca e costruisce</span>
+<span class="keyword">delete</span> p; <span class="comment">// Distrugge e dealloca</span></pre>
+        </section>
+
+        <!-- ADT, UML E OVERLOADING -->
+        <section class="content-section">
+            <h2>4. ADT, Interfacce, Overloading e UML</h2>
+            <p><strong>ADT (Abstract Data Type):</strong> Definisce un tipo di dato in base al suo comportamento (interfaccia pubblica) nascondendone l'implementazione (Information Hiding). Garantisce maggiore <em>certezza del codice</em>.</p>
+            
+            <h3>Interfacce e Classi Astratte</h3>
+            <p>Il C++ non ha una keyword <code>interface</code> nativa. Si usa una classe astratta con soli <em>metodi virtuali puri</em> (es. <code>virtual void use() = 0;</code>). Le classi derivate (es. <code>Sword</code> da <code>Weapon</code>) devono implementare questi metodi (<strong>Regola del binding / override</strong>).</p>
+
+            <h3>Overloading degli Operatori</h3>
+            <p>Permette di ridefinire il funzionamento degli operatori standard (es. <code>+</code>, <code>=</code>, <code>&lt;&lt;</code>) per i nuovi tipi di dato per operare sugli oggetti in modo intutitivo.</p>
+
+            <h3>Diagrammi UML</h3>
+            <p>Si usa l'UML per la progettazione architetturale OOP. Si definiscono le classi, gli attributi e i metodi prima del codice. Aiuta a visualizzare le associazioni, le composizioni e l'ereditarietà.</p>
+        </section>
+
         <!-- EREDITARIETÀ E POLIMORFISMO -->
         <section class="content-section">
-            <h2>3. Ereditarietà e Polimorfismo (Virtual/Override)</h2>
-            <p>L'<strong>Ereditarietà</strong> permette a una nuova classe (<em>Derived</em>) di ereditare proprietà e metodi da una classe esistente (<em>Base</em>). È una relazione di tipo "Is-A" (È un).</p>
+            <h2>5. Ereditarietà e Polimorfismo (Virtual/Override)</h2>
+            <p>L'<strong>Ereditarietà</strong> permette a una nuova classe (<em>Derived</em>) di ereditare proprietà e metodi da una classe esistente (<em>Base</em>). È una relazione di tipo "Is-A" (È un). In C++ esiste anche l'ereditarietà multipla.</p>
             
             <h3>Polimorfismo e Funzioni Virtuali</h3>
-            <p>Il polimorfismo fa sì che la stessa chiamata a funzione si comporti diversamente a seconda del tipo o dell'oggetto reale a runtime. Per farlo in C++, il metodo nella classe base deve essere marcato come <code>virtual</code>.</p>
+            <p>Il polimorfismo risolve il <em>Binding Dinamico</em>, permettendo alla stessa chiamata di funzione di comportarsi in base al tipo reale dell'oggetto a runtime. Il metodo nella classe base deve essere <code>virtual</code>.</p>
             
             <pre class="modern-code">
 <span class="comment">// --- Wizard.h (Deriva da GameCharacter) ---</span>
@@ -149,6 +177,11 @@
                 <h4>PDF Lezioni:</h4>
                 <a href="materiale/programmazione/Introduction%20to%20OOP%20CPP.pdf" class="download-btn" target="_blank">Introduzione</a>
                 <a href="materiale/programmazione/Classes%20and%20Objects%20C%2B%2B.pdf" class="download-btn" target="_blank">Classi e Oggetti</a>
+                <a href="materiale/programmazione/PROGRAMMAZIONE%2009.03.pdf" class="download-btn" target="_blank">09.03 (UML & ADT)</a>
+                <a href="materiale/programmazione/Programmazione%2016.03.pdf" class="download-btn" target="_blank">16.03 (Interfacce & Overload)</a>
+                <a href="materiale/programmazione/Programmazione%2017.03.pdf" class="download-btn" target="_blank">17.03 (Binding & Override)</a>
+                <a href="materiale/programmazione/Programmazione.pdf" class="download-btn" target="_blank">Sommario Programmazione</a>
+                <a href="materiale/programmazione/C%2B%2B-sheet-16032026.pdf" class="download-btn" target="_blank">Cheatsheet C++</a>
                 <a href="materiale/programmazione/4-inheritance.pdf" class="download-btn" target="_blank">Ereditarietà</a>
             </div>
             
