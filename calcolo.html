@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calcolo Numerico - Appunti e Ripasso</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <header>
+        <div class="container clearfix">
+            <h1>Ingegneria Informatica - UniFI - Cristian Ceni</h1>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="informatica.html">Fondamenti di Informatica</a></li>
+                    <li><a href="programmazione.html">Programmazione</a></li>
+                    <li><a href="calcolo.html" class="active">Calcolo Numerico</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <section class="hero">
+            <h2>Calcolo Numerico</h2>
+            <p>Docenti: Prof.ssa Stefania Bellavia, Prof.ssa Greta Malaspina | Università degli Studi di Firenze</p>
+            <p>Aritmetica finita, Sistemi Lineari, Approssimazione, Integrazione Numerica, Equazioni Non Lineari.</p>
+        </section>
+
+        <!-- SYLLABUS -->
+        <section class="content-section">
+            <h2>Programma del Corso</h2>
+            <ul>
+                <li><strong>ALGORITMI:</strong> definizione, proprietà, strutture fondamentali, pseudocodice, Regola di Horner.</li>
+                <li><strong>ARITMETICA FINITA:</strong> rappresentazione numeri reali, virgola mobile, precisione di macchina, errori di arrotondamento, overflow/underflow.</li>
+                <li><strong>SISTEMI LINEARI:</strong> Eliminazione di Gauss, fattorizzazione LU, norme vettoriali e matriciali, numero di condizionamento K(A).</li>
+                <li><strong>APPROSSIMAZIONE:</strong> interpolazione polinomiale (Lagrange, Newton), minimi quadrati, spline.</li>
+                <li><strong>INTEGRAZIONE NUMERICA:</strong> metodi di quadratura (Punto Medio, Trapezi, Simpson), errore di quadratura.</li>
+                <li><strong>EQUAZIONI NON LINEARI:</strong> Bisezione, Newton-Raphson, Secante, Punto Fisso.</li>
+                <li><strong>MATLAB:</strong> introduzione al linguaggio, funzioni, vettori, matrici.</li>
+            </ul>
+        </section>
+
+        <!-- ALGORITMI -->
+        <section class="content-section">
+            <h2>0. Algoritmi: Definizione e Proprietà</h2>
+            <p>Un <strong>algoritmo</strong> è una successione finita di istruzioni, assegnate in modo non ambiguo,
+                la cui esecuzione consente di passare da una situazione iniziale (DATI) a una situazione finale
+                (RISULTATI) in un <strong>tempo finito</strong>.</p>
+            <h3>Requisiti fondamentali</h3>
+            <ul>
+                <li><strong>Generalità:</strong> adatto a risolvere un'intera classe di problemi, non un caso specifico.</li>
+                <li><strong>Ottimalità:</strong> minimizzare il tempo, il numero di operazioni e massimizzare la stabilità.</li>
+                <li><strong>Finitezza:</strong> deve terminare in un numero finito di passi.</li>
+                <li><strong>Non ambiguità:</strong> ogni istruzione deve essere interpretabile in un solo modo.</li>
+            </ul>
+            <h3>Proprietà di un algoritmo numerico</h3>
+            <ul>
+                <li><strong>Costo:</strong> risorse richieste — tempo di calcolo (numero di operazioni floating point, <em>flops</em>) e memoria.</li>
+                <li><strong>Stabilità:</strong> sensibilità agli errori introdotti durante la computazione. Un algoritmo instabile amplifica gli errori di arrotondamento.</li>
+            </ul>
+            <h3>Tipi di Errore in Calcolo Numerico</h3>
+            <table class="comparison">
+                <tr><th>Tipo di Errore</th><th>Descrizione</th><th>Esempio</th></tr>
+                <tr><td><strong>Errore di Discretizzazione</strong></td><td>Sostituzione di un processo continuo con uno discreto</td><td>Approssimare ∫f(x)dx con una somma di rettangoli</td></tr>
+                <tr><td><strong>Errore di Troncamento</strong></td><td>Interruzione di un processo iterativo prima della convergenza</td><td>Serie di Taylor troncata al termine n-esimo</td></tr>
+                <tr><td><strong>Errore di Arrotondamento</strong></td><td>Precisione finita della rappresentazione in macchina</td><td>0.1 non è rappresentato esattamente in binario</td></tr>
+            </table>
+
+            <h3>Algoritmo di Horner (Valutazione di Polinomio)</h3>
+            <p>Dato il polinomio P<sub>n</sub>(x) = a<sub>0</sub> + a<sub>1</sub>x + a<sub>2</sub>x² + ... + a<sub>n</sub>xⁿ,
+                l'algoritmo banale richiede n addizioni + n(n+1)/2 moltiplicazioni. La <strong>Regola di Horner</strong>
+                riscrive il polinomio in forma annidata:
+            </p>
+            <pre class="modern-code">
+<span class="comment">// P(x) = a0 + x*(a1 + x*(a2 + ... + x*an))</span>
+<span class="comment">// → solo n addizioni + n moltiplicazioni (ottimale!)</span>
+Algoritmo di Horner:
+  1. Leggi n, a[0..n], α
+  2. s = a[n]
+  3. Per i = n-1, n-2, ..., 0:
+     3.1  s = s * α + a[i]
+  4. Restituisci s   // s = P(α)</pre>
+            <p><strong>Costo:</strong> n moltiplicazioni + n addizioni (vs n² moltiplicazioni del metodo diretto).</p>
+
+            <h3>Criteri di Arresto (metodi iterativi)</h3>
+            <p>Un metodo iterativo genera una successione x<sub>k</sub> → x*. Non potendo eseguire infinite
+                iterazioni, si fermano quando soddisfano un criterio:</p>
+            <ul>
+                <li><strong>Residuo:</strong> ‖b - Ax<sub>k</sub>‖ &lt; tolleranza</li>
+                <li><strong>Incremento:</strong> ‖x<sub>k+1</sub> - x<sub>k</sub>‖ &lt; tolleranza</li>
+                <li><strong>Numero massimo di iterazioni:</strong> k &gt; k_max (sicurezza contro divergenza)</li>
+            </ul>
+        </section>
+
+        <!-- ARITMETICA FINITA -->
+        <section class="content-section">
+            <h2>1. Aritmetica Finita e Rappresentazione in Macchina</h2>
+
+            <h3>Sistemi di Numerazione</h3>
+            <p>I computer lavorano in base β (solitamente β=2, binario). Un numero <em>x</em> in notazione
+                posizionale in base β con t cifre di mantissa e p cifre di caratteristica si scrive:</p>
+            <pre class="modern-code">
+x = ±(d₁β⁻¹ + d₂β⁻² + ... + dtβ⁻ᵗ) × βᵉ
+
+dove:  dᵢ ∈ {0, 1, ..., β-1}  (cifre)
+       d₁ ≠ 0                  (forma normalizzata)
+       e   ∈ [L, U]            (esponente / caratteristica)</pre>
+
+            <h3>Numeri Interi in Macchina</h3>
+            <p>Con n bit disponibili e 1 bit di segno, si rappresentano interi da <strong>-(2<sup>n-1</sup>)</strong>
+                a <strong>+(2<sup>n-1</sup>)-1</strong>. Se il numero supera questo range si verifica
+                <strong>OVERFLOW</strong>.</p>
+
+            <h3>Virgola Mobile Normalizzata (Floating Point)</h3>
+            <p>Un numero reale x è rappresentato come fl(x) — la sua approssimazione floating point. I parametri
+                della macchina sono: base β, cifre mantissa t, esponente [L, U].</p>
+            <table class="comparison">
+                <tr><th>Componente</th><th>Descrizione</th><th>Esempio (IEEE 754 double)</th></tr>
+                <tr><td>Segno</td><td>1 bit: 0 positivo, 1 negativo</td><td>1 bit</td></tr>
+                <tr><td>Mantissa</td><td>t cifre binarie — determina la <em>precisione</em></td><td>52 bit</td></tr>
+                <tr><td>Caratteristica (esponente)</td><td>Determina l'<em>ordine di grandezza</em></td><td>11 bit, bias 1023</td></tr>
+            </table>
+
+            <h3>Metodi di Approssimazione</h3>
+            <table class="comparison">
+                <tr><th>Metodo</th><th>Formula</th><th>Errore assoluto massimo</th></tr>
+                <tr><td><strong>Troncamento</strong></td><td>fl(x) = tronca le cifre eccedenti</td><td>|x - fl(x)| ≤ β<sup>1-t</sup></td></tr>
+                <tr><td><strong>Arrotondamento</strong></td><td>fl(x) = arrotonda all'ultima cifra</td><td>|x - fl(x)| ≤ ½ β<sup>1-t</sup></td></tr>
+            </table>
+
+            <h3>Precisione di Macchina (ε<sub>mach</sub>)</h3>
+            <p>La <strong>precisione di macchina</strong> ε<sub>mach</sub> è il più piccolo numero positivo tale che
+                fl(1 + ε<sub>mach</sub>) &gt; 1 in aritmetica float. Misura la precisione relativa massima:</p>
+            <pre class="modern-code">
+ε_mach = β^(1-t)      (troncamento)
+ε_mach = ½ β^(1-t)   (arrotondamento)
+
+IEEE 754 double: ε_mach ≈ 2.22 × 10⁻¹⁶
+IEEE 754 single: ε_mach ≈ 1.19 × 10⁻⁷</pre>
+
+            <h3>Overflow e Underflow</h3>
+            <ul>
+                <li><strong>Overflow:</strong> |x| &gt; x<sub>max</sub> = (1 - β<sup>-t</sup>) × β<sup>U+1</sup> → il numero è troppo grande da rappresentare.</li>
+                <li><strong>Underflow:</strong> 0 &lt; |x| &lt; x<sub>min</sub> = β<sup>L-1</sup> → il numero è troppo piccolo e viene azzerato.</li>
+            </ul>
+
+            <h3>Errori di Rappresentazione</h3>
+            <p>Dato x e la sua approssimazione fl(x):</p>
+            <pre class="modern-code">
+Errore Assoluto:  |x - fl(x)|
+Errore Relativo:  |x - fl(x)| / |x|    (x ≠ 0)
+
+L'errore relativo NON dipende dall'ordine di grandezza
+→ misura la precisione della mantissa
+→ sempre ≤ ε_mach</pre>
+
+            <h3>Cancellazione Numerica</h3>
+            <p>Sottraendo due numeri molto vicini si perdono cifre significative. Esempio:
+                x = 1.000001, y = 1.000000 → x - y = 0.000001 (solo 1 cifra significativa rimasta).<br>
+                <strong>Rimedio:</strong> riformulare algebraicamente le espressioni per evitare sottrazioni di valori vicini.
+            </p>
+        </section>
+
+        <!-- SISTEMI LINEARI -->
+        <section class="content-section">
+            <h2>2. Sistemi Lineari: Ax = b</h2>
+            <p>Dato A ∈ ℝ<sup>n×n</sup> e b ∈ ℝ<sup>n</sup>, trovare x ∈ ℝ<sup>n</sup> tale che Ax = b.
+                Se det(A) ≠ 0 esiste unica soluzione x = A<sup>-1</sup>b (ma in pratica non si calcola mai A<sup>-1</sup>!).
+            </p>
+
+            <h3>Eliminazione di Gauss (Metodo Diretto)</h3>
+            <p>Trasforma il sistema Ax=b in un sistema equivalente triangolare superiore Ux=c mediante operazioni
+                elementari sulle righe (fattore di annullamento m<sub>ij</sub> = a<sub>ij</sub>/a<sub>ii</sub>).</p>
+            <pre class="modern-code">
+Per k = 1 a n-1:        (colonna pivot)
+  Per i = k+1 a n:      (righe sotto)
+    m_ik = a_ik / a_kk  (moltiplicatore)
+    Per j = k a n:
+      a_ij = a_ij - m_ik * a_kj
+    b_i = b_i - m_ik * b_k
+
+Costo: O(n³/3) moltiplicazioni/divisioni + O(n²/2) per la sostituzione all'indietro</pre>
+
+            <h3>Fattorizzazione LU</h3>
+            <p>L'eliminazione di Gauss equivale a fattorizzare A = L·U dove L è triangolare inferiore (con 1
+                sulla diagonale, moltiplicatori m<sub>ij</sub> sotto) e U è triangolare superiore (risultato
+                dell'eliminazione).</p>
+            <pre class="modern-code">
+A = L · U
+Ly = b       (sostituzione in avanti,  costo O(n²))
+Ux = y       (sostituzione all'indietro, costo O(n²))
+
+Vantaggio: con più vettori b diversi, si fattorizza A una volta sola.</pre>
+
+            <h3>Pivoting Parziale</h3>
+            <p>A ogni passo k si sceglie come pivot il massimo elemento in valore assoluto nella colonna k
+                (sotto la diagonale), e si scambia quella riga con la riga k. Questo <strong>previene la divisione per
+                zero</strong> e riduce l'amplificazione numerica: PA = LU con P matrice di permutazione.</p>
+
+            <h3>Sistemi Triangolari: Sostituzioni</h3>
+            <pre class="modern-code">
+<span class="comment">// Sostituzione in AVANTI (Ly = b, L triangolare inferiore)</span>
+y[1] = b[1] / L[1,1]
+Per i = 2 a n:
+  y[i] = (b[i] - somma(L[i,j]*y[j], j=1..i-1)) / L[i,i]
+
+<span class="comment">// Sostituzione ALL'INDIETRO (Ux = y, U triangolare superiore)</span>
+x[n] = y[n] / U[n,n]
+Per i = n-1 a 1 (decrescente):
+  x[i] = (y[i] - somma(U[i,j]*x[j], j=i+1..n)) / U[i,i]</pre>
+        </section>
+
+        <!-- NORME E CONDIZIONAMENTO -->
+        <section class="content-section">
+            <h2>3. Norme Vettoriali e Matriciali, Condizionamento</h2>
+
+            <h3>Norme Vettoriali</h3>
+            <p>Una norma ‖·‖: ℝ<sup>n</sup> → ℝ deve soddisfare: (1) ‖x‖ ≥ 0 e ‖x‖=0 ⟺ x=0;
+                (2) ‖αx‖ = |α| ‖x‖; (3) ‖x+y‖ ≤ ‖x‖ + ‖y‖ (disuguaglianza triangolare).</p>
+            <table class="comparison">
+                <tr><th>Norma</th><th>Formula</th><th>Geometria</th></tr>
+                <tr><td>Norma 1</td><td>‖x‖₁ = Σ|xᵢ|</td><td>Distanza di Manhattan</td></tr>
+                <tr><td>Norma 2 (euclidea)</td><td>‖x‖₂ = √(Σxᵢ²) = √(xᵀx)</td><td>Distanza euclidea classica</td></tr>
+                <tr><td>Norma ∞</td><td>‖x‖∞ = max|xᵢ|</td><td>Massimo in valore assoluto</td></tr>
+            </table>
+
+            <h3>Norme Matriciali (Indotte)</h3>
+            <p>La norma matriciale indotta dalla norma vettoriale ‖·‖ è: ‖A‖ = sup<sub>x≠0</sub> ‖Ax‖/‖x‖.
+                Proprietà aggiuntiva: ‖AB‖ ≤ ‖A‖·‖B‖ (submoltiplicatività).</p>
+            <table class="comparison">
+                <tr><th>Norma matriciale</th><th>Formula</th><th>Come si calcola</th></tr>
+                <tr><td>‖A‖₁</td><td>max<sub>j</sub> Σᵢ|aᵢⱼ|</td><td>Massimo tra le somme delle colonne</td></tr>
+                <tr><td>‖A‖∞</td><td>max<sub>i</sub> Σⱼ|aᵢⱼ|</td><td>Massimo tra le somme delle righe</td></tr>
+                <tr><td>‖A‖₂</td><td>√λ<sub>max</sub>(AᵀA)</td><td>Radice del massimo autovalore di AᵀA</td></tr>
+            </table>
+
+            <h3>Numero di Condizionamento K(A)</h3>
+            <p>Misura quanto una perturbazione sui dati (b o A) si amplifica nella soluzione x. È definito come:</p>
+            <pre class="modern-code">
+K(A) = ‖A‖ · ‖A⁻¹‖     (rispetto a una norma scelta)
+
+Proprietà:
+  K(A) ≥ 1  sempre
+  K(I) = 1  (matrice identità = perfettamente condizionata)
+  K(A) = ∞  se A è singolare
+
+Stima dell'errore relativo (perturbazione solo su b):
+  ‖δx‖/‖x‖  ≤  K(A) · ‖δb‖/‖b‖
+
+Con perturbazione anche su A:
+  ‖δx‖/‖x‖  ≤  K(A) · (‖δb‖/‖b‖ + ‖δA‖/‖A‖)</pre>
+            <p>Se K(A) è grande (es. 10<sup>6</sup>), la matrice è <strong>malcondizionata</strong>: piccole
+                perturbazioni nei dati causano grandi errori nella soluzione. <strong>Attenzione: det(A) grande non
+                implica buon condizionamento!</strong> (vedi Matrice di Hilbert)</p>
+
+            <h3>Matrice di Hilbert (esempio malcondizionamento)</h3>
+            <table class="comparison">
+                <tr><th>n (ordine)</th><th>K₂(Hₙ)</th></tr>
+                <tr><td>2</td><td>~1.2 × 10¹</td></tr>
+                <tr><td>4</td><td>~6.5 × 10³</td></tr>
+                <tr><td>6</td><td>~4.4 × 10⁶</td></tr>
+                <tr><td>8</td><td>~1.5 × 10¹⁰</td></tr>
+            </table>
+        </section>
+
+        <!-- INTERPOLAZIONE -->
+        <section class="content-section">
+            <h2>4. Approssimazione di Dati e Funzioni</h2>
+
+            <h3>Interpolazione Polinomiale</h3>
+            <p>Dati n+1 punti (x<sub>0</sub>,y<sub>0</sub>), ..., (x<sub>n</sub>,y<sub>n</sub>) con nodi distinti,
+                esiste un <strong>unico</strong> polinomio P<sub>n</sub>(x) di grado ≤ n tale che P<sub>n</sub>(xᵢ) = yᵢ
+                per tutti i nodi. (Teorema di esistenza e unicità dell'interpolante polinomiale).</p>
+
+            <h3>Formula di Lagrange</h3>
+            <p>Il polinomio interpolante si scrive come combinazione lineare dei polinomi base di Lagrange L<sub>k</sub>(x):</p>
+            <pre class="modern-code">
+Pₙ(x) = Σₖ₌₀ⁿ  yₖ · Lₖ(x)
+
+dove:  Lₖ(x) = Π(x - xⱼ)/(xₖ - xⱼ)   j=0..n, j≠k
+
+Proprietà: Lₖ(xⱼ) = δₖⱼ  (1 se k=j, 0 altrimenti)</pre>
+            <p><strong>Problema di Runge:</strong> con nodi equidistanti e grado elevato, il polinomio oscilla
+                violentemente agli estremi. Rimedio: usare nodi di Chebyshev.</p>
+
+            <h3>Formula di Newton (Differenze Divise)</h3>
+            <p>Forma più efficiente computazionalmente. Il polinomio si costruisce aggiungendo un nodo alla volta:</p>
+            <pre class="modern-code">
+Pₙ(x) = f[x₀] + f[x₀,x₁](x-x₀) + f[x₀,x₁,x₂](x-x₀)(x-x₁) + ...
+
+Differenze divise:
+  f[xₖ] = yₖ                                           (ordine 0)
+  f[xₖ,xₖ₊₁] = (f[xₖ₊₁] - f[xₖ]) / (xₖ₊₁ - xₖ)     (ordine 1)
+  f[xₖ,...,xₖ₊ⱼ] = (f[xₖ₊₁,...,xₖ₊ⱼ] - f[xₖ,...,xₖ₊ⱼ₋₁]) / (xₖ₊ⱼ - xₖ)
+
+Costo: O(n²) per costruire la tabella delle differenze divise, O(n) per valutare con Horner.</pre>
+
+            <h3>Errore di Interpolazione</h3>
+            <pre class="modern-code">
+f(x) - Pₙ(x) = f[x₀,...,xₙ,x] · ω_{n+1}(x)
+
+dove ω_{n+1}(x) = (x-x₀)(x-x₁)...(x-xₙ)
+
+Se f ∈ C^{n+1}[a,b]:
+  |f(x) - Pₙ(x)| ≤ max|f^{(n+1)}(ξ)| / (n+1)! · |ω_{n+1}(x)|</pre>
+
+            <h3>Minimi Quadrati (Least Squares)</h3>
+            <p>Quando i dati sono <em>rumorosi</em> (molti punti, imprecisi), non ha senso interpolare tutti.
+                Si cerca il polinomio di grado m &lt;&lt; n che <strong>minimizza la somma degli scarti quadratici</strong>:</p>
+            <pre class="modern-code">
+min Σᵢ (Pₘ(xᵢ) - yᵢ)²
+
+→ Sistema delle equazioni normali: AᵀA c = Aᵀy
+  dove A è la matrice di Vandermonde (m colonne)
+  c sono i coefficienti del polinomio da trovare</pre>
+        </section>
+
+        <!-- INTEGRAZIONE NUMERICA -->
+        <section class="content-section">
+            <h2>5. Integrazione Numerica (Quadratura)</h2>
+            <p>Approssima ∫<sub>a</sub><sup>b</sup> f(x)dx con una somma pesata dei valori di f in certi nodi:</p>
+            <pre class="modern-code">
+I(f) = ∫ₐᵇ f(x)dx  ≈  Iₙ(f) = Σᵢ₌₀ⁿ wᵢ f(xᵢ)
+
+dove xᵢ sono i nodi e wᵢ i pesi di quadratura.</pre>
+
+            <table class="comparison">
+                <tr><th>Metodo</th><th>Nodi</th><th>Peso</th><th>Ordine di errore</th><th>Note</th></tr>
+                <tr><td><strong>Punto Medio</strong></td><td>c = (a+b)/2</td><td>w = b-a</td><td>O(h²)</td><td>1 nodo, polinomi grado ≤1 esatti</td></tr>
+                <tr><td><strong>Trapezi</strong></td><td>a, b</td><td>w = h/2 each</td><td>O(h²)</td><td>2 nodi, semplice</td></tr>
+                <tr><td><strong>Simpson</strong></td><td>a, (a+b)/2, b</td><td>h/6, 4h/6, h/6</td><td>O(h⁴)</td><td>3 nodi, esatto per grado ≤3</td></tr>
+            </table>
+
+            <h3>Formule Composite</h3>
+            <p>Si suddivide [a,b] in N sottointervalli di ampiezza h = (b-a)/N e si applica la formula semplice
+                su ciascun sotto-intervallo:</p>
+            <pre class="modern-code">
+Trapezi Composita:
+  Iₙ(f) = h/2 · (f(x₀) + 2f(x₁) + 2f(x₂) + ... + 2f(xₙ₋₁) + f(xₙ))
+  Errore: -(b-a)/12 · h² · f''(ξ)   → O(h²)
+
+Simpson Composita (N pari):
+  Iₙ(f) = h/3 · (f(x₀) + 4f(x₁) + 2f(x₂) + 4f(x₃) + ... + f(xₙ))
+  Errore: -(b-a)/180 · h⁴ · f''''(ξ)  → O(h⁴)</pre>
+        </section>
+
+        <!-- EQUAZIONI NON LINEARI -->
+        <section class="content-section">
+            <h2>6. Equazioni Non Lineari: f(x) = 0</h2>
+            <p>Trovare la radice x* tale che f(x*) = 0. In generale non esistono formule chiuse → metodi iterativi.</p>
+
+            <h3>Metodo di Bisezione</h3>
+            <p>Se f continua su [a,b] e f(a)·f(b) &lt; 0 → esiste radice in (a,b) (teorema degli zeri).
+                Si dimezza l'intervallo ad ogni passo.</p>
+            <pre class="modern-code">
+Algoritmo Bisezione:
+  Dati a, b  con f(a)·f(b) < 0, tolleranza tol
+  Mentre (b-a)/2 > tol:
+    c = (a+b)/2
+    Se f(c) = 0: STOP (radice esatta)
+    Se f(a)·f(c) < 0: b = c
+    Altrimenti:        a = c
+  Restituisci c = (a+b)/2
+
+Errore dopo k passi: |cₖ - x*| ≤ (b-a)/2^(k+1)
+→ Convergenza LINEARE, lenta ma garantita.</pre>
+
+            <h3>Metodo di Newton-Raphson</h3>
+            <p>Usa la derivata f'(x) per trovare la radice molto più rapidamente (convergenza quadratica).</p>
+            <pre class="modern-code">
+x₀ dato (stima iniziale vicina a x*)
+xₖ₊₁ = xₖ - f(xₖ) / f'(xₖ)
+
+Interpretazione geometrica: xₖ₊₁ è il punto dove la retta tangente
+al grafico di f in xₖ interseca l'asse x.
+
+Convergenza QUADRATICA: |eₖ₊₁| ≈ C · |eₖ|²  (se f'(x*) ≠ 0)
+→ il numero di cifre corrette raddoppia ad ogni iterazione!
+
+Limiti: richiede f'(x), può divergere se x₀ è lontano, f'(x*)=0 rallenta.</pre>
+
+            <h3>Metodo della Secante</h3>
+            <p>Come Newton ma approssima f'(x) con il rapporto incrementale tra due iterati precedenti
+                (non serve calcolare la derivata).</p>
+            <pre class="modern-code">
+x₀, x₁ dati
+xₖ₊₁ = xₖ - f(xₖ) · (xₖ - xₖ₋₁) / (f(xₖ) - f(xₖ₋₁))
+
+Convergenza superlineare (ordine ≈ 1.618, sezione aurea)
+→ più lenta di Newton ma non richiede la derivata.</pre>
+
+            <h3>Metodo del Punto Fisso</h3>
+            <p>Si riscrive f(x)=0 nella forma x = g(x). Partendo da x₀ si itera x<sub>k+1</sub> = g(x<sub>k</sub>).</p>
+            <pre class="modern-code">
+Teorema di convergenza:
+  Se g: [a,b] → [a,b] e |g'(x)| ≤ L < 1 per ogni x in [a,b]
+  → il punto fisso x* = g(x*) esiste unico e la successione converge.
+
+L è il "fattore di contrazione": più L è piccolo, più rapida la convergenza.
+Convergenza LINEARE con fattore L: |eₖ₊₁| ≤ L · |eₖ|
+
+Esempio: trovare radice di x² - 2 = 0
+  g(x) = (x + 2/x) / 2  (metodo di Erone per √2)</pre>
+
+            <h3>Confronto Metodi per f(x) = 0</h3>
+            <table class="comparison">
+                <tr><th>Metodo</th><th>Convergenza</th><th>Richiede</th><th>Pro</th><th>Contro</th></tr>
+                <tr><td>Bisezione</td><td>Lineare (ordine 1)</td><td>f continua, bracketing</td><td>Sempre converge, semplice</td><td>Lento, richiede intervallo con segno opposto</td></tr>
+                <tr><td>Newton</td><td>Quadratica (ordine 2)</td><td>f e f' calcolabili</td><td>Molto veloce</td><td>Richiede derivata, sensibile a x₀</td></tr>
+                <tr><td>Secante</td><td>Superlineare (~1.618)</td><td>f calcolabile</td><td>Niente derivata</td><td>Due punti iniziali, può divergere</td></tr>
+                <tr><td>Punto Fisso</td><td>Lineare (ordine 1)</td><td>g con |g'|&lt;1</td><td>Semplice</td><td>Non sempre converge, scegliere g bene</td></tr>
+            </table>
+        </section>
+
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2010 - 2026 Appunti Ingegneria Informatica. Prof.ssa S. Bellavia, G. Malaspina. Materiale ad uso accademico.</p>
+        </div>
+    </footer>
+</body>
+
+</html>
