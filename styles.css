@@ -1,3 +1,26 @@
+@font-face {
+    font-family: 'Chalet';
+    src: url('Chalet-NewYorkSixty.otf') format('opentype');
+}
+
+:root {
+    --primary-color: #00a8ff;
+    --secondary-color: #2c2c2c;
+    --text-color: #333333;
+    --text-color-light: #ffffff;
+    --bg-color: #e9eaed;
+    --border-color: #d9d9d9;
+    --text-muted: #666666;
+    --nav-link-color: #cccccc;
+    --footer-bg: #dddddd;
+    --code-bg: #f4f4f4;
+    --code-color: #c7254e;
+    --pre-bg: #1e1e1e;
+    --pre-color: #d4d4d4;
+    --header-bg-start: #4c4c4c;
+    --header-bg-end: #2c2c2c;
+}
+
 /* Reset e Base */
 * {
     margin: 0;
@@ -6,9 +29,9 @@
 }
 
 body {
-    font-family: 'Helvetica Neue', Arial, sans-serif;
-    background-color: #e9eaed;
-    color: #333333;
+    font-family: 'Chalet', Arial, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
     line-height: 1.6;
 }
 
@@ -25,15 +48,15 @@ body {
 
 /* Header Glossy 2010 */
 header {
-    background: linear-gradient(to bottom, #4c4c4c 0%, #2c2c2c 100%);
-    border-bottom: 3px solid #00a8ff;
+    background: linear-gradient(to bottom, var(--header-bg-start) 0%, var(--header-bg-end) 100%);
+    border-bottom: 3px solid var(--primary-color);
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
     padding: 15px 0;
 }
 
 header h1 {
     float: left;
-    color: #ffffff;
+    color: var(--text-color-light);
     font-size: 22px;
     text-shadow: 0 -1px 0 #000000;
 }
@@ -53,7 +76,7 @@ nav ul li {
 }
 
 nav ul li a {
-    color: #cccccc;
+    color: var(--nav-link-color);
     text-decoration: none;
     font-weight: bold;
     font-size: 14px;
@@ -62,14 +85,14 @@ nav ul li a {
 
 nav ul li a:hover,
 nav ul li a.active {
-    color: #ffffff;
+    color: var(--text-color-light);
     text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
 }
 
 /* Hero */
 .hero {
-    background: #ffffff;
-    border: 1px solid #cccccc;
+    background: var(--bg-color);
+    border: 1px solid var(--border-color);
     border-radius: 8px;
     padding: 30px;
     margin: 20px auto;
@@ -79,19 +102,19 @@ nav ul li a.active {
 
 .hero h2 {
     font-size: 28px;
-    color: #222222;
+    color: var(--text-color);
     margin-bottom: 10px;
 }
 
 .hero p {
     font-size: 16px;
-    color: #666666;
+    color: var(--text-muted);
 }
 
 /* Content Sections */
 .content-section {
-    background: #ffffff;
-    border: 1px solid #d9d9d9;
+    background: var(--text-color-light);
+    border: 1px solid var(--border-color);
     border-radius: 4px;
     padding: 25px;
     margin: 20px 0;
@@ -99,20 +122,20 @@ nav ul li a.active {
 }
 
 .content-section h2 {
-    color: #00a8ff;
-    border-bottom: 2px solid #00a8ff;
+    color: var(--primary-color);
+    border-bottom: 2px solid var(--primary-color);
     padding-bottom: 5px;
     margin: 20px 0 15px 0;
 }
 
 .content-section h3 {
-    color: #2c2c2c;
+    color: var(--text-color);
     margin: 15px 0 10px 0;
     font-size: 18px;
 }
 
 .content-section h4 {
-    color: #444444;
+    color: var(--text-muted);
     margin: 10px 0;
     font-size: 16px;
 }
@@ -136,7 +159,7 @@ nav ul li a.active {
 .content-section img {
     max-width: 100%;
     height: auto;
-    border: 1px solid #ccc;
+    border: 1px solid var(--border-color);
     display: block;
     margin: 15px auto;
 }
@@ -149,21 +172,21 @@ table.comparison {
 
 table.comparison th,
 table.comparison td {
-    border: 1px solid #cccccc;
+    border: 1px solid var(--border-color);
     padding: 10px;
     text-align: left;
 }
 
 table.comparison th {
-    background: #f0f0f0;
-    color: #333;
+    background: var(--bg-color);
+    color: var(--text-color);
 }
 
 /* Modern Markdown Code Blocks in 2010 Shell */
 pre.modern-code {
-    background-color: #1e1e1e;
-    color: #d4d4d4;
-    border: 1px solid #333333;
+    background-color: var(--pre-bg);
+    color: var(--pre-color);
+    border: 1px solid var(--text-color);
     border-radius: 6px;
     padding: 15px;
     overflow: auto;
@@ -176,12 +199,12 @@ pre.modern-code {
 
 code {
     font-family: 'Consolas', 'Courier New', Courier, monospace;
-    background: #f4f4f4;
-    color: #c7254e;
+    background: var(--code-bg);
+    color: var(--code-color);
     padding: 2px 4px;
     border-radius: 3px;
     font-size: 13px;
-    border: 1px solid #e1e1e8;
+    border: 1px solid var(--border-color);
 }
 
 /* Lexer statico */
@@ -229,9 +252,9 @@ code {
 footer {
     margin-top: 40px;
     padding: 20px 0;
-    background: #dddddd;
-    border-top: 1px solid #cccccc;
+    background: var(--footer-bg);
+    border-top: 1px solid var(--nav-link-color);
     text-align: center;
-    color: #777777;
+    color: var(--text-muted);
     font-size: 12px;
 }
