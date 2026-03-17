@@ -1,0 +1,26 @@
+[
+{
+  "directory": "/Users/cristianceni/Library/Mobile Documents/com~apple~CloudDocs/Documents/Documenti - Ceni-MacBookPro/Università/Programmazione/E1_class_exercise/cmake-build-debug",
+  "command": "/usr/bin/c++   -g -std=gnu++11 -arch arm64 -fcolor-diagnostics -o CMakeFiles/E1_class_exercise.dir/main.cpp.o -c \"/Users/cristianceni/Library/Mobile Documents/com~apple~CloudDocs/Documents/Documenti - Ceni-MacBookPro/Università/Programmazione/E1_class_exercise/main.cpp\"",
+  "file": "/Users/cristianceni/Library/Mobile Documents/com~apple~CloudDocs/Documents/Documenti - Ceni-MacBookPro/Università/Programmazione/E1_class_exercise/main.cpp",
+  "output": "CMakeFiles/E1_class_exercise.dir/main.cpp.o"
+},
+{
+  "directory": "/Users/cristianceni/Library/Mobile Documents/com~apple~CloudDocs/Documents/Documenti - Ceni-MacBookPro/Università/Programmazione/E1_class_exercise/cmake-build-debug",
+  "command": "/usr/bin/c++   -g -std=gnu++11 -arch arm64 -fcolor-diagnostics -o CMakeFiles/E1_class_exercise.dir/Dungeon.cpp.o -c \"/Users/cristianceni/Library/Mobile Documents/com~apple~CloudDocs/Documents/Documenti - Ceni-MacBookPro/Università/Programmazione/E1_class_exercise/Dungeon.cpp\"",
+  "file": "/Users/cristianceni/Library/Mobile Documents/com~apple~CloudDocs/Documents/Documenti - Ceni-MacBookPro/Università/Programmazione/E1_class_exercise/Dungeon.cpp",
+  "output": "CMakeFiles/E1_class_exercise.dir/Dungeon.cpp.o"
+},
+{
+  "directory": "/Users/cristianceni/Library/Mobile Documents/com~apple~CloudDocs/Documents/Documenti - Ceni-MacBookPro/Università/Programmazione/E1_class_exercise/cmake-build-debug",
+  "command": "/usr/bin/c++   -g -std=gnu++11 -arch arm64 -fcolor-diagnostics -o CMakeFiles/E1_class_exercise.dir/GameCharacter.cpp.o -c \"/Users/cristianceni/Library/Mobile Documents/com~apple~CloudDocs/Documents/Documenti - Ceni-MacBookPro/Università/Programmazione/E1_class_exercise/GameCharacter.cpp\"",
+  "file": "/Users/cristianceni/Library/Mobile Documents/com~apple~CloudDocs/Documents/Documenti - Ceni-MacBookPro/Università/Programmazione/E1_class_exercise/GameCharacter.cpp",
+  "output": "CMakeFiles/E1_class_exercise.dir/GameCharacter.cpp.o"
+},
+{
+  "directory": "/Users/cristianceni/Library/Mobile Documents/com~apple~CloudDocs/Documents/Documenti - Ceni-MacBookPro/Università/Programmazione/E1_class_exercise/cmake-build-debug",
+  "command": "/usr/bin/c++   -g -std=gnu++11 -arch arm64 -fcolor-diagnostics -o CMakeFiles/E1_class_exercise.dir/Weapon.cpp.o -c \"/Users/cristianceni/Library/Mobile Documents/com~apple~CloudDocs/Documents/Documenti - Ceni-MacBookPro/Università/Programmazione/E1_class_exercise/Weapon.cpp\"",
+  "file": "/Users/cristianceni/Library/Mobile Documents/com~apple~CloudDocs/Documents/Documenti - Ceni-MacBookPro/Università/Programmazione/E1_class_exercise/Weapon.cpp",
+  "output": "CMakeFiles/E1_class_exercise.dir/Weapon.cpp.o"
+}
+]

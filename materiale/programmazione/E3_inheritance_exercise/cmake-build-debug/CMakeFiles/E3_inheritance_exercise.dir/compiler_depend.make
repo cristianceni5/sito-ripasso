@@ -1,0 +1,2 @@
+# Empty compiler generated dependencies file for E3_inheritance_exercise.
+# This may be replaced when dependencies are built.

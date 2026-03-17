@@ -1,0 +1,7 @@
+# ninja log v5
+0	7	0	clean	a2ff18f590081cf7
+0	63	1709208634297895092	CMakeFiles/E0b_compilation_example.dir/adder.cpp.o	43d85ce3d3ec1cc4
+0	354	1709208634586717528	CMakeFiles/E0b_compilation_example.dir/main.cpp.o	1db41660075f6bf
+0	359	1709208634592662870	CMakeFiles/E0b_compilation_example.dir/greeter.cpp.o	743a09158c02b889
+359	396	1709208634630703576	E0b_compilation_example	3298453b4ad617df
+0	5	0	clean	a2ff18f590081cf7

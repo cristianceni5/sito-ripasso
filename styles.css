@@ -1,0 +1,237 @@
+/* Reset e Base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    background-color: #e9eaed;
+    color: #333333;
+    line-height: 1.6;
+}
+
+.container {
+    width: 960px;
+    margin: 0 auto;
+}
+
+.clearfix::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/* Header Glossy 2010 */
+header {
+    background: linear-gradient(to bottom, #4c4c4c 0%, #2c2c2c 100%);
+    border-bottom: 3px solid #00a8ff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+    padding: 15px 0;
+}
+
+header h1 {
+    float: left;
+    color: #ffffff;
+    font-size: 22px;
+    text-shadow: 0 -1px 0 #000000;
+}
+
+nav {
+    float: right;
+    margin-top: 5px;
+}
+
+nav ul {
+    list-style: none;
+}
+
+nav ul li {
+    display: inline-block;
+    margin-left: 20px;
+}
+
+nav ul li a {
+    color: #cccccc;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 14px;
+    transition: color 0.3s;
+}
+
+nav ul li a:hover,
+nav ul li a.active {
+    color: #ffffff;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+}
+
+/* Hero */
+.hero {
+    background: #ffffff;
+    border: 1px solid #cccccc;
+    border-radius: 8px;
+    padding: 30px;
+    margin: 20px auto;
+    text-align: center;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.hero h2 {
+    font-size: 28px;
+    color: #222222;
+    margin-bottom: 10px;
+}
+
+.hero p {
+    font-size: 16px;
+    color: #666666;
+}
+
+/* Content Sections */
+.content-section {
+    background: #ffffff;
+    border: 1px solid #d9d9d9;
+    border-radius: 4px;
+    padding: 25px;
+    margin: 20px 0;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.content-section h2 {
+    color: #00a8ff;
+    border-bottom: 2px solid #00a8ff;
+    padding-bottom: 5px;
+    margin: 20px 0 15px 0;
+}
+
+.content-section h3 {
+    color: #2c2c2c;
+    margin: 15px 0 10px 0;
+    font-size: 18px;
+}
+
+.content-section h4 {
+    color: #444444;
+    margin: 10px 0;
+    font-size: 16px;
+}
+
+.content-section p {
+    font-size: 15px;
+    margin-bottom: 15px;
+}
+
+.content-section ul,
+.content-section ol {
+    margin-left: 30px;
+    margin-bottom: 15px;
+    font-size: 15px;
+}
+
+.content-section li {
+    margin-bottom: 5px;
+}
+
+.content-section img {
+    max-width: 100%;
+    height: auto;
+    border: 1px solid #ccc;
+    display: block;
+    margin: 15px auto;
+}
+
+table.comparison {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+}
+
+table.comparison th,
+table.comparison td {
+    border: 1px solid #cccccc;
+    padding: 10px;
+    text-align: left;
+}
+
+table.comparison th {
+    background: #f0f0f0;
+    color: #333;
+}
+
+/* Modern Markdown Code Blocks in 2010 Shell */
+pre.modern-code {
+    background-color: #1e1e1e;
+    color: #d4d4d4;
+    border: 1px solid #333333;
+    border-radius: 6px;
+    padding: 15px;
+    overflow: auto;
+    font-family: 'Consolas', 'Courier New', Courier, monospace;
+    font-size: 14px;
+    margin-bottom: 15px;
+    line-height: 1.4;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+code {
+    font-family: 'Consolas', 'Courier New', Courier, monospace;
+    background: #f4f4f4;
+    color: #c7254e;
+    padding: 2px 4px;
+    border-radius: 3px;
+    font-size: 13px;
+    border: 1px solid #e1e1e8;
+}
+
+/* Lexer statico */
+.comment {
+    color: #6A9955;
+}
+
+.keyword {
+    color: #569CD6;
+    font-weight: bold;
+}
+
+.string {
+    color: #CE9178;
+}
+
+.directive {
+    color: #C586C0;
+}
+
+.type {
+    color: #4EC9B0;
+}
+
+.function {
+    color: #DCDCAA;
+}
+
+.operator {
+    color: #d4d4d4;
+}
+
+.bnf-rule {
+    color: #9CDCFE;
+}
+
+.mips-reg {
+    color: #9CDCFE;
+}
+
+.mips-inst {
+    color: #C586C0;
+}
+
+footer {
+    margin-top: 40px;
+    padding: 20px 0;
+    background: #dddddd;
+    border-top: 1px solid #cccccc;
+    text-align: center;
+    color: #777777;
+    font-size: 12px;
+}

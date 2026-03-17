@@ -1,0 +1,68 @@
+[
+{
+  "directory": "/Users/cristianceni/Library/Mobile Documents/com~apple~CloudDocs/Documents/Documenti - Ceni-MacBookPro/Università/Programmazione/E3_inheritance_exercise/cmake-build-debug",
+  "command": "/usr/bin/c++   -g -std=gnu++11 -arch arm64 -fcolor-diagnostics -o CMakeFiles/E3_inheritance_exercise.dir/main.cpp.o -c \"/Users/cristianceni/Library/Mobile Documents/com~apple~CloudDocs/Documents/Documenti - Ceni-MacBookPro/Università/Programmazione/E3_inheritance_exercise/main.cpp\"",
+  "file": "/Users/cristianceni/Library/Mobile Documents/com~apple~CloudDocs/Documents/Documenti - Ceni-MacBookPro/Università/Programmazione/E3_inheritance_exercise/main.cpp",
+  "output": "CMakeFiles/E3_inheritance_exercise.dir/main.cpp.o"
+},
+{
+  "directory": "/Users/cristianceni/Library/Mobile Documents/com~apple~CloudDocs/Documents/Documenti - Ceni-MacBookPro/Università/Programmazione/E3_inheritance_exercise/cmake-build-debug",
+  "command": "/usr/bin/c++   -g -std=gnu++11 -arch arm64 -fcolor-diagnostics -o CMakeFiles/E3_inheritance_exercise.dir/Dungeon.cpp.o -c \"/Users/cristianceni/Library/Mobile Documents/com~apple~CloudDocs/Documents/Documenti - Ceni-MacBookPro/Università/Programmazione/E3_inheritance_exercise/Dungeon.cpp\"",
+  "file": "/Users/cristianceni/Library/Mobile Documents/com~apple~CloudDocs/Documents/Documenti - Ceni-MacBookPro/Università/Programmazione/E3_inheritance_exercise/Dungeon.cpp",
+  "output": "CMakeFiles/E3_inheritance_exercise.dir/Dungeon.cpp.o"
+},
+{
+  "directory": "/Users/cristianceni/Library/Mobile Documents/com~apple~CloudDocs/Documents/Documenti - Ceni-MacBookPro/Università/Programmazione/E3_inheritance_exercise/cmake-build-debug",
+  "command": "/usr/bin/c++   -g -std=gnu++11 -arch arm64 -fcolor-diagnostics -o CMakeFiles/E3_inheritance_exercise.dir/GameCharacter.cpp.o -c \"/Users/cristianceni/Library/Mobile Documents/com~apple~CloudDocs/Documents/Documenti - Ceni-MacBookPro/Università/Programmazione/E3_inheritance_exercise/GameCharacter.cpp\"",
+  "file": "/Users/cristianceni/Library/Mobile Documents/com~apple~CloudDocs/Documents/Documenti - Ceni-MacBookPro/Università/Programmazione/E3_inheritance_exercise/GameCharacter.cpp",
+  "output": "CMakeFiles/E3_inheritance_exercise.dir/GameCharacter.cpp.o"
+},
+{
+  "directory": "/Users/cristianceni/Library/Mobile Documents/com~apple~CloudDocs/Documents/Documenti - Ceni-MacBookPro/Università/Programmazione/E3_inheritance_exercise/cmake-build-debug",
+  "command": "/usr/bin/c++   -g -std=gnu++11 -arch arm64 -fcolor-diagnostics -o CMakeFiles/E3_inheritance_exercise.dir/Weapon.cpp.o -c \"/Users/cristianceni/Library/Mobile Documents/com~apple~CloudDocs/Documents/Documenti - Ceni-MacBookPro/Università/Programmazione/E3_inheritance_exercise/Weapon.cpp\"",
+  "file": "/Users/cristianceni/Library/Mobile Documents/com~apple~CloudDocs/Documents/Documenti - Ceni-MacBookPro/Università/Programmazione/E3_inheritance_exercise/Weapon.cpp",
+  "output": "CMakeFiles/E3_inheritance_exercise.dir/Weapon.cpp.o"
+},
+{
+  "directory": "/Users/cristianceni/Library/Mobile Documents/com~apple~CloudDocs/Documents/Documenti - Ceni-MacBookPro/Università/Programmazione/E3_inheritance_exercise/cmake-build-debug",
+  "command": "/usr/bin/c++   -g -std=gnu++11 -arch arm64 -fcolor-diagnostics -o CMakeFiles/E3_inheritance_exercise.dir/Dice.cpp.o -c \"/Users/cristianceni/Library/Mobile Documents/com~apple~CloudDocs/Documents/Documenti - Ceni-MacBookPro/Università/Programmazione/E3_inheritance_exercise/Dice.cpp\"",
+  "file": "/Users/cristianceni/Library/Mobile Documents/com~apple~CloudDocs/Documents/Documenti - Ceni-MacBookPro/Università/Programmazione/E3_inheritance_exercise/Dice.cpp",
+  "output": "CMakeFiles/E3_inheritance_exercise.dir/Dice.cpp.o"
+},
+{
+  "directory": "/Users/cristianceni/Library/Mobile Documents/com~apple~CloudDocs/Documents/Documenti - Ceni-MacBookPro/Università/Programmazione/E3_inheritance_exercise/cmake-build-debug",
+  "command": "/usr/bin/c++   -g -std=gnu++11 -arch arm64 -fcolor-diagnostics -o CMakeFiles/E3_inheritance_exercise.dir/Sword.cpp.o -c \"/Users/cristianceni/Library/Mobile Documents/com~apple~CloudDocs/Documents/Documenti - Ceni-MacBookPro/Università/Programmazione/E3_inheritance_exercise/Sword.cpp\"",
+  "file": "/Users/cristianceni/Library/Mobile Documents/com~apple~CloudDocs/Documents/Documenti - Ceni-MacBookPro/Università/Programmazione/E3_inheritance_exercise/Sword.cpp",
+  "output": "CMakeFiles/E3_inheritance_exercise.dir/Sword.cpp.o"
+},
+{
+  "directory": "/Users/cristianceni/Library/Mobile Documents/com~apple~CloudDocs/Documents/Documenti - Ceni-MacBookPro/Università/Programmazione/E3_inheritance_exercise/cmake-build-debug",
+  "command": "/usr/bin/c++   -g -std=gnu++11 -arch arm64 -fcolor-diagnostics -o CMakeFiles/E3_inheritance_exercise.dir/Bow.cpp.o -c \"/Users/cristianceni/Library/Mobile Documents/com~apple~CloudDocs/Documents/Documenti - Ceni-MacBookPro/Università/Programmazione/E3_inheritance_exercise/Bow.cpp\"",
+  "file": "/Users/cristianceni/Library/Mobile Documents/com~apple~CloudDocs/Documents/Documenti - Ceni-MacBookPro/Università/Programmazione/E3_inheritance_exercise/Bow.cpp",
+  "output": "CMakeFiles/E3_inheritance_exercise.dir/Bow.cpp.o"
+},
+{
+  "directory": "/Users/cristianceni/Library/Mobile Documents/com~apple~CloudDocs/Documents/Documenti - Ceni-MacBookPro/Università/Programmazione/E3_inheritance_exercise/cmake-build-debug",
+  "command": "/usr/bin/c++   -g -std=gnu++11 -arch arm64 -fcolor-diagnostics -o CMakeFiles/E3_inheritance_exercise.dir/Orc.cpp.o -c \"/Users/cristianceni/Library/Mobile Documents/com~apple~CloudDocs/Documents/Documenti - Ceni-MacBookPro/Università/Programmazione/E3_inheritance_exercise/Orc.cpp\"",
+  "file": "/Users/cristianceni/Library/Mobile Documents/com~apple~CloudDocs/Documents/Documenti - Ceni-MacBookPro/Università/Programmazione/E3_inheritance_exercise/Orc.cpp",
+  "output": "CMakeFiles/E3_inheritance_exercise.dir/Orc.cpp.o"
+},
+{
+  "directory": "/Users/cristianceni/Library/Mobile Documents/com~apple~CloudDocs/Documents/Documenti - Ceni-MacBookPro/Università/Programmazione/E3_inheritance_exercise/cmake-build-debug",
+  "command": "/usr/bin/c++   -g -std=gnu++11 -arch arm64 -fcolor-diagnostics -o CMakeFiles/E3_inheritance_exercise.dir/Knight.cpp.o -c \"/Users/cristianceni/Library/Mobile Documents/com~apple~CloudDocs/Documents/Documenti - Ceni-MacBookPro/Università/Programmazione/E3_inheritance_exercise/Knight.cpp\"",
+  "file": "/Users/cristianceni/Library/Mobile Documents/com~apple~CloudDocs/Documents/Documenti - Ceni-MacBookPro/Università/Programmazione/E3_inheritance_exercise/Knight.cpp",
+  "output": "CMakeFiles/E3_inheritance_exercise.dir/Knight.cpp.o"
+},
+{
+  "directory": "/Users/cristianceni/Library/Mobile Documents/com~apple~CloudDocs/Documents/Documenti - Ceni-MacBookPro/Università/Programmazione/E3_inheritance_exercise/cmake-build-debug",
+  "command": "/usr/bin/c++   -g -std=gnu++11 -arch arm64 -fcolor-diagnostics -o CMakeFiles/E3_inheritance_exercise.dir/Wizard.cpp.o -c \"/Users/cristianceni/Library/Mobile Documents/com~apple~CloudDocs/Documents/Documenti - Ceni-MacBookPro/Università/Programmazione/E3_inheritance_exercise/Wizard.cpp\"",
+  "file": "/Users/cristianceni/Library/Mobile Documents/com~apple~CloudDocs/Documents/Documenti - Ceni-MacBookPro/Università/Programmazione/E3_inheritance_exercise/Wizard.cpp",
+  "output": "CMakeFiles/E3_inheritance_exercise.dir/Wizard.cpp.o"
+},
+{
+  "directory": "/Users/cristianceni/Library/Mobile Documents/com~apple~CloudDocs/Documents/Documenti - Ceni-MacBookPro/Università/Programmazione/E3_inheritance_exercise/cmake-build-debug",
+  "command": "/usr/bin/c++   -g -std=gnu++11 -arch arm64 -fcolor-diagnostics -o CMakeFiles/E3_inheritance_exercise.dir/Skeleton.cpp.o -c \"/Users/cristianceni/Library/Mobile Documents/com~apple~CloudDocs/Documents/Documenti - Ceni-MacBookPro/Università/Programmazione/E3_inheritance_exercise/Skeleton.cpp\"",
+  "file": "/Users/cristianceni/Library/Mobile Documents/com~apple~CloudDocs/Documents/Documenti - Ceni-MacBookPro/Università/Programmazione/E3_inheritance_exercise/Skeleton.cpp",
+  "output": "CMakeFiles/E3_inheritance_exercise.dir/Skeleton.cpp.o"
+}
+]

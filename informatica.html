@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fondamenti di Informatica - Appunti e Ripasso</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <header>
+        <div class="container clearfix">
+            <h1>Ingegneria Informatica UniFI</h1>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="informatica.html" class="active">Fondamenti di Informatica</a></li>
+                    <li><a href="programmazione.html">Corso C++ (MICC)</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <section class="hero">
+            <h2>Fondamenti di Informatica (9 CFU)</h2>
+            <p>Docente: Prof. Stefano Berretti | Università degli Studi di Firenze</p>
+            <p>Appunti completi: Dal C a MIPS, Strutture Dati, Algoritmi e Regole BNF.</p>
+        </section>
+
+        <!-- SYLLABUS -->
+        <section class="content-section">
+            <h2>Programma dell'Insegnamento</h2>
+            <ul>
+                <li><strong>PARTE I: RAPPRESENTAZIONE DI BASSO LIVELLO:</strong> Introduzione intuitiva al linguaggio C;
+                    codifica numerica dei tipi; codifica di basso livello delle istruzioni in forma simbolica (assembler
+                    MIPS) e numerica (linguaggio macchina MIPS); architettura processore Risc (R4000); processo
+                    compilazione/assemblaggio.</li>
+                <li><strong>PARTE II: LINGUAGGIO C:</strong> Definizione linguaggio: sintassi, grammatica, albero
+                    sintattico, BNF, semantica. Tipi variabili e costanti, operatori, espressioni, puntatori, array,
+                    istruzioni, funzioni, dati strutturati.</li>
+                <li><strong>PARTE III: STRUTTURE DATI ELEMENTARI:</strong> Liste (sequenziali, collegate con
+                    array/indici, collegate con puntatori). Iterazione e ricorsione.</li>
+                <li><strong>PARTE IV: ALGORITMI ELEMENTARI:</strong> Costo e complessità. Ricerca (sequenziale, binaria,
+                    a salti). Ordinamento (selection, bubble, merge, quick).</li>
+            </ul>
+        </section>
+
+        <!-- SINTASSI E SEMANTICA -->
+        <section class="content-section">
+            <h2>0. Sintassi vs. Semantica & Grammatica C</h2>
+            <p><strong>Sintassi (BNF)</strong>: È la grammatica (la "forma"). L'albero sintattico verifica se la frase è
+                legale nel linguaggio. Si costruisce usando produzioni come <code>&lt;decl&gt;</code>,
+                <code>&lt;expr&gt;</code>, <code>&lt;var&gt;</code>.</p>
+            <p><strong>Semantica (Valori)</strong>: È il significato (valore calcolato) di ogni nodo. All'esame è
+                richiesto di annotare l'albero sintattico con i valori reali.</p>
+            <pre class="modern-code">
+<span class="comment">// Esempio di derivazione semantica per: a = b + c</span>
+<span class="bnf-rule">. &Gamma;(&lt;expr1&gt;&lt;op2&gt;&lt;expr2&gt;) = &Gamma;(&lt;expr1&gt;) &lt;op2&gt; &Gamma;(expr2)</span>
+
+  a     +     b
+  |     |     |
+&lt;var&gt;   |   &lt;var&gt;
+val:5   |   val:10
+  |     |     |
+&lt;expr&gt; &lt;op2&gt; &lt;expr&gt;
+val:5   |   val:10
+  |     |     |
+   \    |    /
+    \   |   /
+     &lt;expr&gt;
+     val:15
+</pre>
+
+            <h3>0.5 Regole di Precedenza (Sintesi)</h3>
+            <p><strong>Per le DICHIARAZIONI (&lt;decl&gt;):</strong> Priorità (Alta &rarr; Bassa): Parentesi
+                <code>&lt;decl&gt;</code>, Suffissi <code>[]</code> e <code>()</code> (sx&rarr;dx), Prefissi
+                <code>*</code> (dx&rarr;sx).</p>
+            <pre class="modern-code">
+<span class="type">int</span> *A[<span class="string">10</span>];     <span class="comment">// A -> A[10] (Array) -> *A[10] (Puntatore ad Array)</span>
+<span class="type">int</span> (*A)[<span class="string">10</span>];   <span class="comment">// A -> *A (Puntatore) -> (*A)[10] (Array di Puntatori)</span></pre>
+
+            <p><strong>Per le ESPRESSIONI (&lt;expr&gt;):</strong> Priorità: Parentesi <code>()</code>/Accesso
+                <code>[]</code>/<code>.</code>/<code>-&gt;</code>, Unari (<code>!</code>, <code>*</code>,
+                <code>&amp;</code>, <code>++</code>, <code>--</code>), Moltiplicativi, Additivi, Relazionali, Logici
+                (<code>&amp;&amp;</code> poi <code>||</code>), Assegnamento (bassissima).</p>
+        </section>
+
+        <!-- ESPRESSIONI -->
+        <section class="content-section">
+            <h2>1. Espressioni e Operatori</h2>
+            <p>Un'espressione è una combinazione di variabili, costanti e operatori. Può avere
+                <strong>side-effect</strong> (modificare lo stato, es. <code>++</code>, <code>--</code>, <code>=</code>)
+                o essere pura.</p>
+            <pre class="modern-code">
+<span class="bnf-rule">&lt;expr&gt; ::= &lt;var&gt; | &lt;const&gt; | &lt;var&gt; ++ | ++ &lt;var&gt; | &lt;var&gt; -- | -- &lt;var&gt;</span>
+<span class="bnf-rule">&lt;var&gt; = &lt;expr&gt; | &lt;expr1&gt;&lt;op2&gt;&lt;expr2&gt; | &lt;op1&gt;&lt;expr1&gt;</span></pre>
+
+            <h3>Operatori Aritmetici & Forza dei Tipi</h3>
+            <pre class="modern-code">
+<span class="type">int</span> a = <span class="string">10</span>; <span class="type">int</span> b = <span class="string">4</span>; <span class="type">float</span> c;
+c = a/b; <span class="comment">// c sarà 2.0 (troncamento intero prima dell'assegnazione)</span>
+
+<span class="comment">// Forza dei tipi: int &lt; float &lt; double | short &lt; int &lt; long | unsigned &lt; int</span></pre>
+
+            <h3>Operatori Relazionali e Logici (Short-Circuit)</h3>
+            <p>In C non esiste un tipo <code>boolean</code> nativo: <code>1</code> = Vero, <code>0</code> = Falso.
+                Qualsiasi valore <code>&ne;0</code> è vero.</p>
+            <p><strong>Short-circuit evaluation:</strong> L'operatore <code>&amp;&amp;</code> (AND) non valuta
+                <code>expr2</code> se <code>expr1</code> è falso. L'operatore <code>||</code> (OR) non valuta
+                <code>expr2</code> se <code>expr1</code> è vero. Questo è vitale per ottimizzazione ed evitare
+                segmentation fault (es. check puntatori NULL).</p>
+            <pre class="modern-code">
+<span class="type">int</span> a = <span class="string">6</span>; <span class="type">int</span> b = <span class="string">3</span>; <span class="type">int</span> c;
+c = a &lt; b &amp;&amp; a++;  <span class="comment">// Se a &lt; b è falso (come qui), a++ NON viene eseguito. a rimane 6.</span>
+<span class="keyword">if</span> (ptr != NULL || *(ptr) == <span class="string">5</span>) { <span class="comment">/* previene deref di NULL */</span> }</pre>
+
+            <h3>Operatori Bit-a-bit</h3>
+            <p>Lavorano direttamente sui bit: <code>&amp;</code> (AND), <code>|</code> (OR), <code>^</code> (XOR),
+                <code>&lt;&lt;</code> (Shift sx), <code>&gt;&gt;</code> (Shift dx), <code>~</code> (NOT).</p>
+        </section>
+
+        <!-- PUNTATORI E ARRAY -->
+        <section class="content-section">
+            <h2>2. Puntatori e Array</h2>
+
+            <h3>Puntatori</h3>
+            <p>Variabili che memorizzano <strong>indirizzi di memoria</strong>. Essenziali per passaggio per riferimento
+                e allocazione dinamica.</p>
+            <pre class="modern-code">
+<span class="bnf-rule">&lt;declaration&gt; ::= &lt;type&gt;&lt;decl&gt;</span>
+<span class="bnf-rule">&lt;decl&gt; ::= &lt;identifier&gt; | * &lt;decl&gt;</span>
+<span class="bnf-rule">&lt;var&gt; ::= &lt;identifier&gt; | (&lt;var&gt;) | *&lt;expr&gt;</span>  <span class="comment">// Dereferenziazione</span>
+<span class="bnf-rule">&lt;expr&gt; ::= ... | &amp;&lt;var&gt;</span>                     <span class="comment">// Operatore Indirizzo</span></pre>
+
+            <pre class="modern-code">
+<span class="type">int</span> x = <span class="string">50</span>;
+<span class="type">int</span> *ptrX = &amp;x; <span class="comment">// ptrX contiene l'indirizzo di x</span>
+<span class="function">printf</span>(<span class="string">"Valore puntato: %d"</span>, *ptrX); <span class="comment">// Dereferenziazione, stampa 50</span>
+
+<span class="comment">// Cast di puntatori (da void* a tipo specifico)</span>
+<span class="type">void</span> *ptr; <span class="type">int</span> m;
+ptr = &amp;m;
+<span class="type">int</span> n = *((<span class="type">int</span>*)ptr); <span class="comment">// (int*) rende legale l'operazione, * dereferenzia</span></pre>
+
+            <h3>Array (Statica vs Dinamica)</h3>
+            <p>Un array è un blocco di memoria contigua. La dichiarazione fissa la dimensione a compile-time (statica).
+                Il nome dell'array è valutato come l'indirizzo del suo primo elemento:
+                <code>A[i] &equiv; *(A + i)</code>.</p>
+            <pre class="modern-code">
+<span class="bnf-rule">&lt;decl&gt; ::= &lt;identifier&gt; | *&lt;decl&gt; | &lt;decl&gt;[&lt;const&gt;]</span>
+<span class="bnf-rule">&lt;var&gt; ::= ... | &lt;expr1&gt; [&lt;expr2&gt;]</span></pre>
+
+            <pre class="modern-code">
+<span class="type">float</span> **Z[<span class="string">3</span>][<span class="string">2</span>]; <span class="comment">// Z è matrice 3x2 di doppi puntatori a float (Occupa 3x2x4B = 24 Byte)</span></pre>
+        </section>
+
+        <!-- ISTRUZIONI DI CONTROLLO E FUNZIONI -->
+        <section class="content-section">
+            <h2>3. Istruzioni (Control Flow) e Funzioni</h2>
+            <pre class="modern-code">
+<span class="bnf-rule">&lt;statement&gt; ::= &lt;expr&gt;; | &lt;statement1&gt;&lt;statement2&gt; | {statement}</span>
+<span class="bnf-rule">&lt;statement&gt; ::= ... | if(&lt;expr_guardia&gt;)&lt;statement&gt; [else&lt;statement&gt;]</span>
+<span class="bnf-rule">&lt;statement&gt; ::= ... | for(&lt;expr_int&gt;; &lt;expr_guard&gt;; &lt;expr_inc&gt;)&lt;statement&gt;</span>
+<span class="bnf-rule">&lt;statement&gt; ::= ... | goto &lt;label&gt;; | break; | continue; | return[&lt;expr&gt;];</span></pre>
+
+            <h3>Funzioni & Variabili Statiche</h3>
+            <p>Il C utilizza funzioni per partizionare il codice (GOTO mascherato con rientro). Le variabili
+                contrassegnate come <code>static</code> all'interno di una funzione non risiedono nello Stack, ma nel
+                segmento Dati: mantengono il valore tra invocazioni successive.</p>
+            <pre class="modern-code">
+<span class="type">void</span> <span class="function">f</span>(<span class="type">int</span> a) {
+    <span class="keyword">static int</span> count = <span class="string">0</span>; <span class="comment">// Inizializzata solo una volta</span>
+    count++;              <span class="comment">// Preserva lo stato per contare le chiamate</span>
+}</pre>
+        </section>
+
+        <!-- DATI STRUTTURATI E TYPEDEF -->
+        <section class="content-section">
+            <h2>4. Dati Strutturati (Struct) e Typedef</h2>
+            <p>Le struct aggregano tipi eterogenei. L'allocazione non è sempre strettamente contigua
+                (padding/allineamento imposto dal compilatore). <code>typedef</code> è un alias sintattico per
+                migliorare leggibilità e portabilità.</p>
+            <pre class="modern-code">
+<span class="bnf-rule">&lt;struct_definition&gt; ::= struct &lt;identifier&gt; {{&lt;type&gt;&lt;decl&gt;;}};</span></pre>
+            <pre class="modern-code">
+<span class="keyword">typedef struct</span> {
+    <span class="type">int</span> x;
+    <span class="type">int</span> y;
+} Punto;
+
+<span class="keyword">struct</span> Lista { <span class="type">int</span> valore; <span class="type">int</span> besello; } lista1;
+<span class="keyword">struct</span> Lista *ptrLista = &amp;lista1;
+
+(*ptrLista).valore += <span class="string">5</span>;    <span class="comment">// Dereferenziazione esplicita</span>
+ptrLista-&gt;besello += <span class="string">10</span>;    <span class="comment">// Zucchero sintattico (equivalente)</span></pre>
+        </section>
+
+        <!-- STRUTTURE DATI: LISTE -->
+        <section class="content-section">
+            <h2>5. Strutture Dati: Liste (Sequenziali e Collegate)</h2>
+
+            <h3>A. Lista Sequenziale (Coda Circolare Statica)</h3>
+            <p>Implementazione su array prefissato (buffer). Usa indici Head e Tail (circolari).<br>
+                <strong>Pro:</strong> No frammentazione OS, accesso diretto. <strong>Contro:</strong> Dimensione fissa,
+                spostamento gravoso di elementi in mezzo.
+            </p>
+            <pre class="modern-code">
+<span class="keyword">struct</span> list { <span class="type">int</span> *buffer; <span class="type">int</span> size; <span class="type">int</span> head; <span class="type">int</span> tail; };
+
+<span class="type">boolean</span> <span class="function">suf_consume</span>(<span class="keyword">struct</span> list *ptr, <span class="type">int</span> *value) {
+    <span class="keyword">if</span>(ptr-&gt;head != ptr-&gt;tail) {
+        ptr-&gt;tail = (ptr-&gt;tail - <span class="string">1</span> + ptr-&gt;size) % ptr-&gt;size; <span class="comment">// Logica circolare</span>
+        *value = ptr-&gt;buffer[ptr-&gt;tail];
+        <span class="keyword">return</span> TRUE;
+    }
+    <span class="keyword">return</span> FALSE;
+}</pre>
+
+            <h3>B. Lista Collegata (Dinamica tramite Puntatori)</h3>
+            <p>Elementi allocati a runtime sparsi in heap, collegati da puntatori. Ricorsione formale del tipo
+                consentita unicamente grazie all'indirezione tramite puntatore (altrimenti la dimensione a compile-time
+                sarebbe infinita).</p>
+            <pre class="modern-code">
+<span class="keyword">struct</span> list {
+    <span class="type">int</span> value;
+    <span class="keyword">struct</span> list *next; <span class="comment">// Corretto: usa un puntatore (4B o 8B prefissati)</span>
+};
+
+<span class="type">void</span> <span class="function">pre_insert</span>(<span class="keyword">struct</span> list **ptr, <span class="type">int</span> value) {
+    <span class="keyword">struct</span> list *tmp = (<span class="keyword">struct</span> list *)<span class="function">malloc</span>(<span class="keyword">sizeof</span>(<span class="keyword">struct</span> list));
+    tmp-&gt;value = value;
+    tmp-&gt;next = *ptr;
+    *ptr = tmp;
+}
+
+<span class="type">void</span> <span class="function">suf_insert</span>(<span class="keyword">struct</span> list **ptr, <span class="type">int</span> value) {
+    <span class="keyword">while</span>(*ptr != NULL) { ptr = &amp;((*ptr)-&gt;next); } <span class="comment">// Scorre fino al termine</span>
+    <span class="function">pre_insert</span>(ptr, value);
+}</pre>
+        </section>
+
+        <!-- ALGORITMI DI ORDINAMENTO -->
+        <section class="content-section">
+            <h2>6. Algoritmi di Ordinamento</h2>
+
+            <h3>Selection Sort</h3>
+            <p>Trova iterativamente il massimo/minimo e lo posiziona (Swap).<br>
+                <strong>Complessità:</strong> O(n&sup2;) sempre. <strong>Spazio:</strong> O(1) in-place.
+                <strong>Stabile:</strong> NO.
+            </p>
+            <pre class="modern-code">
+<span class="type">void</span> <span class="function">selection_sort</span>(<span class="type">int</span> *V, <span class="type">int</span> N, <span class="type">int</span> **perm) {
+    <span class="type">int</span> iter, count, count_of_max;
+    *perm = (<span class="type">int</span>*)<span class="function">malloc</span>(<span class="keyword">sizeof</span>(<span class="type">int</span>)*N);
+    <span class="keyword">for</span>(count = <span class="string">0</span>; count &lt; N; count++) (*perm)[count]=count;
+
+    <span class="keyword">for</span>(iter = <span class="string">0</span>; iter &lt; N-<span class="string">1</span>; iter++) {
+        <span class="keyword">for</span>(count = <span class="string">1</span>, count_of_max = <span class="string">0</span>; count &lt; N-iter; count++) {
+            <span class="keyword">if</span>(V[(*perm)[count_of_max]] &lt; V[(*perm)[count]]) {
+                count_of_max = count;
+            }
+        }
+        <span class="function">swap</span>(*perm, count, count_of_max);
+    }
+}</pre>
+
+            <h3>Bubble Sort</h3>
+            <p>Confronta elementi adiacenti, gli elementi più grandi "affiorano" (bubble up).<br>
+                <strong>Complessità:</strong> O(n&sup2;) medio/pessimo. <strong>Caso migliore:</strong> O(n) con check
+                di uscita anticipata (early exit flag). <strong>Stabile:</strong> SÌ.
+            </p>
+        </section>
+
+        <!-- TRADUZIONE ASSEMBLER MIPS -->
+        <section class="content-section">
+            <h2>7. Traduzione C in Assembler MIPS (Architettura R4000)</h2>
+            <p>Il processore esegue istruzioni macchina. L'assembler è la forma simbolica. Le variabili in MIPS sono
+                mappate direttamente nei registri (es. <code>$s0</code>, <code>$t1</code>).</p>
+            <table class="comparison">
+                <tr>
+                    <th>Tipo Operazione</th>
+                    <th>Sintassi MIPS e Semantica</th>
+                </tr>
+                <tr>
+                    <td>Aritmetica</td>
+                    <td><code>add $s0, $s1, $s2</code> (a = b + c) <br> <code>addi $s0, $s1, 15</code> (a = b + 15)</td>
+                </tr>
+                <tr>
+                    <td>Memoria (Load/Store)</td>
+                    <td><code>lw $s0, 100($0)</code> (Carica word in $s0) <br> <code>sw $s0, 200($0)</code> (Salva word
+                        da $s0)</td>
+                </tr>
+                <tr>
+                    <td>Flusso (Branch/Jump)</td>
+                    <td><code>bne $s1, $s2, label</code> (If Not Equal) <br> <code>j label</code> (Jump) <br>
+                        <code>slt $t0, $s1, $t5</code> (Set on Less Than)</td>
+                </tr>
+            </table>
+
+            <h4>Esempio Parziale: Traduzione Ciclo FOR Array</h4>
+            <pre class="modern-code">
+<span class="comment">// C Code Equivalente:
+// for (i=1, j=0; i&lt;10; i++) {
+//    if (V[i] == W[j]) W[j+1]++; else j += 2;
+//    W[j] = V[i]; W[j+1] = 1;
+// }</span>
+
+<span class="mips-inst">addi</span> <span class="mips-reg">$s0</span>, <span class="mips-reg">$0</span>, <span class="string">1</span>      <span class="comment"># i = 1</span>
+<span class="mips-inst">addi</span> <span class="mips-reg">$s1</span>, <span class="mips-reg">$0</span>, <span class="string">0</span>      <span class="comment"># j = 0</span>
+<span class="mips-inst">addi</span> <span class="mips-reg">$s2</span>, <span class="mips-reg">$0</span>, <span class="string">500</span>    <span class="comment"># Base addr V</span>
+<span class="mips-inst">addi</span> <span class="mips-reg">$s3</span>, <span class="mips-reg">$0</span>, <span class="string">540</span>    <span class="comment"># Base addr W</span>
+<span class="mips-inst">addi</span> <span class="mips-reg">$t0</span>, <span class="mips-reg">$0</span>, <span class="string">10</span>     <span class="comment"># Limite ciclo</span>
+
+<span class="function">start_loop:</span>
+    <span class="mips-inst">slt</span>  <span class="mips-reg">$t3</span>, <span class="mips-reg">$s0</span>, <span class="mips-reg">$t0</span>   <span class="comment"># $t3 = 1 se i &lt; 10</span>
+    <span class="mips-inst">beq</span>  <span class="mips-reg">$t3</span>, <span class="mips-reg">$0</span>, fine_loop  <span class="comment"># Esci se i &gt;= 10</span>
+
+    <span class="mips-inst">sll</span>  <span class="mips-reg">$t4</span>, <span class="mips-reg">$s0</span>, <span class="string">2</span>     <span class="comment"># i * 4 (offset Byte per int)</span>
+    <span class="mips-inst">addu</span> <span class="mips-reg">$t5</span>, <span class="mips-reg">$s2</span>, <span class="mips-reg">$t4</span>   <span class="comment"># &amp;V[i]</span>
+    <span class="mips-inst">lw</span>   <span class="mips-reg">$t6</span>, <span class="string">0</span>(<span class="mips-reg">$t5</span>)     <span class="comment"># $t6 = V[i]</span>
+
+    <span class="mips-inst">sll</span>  <span class="mips-reg">$t4</span>, <span class="mips-reg">$s1</span>, <span class="string">2</span>     <span class="comment"># j * 4</span>
+    <span class="mips-inst">addu</span> <span class="mips-reg">$t5</span>, <span class="mips-reg">$s3</span>, <span class="mips-reg">$t4</span>   <span class="comment"># &amp;W[j]</span>
+    <span class="mips-inst">lw</span>   <span class="mips-reg">$t7</span>, <span class="string">0</span>(<span class="mips-reg">$t5</span>)     <span class="comment"># $t7 = W[j]</span>
+
+    <span class="mips-inst">bne</span>  <span class="mips-reg">$t6</span>, <span class="mips-reg">$t7</span>, ramo_else
+
+    <span class="comment"># ... (operazioni ramo IF / ELSE e chiusura ciclo)</span>
+</pre>
+        </section>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2010 - 2026 Appunti Ingegneria Informatica. Prof. S. Berretti. Materiale ad uso accademico.</p>
+        </div>
+    </footer>
+</body>
+
+</html>

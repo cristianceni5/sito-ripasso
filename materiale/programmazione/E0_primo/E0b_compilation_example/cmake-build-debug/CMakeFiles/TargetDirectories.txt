@@ -1,0 +1,3 @@
+/Users/bertini/Documents/presentazioni/lezioni/Programmazione 2023-2024/workspace/E0b_compilation_example/cmake-build-debug/CMakeFiles/E0b_compilation_example.dir
+/Users/bertini/Documents/presentazioni/lezioni/Programmazione 2023-2024/workspace/E0b_compilation_example/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/bertini/Documents/presentazioni/lezioni/Programmazione 2023-2024/workspace/E0b_compilation_example/cmake-build-debug/CMakeFiles/rebuild_cache.dir
